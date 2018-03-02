@@ -18,8 +18,6 @@ namespace DevClassSetup
         /// <summary/>
         Settings GeneralSettings { get; }
         
-        ChoiceElements CanContain  {get;}
-        
         /// <summary>
         /// All the general settings for the scene.
         /// <summary/>
@@ -60,6 +58,11 @@ namespace DevClassSetup
         /// The Text Displayed at the begining of a scene.
         /// <summary/>
         public string Text { get; }
+        
+        /// <summary>
+        /// The Actions that could possibly be implemented. 
+        /// <summary/>
+        public List<Action> Elements { get; }
     }
 
     public class ScenceChoice
@@ -78,15 +81,13 @@ namespace DevClassSetup
         /// The next scene that your going to.
         /// <summary/>
         public Scene Whereyougo { get; }
-
     }
 
-    public class ChoiceElements
-{
-        public bool Smoke { get; } 
-        public bool Fire { get; }
-        public bool Timer { get; }
-        public bool Extingishuer { get; }
-
+    public Enum Action
+    {
+        Smoke, 
+        Fire, 
+        Timer, 
+        Extingishuer
     }
 }
