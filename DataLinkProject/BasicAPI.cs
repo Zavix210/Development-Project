@@ -32,10 +32,7 @@ namespace DevClassSetup
         /// <summary/>
         public string Video { get; }
         
-        /// <summary>
-        /// The sound file path.
-        /// <summary/>
-        public string Sound { get; }
+
     }
     public class Settings
     {
