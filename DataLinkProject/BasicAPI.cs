@@ -83,11 +83,11 @@ namespace DevClassSetup
         public Scene Whereyougo { get; }
     }
 
-    public Enum Action
+    public enum Action
     {
         Smoke, 
         Fire, 
         Timer, 
         Extingishuer
-    }
+    };
 }
