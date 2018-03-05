@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="This structure will store all the possible decisions.">
+    <Position X="3.219" Y="7.427" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="This class traverses a decision tree and keeps track of the current point.">
+    <Position X="3.208" Y="6.281" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="This class stores all the video file references.">
+    <Position X="12.146" Y="4.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="This class plays the videos by mapping the content onto the visualisation sphere.">
+    <Position X="12.125" Y="5.76" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="This class is the main controller which interacts with all the visualisation and decision making components.">
+    <Position X="9.438" Y="2.208" Height="1.052" Width="2.283" />
+  </Comment>
+  <Comment CommentText="This class controls the VR interaction and interacts with the simulation controller to push events.">
+    <Position X="3.198" Y="4.729" Height="1.094" Width="1.7" />
+  </Comment>
+  <Comment CommentText="This class controls the UI on-screen, this will be used to manipulate visual options on the screen.">
+    <Position X="3.208" Y="3.198" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="This class controls the creation and deletion of particle systems.">
+    <Position X="3.188" Y="8.677" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="DesignProject.DecisionMaker" Collapsed="true">
+    <Position X="5" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAA=</HashCode>
+      <FileName>DecisionMaker.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="decisionTree" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DesignProject.DecisionTree" Collapsed="true">
+    <Position X="5.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DecisionTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DesignProject.VideoPlayer" Collapsed="true">
+    <Position X="10.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DesignProject.VideoStore" Collapsed="true">
+    <Position X="10.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoStore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DesignProject.SimulationController" Collapsed="true">
+    <Position X="7" Y="2.25" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="decisionMaker" Type="DesignProject.DecisionMaker" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.312" Y="2.812" />
+        <Point X="8.312" Y="6.477" />
+        <Point X="7" Y="6.477" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="videoPlayer" Type="DesignProject.VideoPlayer" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.812" Y="2.812" />
+        <Point X="8.812" Y="5.942" />
+        <Point X="10.5" Y="5.942" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="videoStore" Type="DesignProject.VideoStore" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.062" Y="2.812" />
+        <Point X="9.062" Y="4.75" />
+        <Point X="10.5" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="vrControlSystem" Type="DesignProject.VRControlSystem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.062" Y="2.812" />
+        <Point X="8.062" Y="4.942" />
+        <Point X="7" Y="4.942" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="uiController" Type="DesignProject.UIController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.812" Y="2.812" />
+        <Point X="7.812" Y="3.596" />
+        <Point X="7" Y="3.596" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="particleController" Type="DesignProject.ParticleController" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.562" Y="2.812" />
+        <Point X="8.562" Y="9.096" />
+        <Point X="7" Y="9.096" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAABAAIAAASAAAAAAAAAAAAIAAAgAAAA=</HashCode>
+      <FileName>SimulationController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="decisionMaker" />
+      <Field Name="videoPlayer" />
+      <Field Name="videoStore" />
+      <Field Name="vrControlSystem" />
+      <Field Name="uiController" />
+      <Field Name="particleController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DesignProject.VRControlSystem" Collapsed="true">
+    <Position X="5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VRControlSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DesignProject.UIController" Collapsed="true">
+    <Position X="5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UIController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DesignProject.SimulationComponentBase" Collapsed="true">
+    <Position X="1.75" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulationComponentBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="controller" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DesignProject.ParticleController" Collapsed="true">
+    <Position X="5" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ParticleController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
