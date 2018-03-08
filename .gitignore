@@ -43,6 +43,9 @@ sysinfo.txt
 # ToolBuilder
 #----------------------------------------------------
 
+# Visual Studio 2015 cache/options directory
+.vs/
+
 ToolProject/SceneBuilder/SceneBuilder/[Oo]bj/
 # Other
 *.pfx
