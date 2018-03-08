@@ -9,6 +9,7 @@ UnityProject/Development Project/[Bb]uild/
 UnityProject/Development Project/[Bb]uilds/
 UnityProject/Development Project/Assets/AssetStoreTools*
 
+
 # Visual Studio 2015 cache directory
 /.vs/
 
@@ -37,3 +38,11 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+#----------------------------------------------------
+# ToolBuilder
+#----------------------------------------------------
+
+ToolProject/SceneBuilder/SceneBuilder/[Oo]bj/
+# Other
+*.pfx
