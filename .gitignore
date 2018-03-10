@@ -47,5 +47,15 @@ sysinfo.txt
 .vs/
 
 ToolProject/SceneBuilder/SceneBuilder/[Oo]bj/
+ToolProject/SceneBuilder/SceneBuilder/[Bb]in/
+ToolProject/SceneBuilder/SceneBuilder/[Bb]in/Dd]ebug/
+ToolProject/SceneBuilder/SceneBuilder/[Bb]in/[Dd]ebugPublic/
+ToolProject/SceneBuilder/SceneBuilder/[Bb]in/[Rr]elease/
+ToolProject/SceneBuilder/SceneBuilder/[Bb]in/[Rr]eleases/
+ToolProject/SceneBuilder/SceneBuilder/[Bb]in/[Gg]enerated Files/
+x64/
+x86/
+build/
+bld/
 # Other
 *.pfx
