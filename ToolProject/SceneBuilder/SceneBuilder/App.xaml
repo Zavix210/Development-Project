@@ -5,4 +5,10 @@
     xmlns:local="using:SceneBuilder"
     RequestedTheme="Light">
 
+    <Application.Resources>
+        <ResourceDictionary>
+            <v:ViewModelLocator xmlns:v="using:SceneBuilder.ViewModels" x:Key="ViewModelLocator" />
+        </ResourceDictionary>
+    </Application.Resources>
+    
 </Application>
