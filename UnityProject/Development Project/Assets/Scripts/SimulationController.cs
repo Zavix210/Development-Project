@@ -19,11 +19,13 @@ namespace SimulationSystem
         /// <returns></returns>
         public T GetSimulationComponent<T>() where T : SimulationComponentBase
         {
+            // Get the search type and cache it
             Type searchType = typeof(T);
             T searchItem = null;
 
             foreach (SimulationComponentBase item in simulationComponents)
             {
+                // Check for a matching type
                 if (item.GetType() == searchType)
                 {
                     searchItem = (T)item;
