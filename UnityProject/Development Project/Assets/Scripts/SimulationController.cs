@@ -60,6 +60,7 @@ namespace SimulationSystem
         /// <returns></returns>
         public T AddSimulationComponent<T>() where T : SimulationComponentBase
         {
+            // Try to get the component before creating a new instance
             T item = GetSimulationComponent<T>();
 
             // If the component is null, create an instance of it and store it

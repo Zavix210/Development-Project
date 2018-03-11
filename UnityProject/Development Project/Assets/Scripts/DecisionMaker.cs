@@ -9,6 +9,7 @@ namespace SimulationSystem
     public class DecisionMaker : SimulationComponentBase
     {
         private DecisionStore store;
+        private DecisionNode currentNode;
 
         public DecisionMaker(SimulationController controller) : base(controller)
         {
@@ -31,6 +32,11 @@ namespace SimulationSystem
         public override void OnInitialize()
         {
 
+        }
+
+        public void SetCurrentNode(DecisionNode node)
+        {
+            currentNode = node;
         }
     }
 }

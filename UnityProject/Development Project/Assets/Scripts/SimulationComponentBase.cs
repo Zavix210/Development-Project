@@ -11,6 +11,10 @@
             this.controller = controller;
         }
 
+        /// <summary>
+        /// Called when the controller has initialized, at this point it can be assumed that all other components 
+        /// have been instantiated and can be accessed.
+        /// </summary>
         public abstract void OnInitialize();
     }
 }
