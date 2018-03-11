@@ -27,5 +27,10 @@ namespace SimulationSystem
 
             }
         }
+
+        public override void OnInitialize()
+        {
+
+        }
     }
 }

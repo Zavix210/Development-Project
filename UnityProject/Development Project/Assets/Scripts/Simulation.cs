@@ -14,15 +14,20 @@ public class Simulation : MonoBehaviour
 
         // Add some core components.
         controller.AddSimulationComponent<DecisionMaker>();
+
+        // Initialize the simulation.
+        controller.Initialize();
     }
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
 }

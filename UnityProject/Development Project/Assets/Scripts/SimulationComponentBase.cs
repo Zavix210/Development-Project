@@ -1,6 +1,6 @@
 ﻿namespace SimulationSystem
 {
-    public class SimulationComponentBase
+    public abstract class SimulationComponentBase
     {
         private SimulationController controller;
 
@@ -10,5 +10,7 @@
         {
             this.controller = controller;
         }
+
+        public abstract void OnInitialize();
     }
 }

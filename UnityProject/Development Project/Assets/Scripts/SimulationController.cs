@@ -6,10 +6,26 @@ namespace SimulationSystem
     public class SimulationController
     {
         private List<SimulationComponentBase> simulationComponents;
+        private bool initialized;
 
         public SimulationController()
         {
             simulationComponents = new List<SimulationComponentBase>();
+            initialized = false;
+        }
+
+        public void Initialize()
+        {
+            // Ensure that initialization has not already occurred
+            if(!initialized)
+            {
+                initialized = true;
+
+                foreach(SimulationComponentBase item in simulationComponents)
+                {
+                    InitializeComponent(item);
+                }
+            }
         }
 
         /// <summary>
@@ -51,9 +67,20 @@ namespace SimulationSystem
             {
                 item = (T)Activator.CreateInstance(typeof(T), this);
                 simulationComponents.Add(item);
+
+                // If the initialization step has already completed, auto-initialize the component upon creation
+                if(initialized)
+                {
+                    InitializeComponent(item);
+                }
             }
 
             return item;
+        }
+
+        private void InitializeComponent(SimulationComponentBase component)
+        {
+            component.OnInitialize();
         }
     }
 }
