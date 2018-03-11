@@ -1,4 +1,16 @@
 #----------------------------------------------------
+# Design section
+#----------------------------------------------------
+
+SoftwareDesign/InitialDesign/DesignProject/DesignProject/[Oo]bj/
+SoftwareDesign/InitialDesign/DesignProject/DesignProject/[Bb]in/
+SoftwareDesign/InitialDesign/DesignProject/DesignProject/[Dd]ebug/
+SoftwareDesign/InitialDesign/DesignProject/DesignProject/[Dd]ebugPublic/
+SoftwareDesign/InitialDesign/DesignProject/DesignProject/[Rr]elease/
+SoftwareDesign/InitialDesign/DesignProject/DesignProject/[Rr]eleases/
+SoftwareDesign/InitialDesign/DesignProject/DesignProject/[Gg]enerated Files/
+
+#----------------------------------------------------
 # Unity Section
 #----------------------------------------------------
 
