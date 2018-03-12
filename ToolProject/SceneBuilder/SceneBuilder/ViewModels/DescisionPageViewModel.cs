@@ -7,9 +7,9 @@ using System.Windows.Input;
 
 namespace SceneBuilder.ViewModels
 {
-    public class MainPageViewModel:BaseViewModel
+    public class DescisionPageViewModel : BaseViewModel
     {
-        public MainPageViewModel()
+        public DescisionPageViewModel()
         {
         }
 
@@ -21,10 +21,11 @@ namespace SceneBuilder.ViewModels
             }
         }
 
-
         private void ChangePage()
         {
             navservice.Navigate(typeof(ScenePage));
         }
     }
+
+
 }

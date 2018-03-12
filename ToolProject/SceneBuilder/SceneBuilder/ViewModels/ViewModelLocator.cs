@@ -16,6 +16,8 @@ namespace SceneBuilder.ViewModels
 
             container.RegisterType<MainPageViewModel>();
             container.RegisterType<ScenePageViewModel>();
+            container.RegisterType<DescisionPageViewModel>();
+
 
             // navigation service
 
@@ -23,6 +25,7 @@ namespace SceneBuilder.ViewModels
 
             container.RegisterType<MainPage>();
             container.RegisterType<ScenePage>();
+            container.RegisterType<DescisionPage>();
 
             container.RegisterInstance<IPageNavigationService>(navigationService);
         }
@@ -36,6 +39,11 @@ namespace SceneBuilder.ViewModels
         public ScenePageViewModel ScenePageModel
         {
             get => DependencyContainer.Self.Resolve<ScenePageViewModel>();
+        }
+
+        public DescisionPageViewModel DescicionPageModel
+        {
+            get => DependencyContainer.Self.Resolve<DescisionPageViewModel>();
         }
 
     }

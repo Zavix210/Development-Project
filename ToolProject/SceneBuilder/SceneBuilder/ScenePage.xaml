@@ -10,7 +10,7 @@
     >
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox Text="{Binding Title}" HorizontalAlignment="Left" Height="62" Margin="10,111,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="157"/>
+        <TextBox Text="Select Scene" HorizontalAlignment="Left" Height="62" Margin="10,111,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="157"/>
 
     </Grid>
 </Page>
