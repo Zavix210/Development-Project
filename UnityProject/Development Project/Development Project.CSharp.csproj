@@ -284,9 +284,15 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DecisionMaker.cs" />
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
+    <Compile Include="Assets\Scripts\NodeStructure.cs" />
     <Compile Include="Assets\Scripts\Simulation.cs" />
     <Compile Include="Assets\Scripts\SimulationComponentBase.cs" />
     <Compile Include="Assets\Scripts\SimulationController.cs" />
+    <Compile Include="Assets\Scripts\SkyboxPanoramicShaderGUI.cs" />
+    <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Skybox-Panoramic.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
