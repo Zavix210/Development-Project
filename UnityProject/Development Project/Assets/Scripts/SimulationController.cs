@@ -14,6 +14,9 @@ namespace SimulationSystem
             initialized = false;
         }
 
+        /// <summary>
+        /// Initialize the simulation system and init each component
+        /// </summary>
         public void Initialize()
         {
             // Ensure that initialization has not already occurred
@@ -21,6 +24,7 @@ namespace SimulationSystem
             {
                 initialized = true;
 
+                // Iterate over each component and notify them of initialization
                 foreach(SimulationComponentBase item in simulationComponents)
                 {
                     InitializeComponent(item);
@@ -39,6 +43,7 @@ namespace SimulationSystem
             Type searchType = typeof(T);
             T searchItem = null;
 
+            // Iterate over each of the components to find the desired component
             foreach (SimulationComponentBase item in simulationComponents)
             {
                 // Check for a matching type
@@ -66,22 +71,29 @@ namespace SimulationSystem
             // If the component is null, create an instance of it and store it
             if(item == null)
             {
+                // Create a new instance of the target and call the constructor which suits the target
+                // constructor of the component base object
                 item = (T)Activator.CreateInstance(typeof(T), this);
                 simulationComponents.Add(item);
 
-                // If the initialization step has already completed, auto-initialize the component upon creation
-                if(initialized)
-                {
-                    InitializeComponent(item);
-                }
+                // Try to initialize the component
+                InitializeComponent(item);
             }
 
             return item;
         }
 
+        /// <summary>
+        /// Initialize a component
+        /// </summary>
+        /// <param name="component"></param>
         private void InitializeComponent(SimulationComponentBase component)
         {
-            component.OnInitialize();
+            // If the initialization step has already completed, auto-initialize the component upon creation
+            if (initialized)
+            {
+                component.Initialize();
+            }
         }
     }
 }
