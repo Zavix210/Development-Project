@@ -1,0 +1,9 @@
+﻿<Application x:Class="SceneBuilderWpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SceneBuilderWpf"
+             x:Name="App">
+    <Application.Resources>
+        <local:ViewModelLocator x:Key="ViewModelLocator"/>
+    </Application.Resources>
+</Application>

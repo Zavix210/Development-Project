@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SceneBuilder.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace SceneBuilder
     /// </summary>
     public sealed partial class ScenePage : Page
     {
+
         public ScenePage()
         {
             this.InitializeComponent();

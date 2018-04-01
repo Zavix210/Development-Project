@@ -95,6 +95,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\EnumActions.cs" />
+    <Compile Include="DataModels\EnumAssets.cs" />
+    <Compile Include="DataModels\ScenceChoice.cs" />
+    <Compile Include="DataModels\Scene.cs" />
+    <Compile Include="DataModels\Settings.cs" />
     <Compile Include="DescisionPage.xaml.cs">
       <DependentUpon>DescisionPage.xaml</DependentUpon>
     </Compile>
@@ -114,7 +119,9 @@
     <Compile Include="ViewModels\IPageNavigationService.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PageNavigationService.cs" />
+    <Compile Include="ViewModels\SceneDataGridViewModel.cs" />
     <Compile Include="ViewModels\ScenePageViewModel.cs" />
+    <Compile Include="ViewModels\SceneViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +164,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
+      <Version>1.0.0.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
