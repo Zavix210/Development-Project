@@ -31,10 +31,10 @@ public class UIController : SimulationComponentBase
         int num = 5;
         float half = num * m1 * 0.5f;
 
-        for(int i = 0; i < num; i++)
+        for (int i = 0; i < num; i++)
         {
             UIChoiceButton button = choiceButtonPool.Get();
-            button.transform.position = new Vector3(-half + (i+1) * m1, 0.5f, 4.0f);
+            button.transform.position = new Vector3(-half + (i + 1) * m1, 0.5f, 4.0f);
             button.SetButtonText("ITEM: " + i);
         }
     }
@@ -44,7 +44,7 @@ public class UIController : SimulationComponentBase
 
     }
 
-    public void PopulateButtons()
+    public void PlaceButton()
     {
 
     }
@@ -60,12 +60,14 @@ public class UIController : SimulationComponentBase
 
     private void ButtonReleased(UIChoiceButton button)
     {
-
+        // Enable released buttons.
+        button.gameObject.SetActive(true);
     }
 
     private void ButtonStored(UIChoiceButton button)
     {
+        // Reset the button and disable it.
         button.SetButtonText("");
-        button.transform.position = new Vector3(0.0f, -2000.0f, 0.0f);
+        button.gameObject.SetActive(false);
     }
 }
