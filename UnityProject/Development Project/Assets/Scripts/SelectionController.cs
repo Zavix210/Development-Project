@@ -8,12 +8,6 @@ public class SelectionController : MonoBehaviour
     [SerializeField]
     private Selectable selectable;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
