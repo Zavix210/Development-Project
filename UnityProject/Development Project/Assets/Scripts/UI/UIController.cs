@@ -33,7 +33,7 @@ public class UIController : SimulationComponentBase
     public override void OnInitialize()
     {
         float m1 = 1.0f;
-        int num = 5;
+        int num = 4;
         float half = num * m1 * 0.5f;
 
         for (int i = 0; i < num; i++)
@@ -42,7 +42,7 @@ public class UIController : SimulationComponentBase
             uiFitter.AddItem(button);
 
             //button.transform.position = new Vector3(-half + (i + 1) * m1, 0.5f, 4.0f);
-            button.SetButtonText("ITEM: " + i);
+            button.SetButtonText("Decision " + (i + 1));
         }
     }
 

@@ -8,8 +8,10 @@ public class UIChoiceButton : MonoBehaviour
 {
     [SerializeField]
     private float timeUtilPressed = 2.0f;
+
     [SerializeField]
     private Selectable selectable = null;
+
     [SerializeField]
     private AdjustableText adjustableText = null;
 
@@ -56,10 +58,14 @@ public class UIChoiceButton : MonoBehaviour
         {
             holdTime += Time.deltaTime;
             CheckHoldTime();
+
+            adjustableText.Highlight(true);
         }
         else // Not pressed, reset the hold time
         {
             holdTime = 0.0f;
+
+            adjustableText.Highlight(false);
         }
 	}
 

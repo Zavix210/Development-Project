@@ -13,6 +13,13 @@ public class AdjustableText : MonoBehaviour
     [SerializeField]
     private MeshRenderer textRenderer;
 
+    [SerializeField]
+    private Color highlighColour;
+    [SerializeField]
+    private Color standardColour;
+
+    private bool highlighted;
+
     private void Awake()
     {
 
@@ -26,6 +33,11 @@ public class AdjustableText : MonoBehaviour
     {
         textMesh.text = text;
         FixBox();
+    }
+
+    public void Highlight(bool highlight)
+    {
+        highlighted = highlight;
     }
 
     /// <summary>
@@ -43,5 +55,17 @@ public class AdjustableText : MonoBehaviour
         // Apply the box scale values
         boxCollider.size = fSize;
         boxCollider.center = Vector3.zero;
+    }
+
+    private void Update()
+    {
+        if(highlighted)
+        {
+            textRenderer.material.color = highlighColour;
+        }
+        else
+        {
+            textRenderer.material.color = standardColour;
+        }
     }
 }
