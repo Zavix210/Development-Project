@@ -286,6 +286,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DecisionMaker.cs" />
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
+    <Compile Include="Assets\Scripts\MessageDestination.cs" />
     <Compile Include="Assets\Scripts\Messaging\IMessageReceiver.cs" />
     <Compile Include="Assets\Scripts\Messaging\Message.cs" />
     <Compile Include="Assets\Scripts\Messaging\MessageHandler.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Assets\Scripts\SimulationComponentBase.cs" />
     <Compile Include="Assets\Scripts\SimulationController.cs" />
     <Compile Include="Assets\Scripts\SkyboxPanoramicShaderGUI.cs" />
+    <Compile Include="Assets\Scripts\VideoPlayer.cs" />
     <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />
   </ItemGroup>
   <ItemGroup>

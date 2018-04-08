@@ -17,7 +17,7 @@ namespace SimulationSystem
 
         public override bool IsMessageRouteValid(int route)
         {
-            return route == 7;
+            return route == (int)MessageDestination.DECISION_CHANGE;
         }
 
         public void Load(InputObject input)
@@ -25,7 +25,7 @@ namespace SimulationSystem
             // Did the store successfully parse the input data?
             if(store.Load(input))
             {
-
+                
             }
             else // Failed to load the input data
             {
