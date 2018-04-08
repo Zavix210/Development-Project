@@ -47,7 +47,7 @@ namespace SimulationSystem
                     Debug.Log("Received simulation message with ID " + message.Identifier);
                     break;
                 case (int)MessageDestination.DECISION_CHANGE:
-
+                    Debug.Log("Received decision message with ID " + message.Identifier + " of choice " + message.Data);
                     break;
             }
         }

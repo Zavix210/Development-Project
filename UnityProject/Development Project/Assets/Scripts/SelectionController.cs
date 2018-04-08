@@ -24,8 +24,10 @@ public class SelectionController : MonoBehaviour
 
         bool selectFlag = false;
 
+        // Was a physics ray fired correctly?
         if (Physics.Raycast(ray, out hit, 1000.0f, mask))
         {
+            // Was something collidable hit?
             if (hit.collider != null)
             {
                 // Try to get the selectable on the hit object
@@ -49,12 +51,16 @@ public class SelectionController : MonoBehaviour
             }
         }
 
+        // Was nothing selected?
         if(!selectFlag)
         {
             DeselectCurrent();
         }
     }
 
+    /// <summary>
+    /// Deselect the current selectable if it's assigned.
+    /// </summary>
     private void DeselectCurrent()
     {
         // Deselect the current selectable
