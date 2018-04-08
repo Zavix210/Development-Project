@@ -155,6 +155,7 @@ MonoBehaviour:
   textMesh: {fileID: 102361236334885822}
   boxCollider: {fileID: 65167157971654138}
   textThickness: 0.2
+  textRenderer: {fileID: 23584025721048294}
 --- !u!114 &114512339826329160
 MonoBehaviour:
   m_ObjectHideFlags: 1

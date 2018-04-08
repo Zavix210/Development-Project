@@ -13,10 +13,15 @@ public class UIController : SimulationComponentBase
 {
     private Pool<UIChoiceButton> choiceButtonPool;
     private UIChoiceButton prefab;
+    private CircularUI circularUI;
+    private UIFitter uiFitter;
 
     public UIController(SimulationController controller) : base(controller)
     {
         prefab = Resources.Load<UIChoiceButton>("UIChoiceButton");
+        circularUI = GameObject.FindObjectOfType<CircularUI>();
+        uiFitter = GameObject.FindObjectOfType<UIFitter>();
+
         choiceButtonPool = new Pool<UIChoiceButton>(CreateButtonInstance, ButtonStored, ButtonReleased);
     }
 
@@ -34,7 +39,9 @@ public class UIController : SimulationComponentBase
         for (int i = 0; i < num; i++)
         {
             UIChoiceButton button = choiceButtonPool.Get();
-            button.transform.position = new Vector3(-half + (i + 1) * m1, 0.5f, 4.0f);
+            uiFitter.AddItem(button);
+
+            //button.transform.position = new Vector3(-half + (i + 1) * m1, 0.5f, 4.0f);
             button.SetButtonText("ITEM: " + i);
         }
     }

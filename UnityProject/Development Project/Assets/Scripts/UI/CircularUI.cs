@@ -10,6 +10,9 @@ public class CircularUI : MonoBehaviour
     [SerializeField]
     private float angleLimit;
 
+    public float AngularLimit { get { return angleLimit; } set { angleLimit = value; } }
+    public Vector3 CircleForward { get { return circleForward; } }
+
     // Use this for initialization
     void Start()
     {
@@ -23,9 +26,12 @@ public class CircularUI : MonoBehaviour
         Vector3 d2 = transform.forward;
         d2.y = 0.0f;
 
+        // Draw the vector values
         Debug.DrawLine(transform.position, transform.position + d1 * 5.0f, Color.red);
         Debug.DrawLine(transform.position, transform.position + d2 * 5.0f, Color.blue);
 
+        // Calculate the angle remainder, less than zero is outside the angle range and
+        // some movement is required to push it into range again
         float ang = Vector3.Angle(d1, d2);
         float angRes = angleLimit - ang;
 
@@ -44,41 +50,7 @@ public class CircularUI : MonoBehaviour
             }
         }
 
+        // Apply the forward vector to the circle UI parent object
         circleUI.transform.forward = circleForward.normalized;
-
-        Debug.Log("Ang: " + ang + " , " + angRes);
-
-        //Vector3 fwd = GetFwdAngle();
-        //float angle = Vector3.SignedAngle(circleForward, fwd, Vector3.up);
-
-        //float absAngle = Mathf.Abs(angle);
-        //float diff = angleLimit - absAngle;
-
-        //// Is there some angle change required to match the target
-        //if (diff < 0)
-        //{
-        //    if (angle > 0.0f) // To positive
-        //    {
-        //        Quaternion q = Quaternion.AngleAxis(diff, Vector3.up);
-        //        Vector3 final = q * circleForward;
-        //        circleForward = final;
-        //    }
-        //    else // To negative
-        //    {
-
-        //    }
-        //}
-
-        //Debug.Log("ANGLE: " + angle);
-
-        //Debug.DrawLine(transform.position, circleForward * 5.0f, Color.blue);
-    }
-
-    private Vector3 GetFwdAngle()
-    {
-        Camera cam = Camera.main;
-        Vector3 fwd = transform.forward;
-        fwd.y = 0.0f;
-        return fwd;
     }
 }
