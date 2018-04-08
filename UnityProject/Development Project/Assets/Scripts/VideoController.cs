@@ -4,9 +4,9 @@ using UnityEngine;
 using SimulationSystem;
 using System;
 
-public class VideoPlayer : SimulationComponentBase
+public class VideoController : SimulationComponentBase
 {
-    public VideoPlayer(SimulationController controller) : base(controller)
+    public VideoController(SimulationController controller) : base(controller)
     {
 
     }

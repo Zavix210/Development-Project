@@ -295,7 +295,7 @@
     <Compile Include="Assets\Scripts\SimulationComponentBase.cs" />
     <Compile Include="Assets\Scripts\SimulationController.cs" />
     <Compile Include="Assets\Scripts\SkyboxPanoramicShaderGUI.cs" />
-    <Compile Include="Assets\Scripts\VideoPlayer.cs" />
+    <Compile Include="Assets\Scripts\VideoController.cs" />
     <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />
   </ItemGroup>
   <ItemGroup>
