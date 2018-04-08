@@ -7,9 +7,12 @@ namespace SimulationSystem
     {
         private Queue<T> items;
         private Func<T> instantiateAction;
+        private Action<T> storedAction;
+        private Action<T> releasedAction;
 
-        public Pool(Func<T> instantiateAction)
+        public Pool(Func<T> instantiateAction, Action<T> storedAction = null, Action<T> releasedAction = null)
         {
+            // The instantiate action must exist
             if (instantiateAction == null)
             {
                 throw new System.Exception("Cannot have a NULL instantiate action for a pool!");
@@ -17,6 +20,10 @@ namespace SimulationSystem
             else
             {
                 this.instantiateAction = instantiateAction;
+                this.storedAction = storedAction;
+                this.releasedAction = releasedAction;
+
+                items = new Queue<T>();
             }
         }
 
@@ -38,6 +45,12 @@ namespace SimulationSystem
                 item = Create();
             }
 
+            // Invoke the released action if its present
+            if(releasedAction != null)
+            {
+                releasedAction.Invoke(item);
+            }
+
             return item;
         }
 
@@ -50,6 +63,12 @@ namespace SimulationSystem
             // Ensure the item is valid and it's not already in the pool
             if (item != null && !items.Contains(item))
             {
+                // Invoke the stored action if its present
+                if (storedAction != null)
+                {
+                    storedAction.Invoke(item);
+                }
+
                 items.Enqueue(item);
             }
         }

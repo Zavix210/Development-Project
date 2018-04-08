@@ -11,9 +11,13 @@ public class ButtonData
 
 public class UIController : SimulationComponentBase
 {
+    private Pool<UIChoiceButton> choiceButtonPool;
+    private UIChoiceButton prefab;
+
     public UIController(SimulationController controller) : base(controller)
     {
-
+        prefab = Resources.Load<UIChoiceButton>("UIChoiceButton");
+        choiceButtonPool = new Pool<UIChoiceButton>(CreateButtonInstance, ButtonStored, ButtonReleased);
     }
 
     public override bool IsMessageRouteValid(int route)
@@ -23,7 +27,16 @@ public class UIController : SimulationComponentBase
 
     public override void OnInitialize()
     {
+        float m1 = 1.0f;
+        int num = 5;
+        float half = num * m1 * 0.5f;
 
+        for(int i = 0; i < num; i++)
+        {
+            UIChoiceButton button = choiceButtonPool.Get();
+            button.transform.position = new Vector3(-half + (i+1) * m1, 0.5f, 4.0f);
+            button.SetButtonText("ITEM: " + i);
+        }
     }
 
     public override void OnReceivedMessage(Message message)
@@ -34,5 +47,25 @@ public class UIController : SimulationComponentBase
     public void PopulateButtons()
     {
 
+    }
+
+    private UIChoiceButton CreateButtonInstance()
+    {
+        UIChoiceButton buttonInstance = GameObject.Instantiate<UIChoiceButton>(prefab);
+
+        // TODO: Init stuff here...
+
+        return buttonInstance;
+    }
+
+    private void ButtonReleased(UIChoiceButton button)
+    {
+
+    }
+
+    private void ButtonStored(UIChoiceButton button)
+    {
+        button.SetButtonText("");
+        button.transform.position = new Vector3(0.0f, -2000.0f, 0.0f);
     }
 }

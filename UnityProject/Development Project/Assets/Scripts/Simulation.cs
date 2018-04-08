@@ -28,6 +28,7 @@ public class Simulation : MonoBehaviour
         // Add some core components.
         controller.AddSimulationComponent<DecisionMaker>();
         controller.AddSimulationComponent<VideoController>();
+        controller.AddSimulationComponent<UIController>();
 
         // Initialize the simulation.
         controller.Initialize();

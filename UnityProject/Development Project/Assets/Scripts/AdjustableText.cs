@@ -10,12 +10,12 @@ public class AdjustableText : MonoBehaviour
     private BoxCollider boxCollider;
     [SerializeField]
     private float textThickness = 0.2f;
-
+    [SerializeField]
     private MeshRenderer textRenderer;
 
     private void Awake()
     {
-        textRenderer = textMesh.GetComponent<MeshRenderer>();
+
     }
 
     /// <summary>
