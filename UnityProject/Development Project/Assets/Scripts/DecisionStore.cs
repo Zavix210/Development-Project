@@ -6,17 +6,24 @@ using InputObject = System.Object;
 
 namespace SimulationSystem
 {
-    public class DecisionNode
+    // TODO: implement details of the decision class
+    public class Decision
     {
-        private DecisionNode[] choices;
+        public Decision()
+        {
 
-        // TODO: Decision data must be changed from object type to a more useful type
-        // Decision data
-        private object data;
+        }
+    }
 
-        public DecisionNode[] Choices { get { return choices; } }
+    public class DecisionNode<T>
+    {
+        private DecisionNode<T>[] choices;
+        private T data;
 
-        public DecisionNode(DecisionNode[] choices)
+        public DecisionNode<T>[] Choices { get { return choices; } }
+        public T Data { get { return data; } set { data = value; } }
+
+        public DecisionNode(DecisionNode<T>[] choices)
         {
             this.choices = choices;
         }
@@ -24,15 +31,15 @@ namespace SimulationSystem
 
     public class DecisionStore
     {
-        private List<DecisionNode> nodes;
-        private DecisionNode root;
+        private List<DecisionNode<Decision>> nodes;
+        private DecisionNode<Decision> root;
 
         public int NodeCount { get { return nodes.Count; } }
-        public DecisionNode Root { get { return root; } }
+        public DecisionNode<Decision> Root { get { return root; } }
 
         public DecisionStore()
         {
-            nodes = new List<DecisionNode>();
+            nodes = new List<DecisionNode<Decision>>();
             root = null;
         }
 
