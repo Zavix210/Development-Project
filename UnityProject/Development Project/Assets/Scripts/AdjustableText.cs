@@ -6,10 +6,8 @@ public class AdjustableText : MonoBehaviour
 {
     [SerializeField]
     private TextMesh textMesh;
-
     [SerializeField]
     private BoxCollider boxCollider;
-
     [SerializeField]
     private float textThickness = 0.2f;
 
@@ -20,22 +18,19 @@ public class AdjustableText : MonoBehaviour
         textRenderer = textMesh.GetComponent<MeshRenderer>();
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    /// <summary>
+    /// Set the text and re-calculate the collision box to fit the text.
+    /// </summary>
+    /// <param name="text"></param>
     public void SetText(string text)
     {
         textMesh.text = text;
         FixBox();
     }
 
+    /// <summary>
+    /// Adjust the collision box to fit the text.
+    /// </summary>
     private void FixBox()
     {
         Bounds rBounds = textRenderer.bounds;

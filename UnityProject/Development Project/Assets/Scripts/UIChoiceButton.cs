@@ -7,22 +7,13 @@ using SimulationSystem;
 public class UIChoiceButton : MonoBehaviour
 {
     [SerializeField]
-    private float holdTime = 0.0f;
-    [SerializeField]
     private float timeUtilPressed = 2.0f;
-    //[SerializeField]
-    //private string buttonText = "DEFAULT_TEXT";
-    //[SerializeField]
-    //private TextMesh textMesh = null;
-    //[SerializeField]
-    //private BoxCollider collisionBox = null;
     [SerializeField]
     private Selectable selectable = null;
     [SerializeField]
-    private AdjustableText adjustableText = null; 
-    //[SerializeField]
-    //private float textThickness = 0.2f;
+    private AdjustableText adjustableText = null;
 
+    private float holdTime = 0.0f;
     private int selectionChoice;
 
     /// <summary>
@@ -50,47 +41,16 @@ public class UIChoiceButton : MonoBehaviour
     public void SetButtonText(string text)
     {
         adjustableText.SetText(text);
-
-        // Recalculate the collision box
-        CalculateBoxForText();
-    }
-
-    /// <summary>
-    /// Calculate the size of a collision box to fit the text contents of the text mesh.
-    /// </summary>
-    private void CalculateBoxForText()
-    {
-        //Renderer renderer = textMesh.GetComponent<Renderer>();
-        //Bounds rBounds = renderer.bounds;
-        //Vector3 rSize = rBounds.size;
-
-        //// Calculate the required size to fit the collision box around the text contents
-        //Vector3 fScale = textMesh.transform.localScale;
-        //Vector3 fSize = new Vector3(rSize.x * (1.0f / fScale.x), rSize.y * (1.0f / fScale.y), textThickness);
-
-        //// Apply the box scale values
-        //collisionBox.size = fSize;
-        //collisionBox.center = Vector3.zero;
     }
 
     private void Awake()
     {
-
+        SetButtonText("");
     }
-
-    // Use this for initialization
-    private void Start ()
-    {
-		
-	}
 
     // Update is called once per frame
     private void Update ()
     {
-        int v = Random.Range(0, 10000000);
-        // TEMP
-        SetButtonText("N: " + v);
-
         // Is the selectable currently selected?
         if (selectable.Selected)
         {
