@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -284,6 +286,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DecisionMaker.cs" />
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
+    <Compile Include="Assets\Scripts\Messaging\IMessageReceiver.cs" />
+    <Compile Include="Assets\Scripts\Messaging\Message.cs" />
+    <Compile Include="Assets\Scripts\Messaging\MessageHandler.cs" />
     <Compile Include="Assets\Scripts\NodeStructure.cs" />
     <Compile Include="Assets\Scripts\Simulation.cs" />
     <Compile Include="Assets\Scripts\SimulationComponentBase.cs" />

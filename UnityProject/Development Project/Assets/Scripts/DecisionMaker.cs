@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
 // TODO: These will allow compilation while input middle-man library is being developed.
 using InputObject = System.Object;
@@ -9,11 +8,16 @@ namespace SimulationSystem
     public class DecisionMaker : SimulationComponentBase
     {
         private DecisionStore store;
-        private DecisionNode currentNode;
+        private DecisionNode<Decision> currentNode;
 
         public DecisionMaker(SimulationController controller) : base(controller)
         {
             store = new DecisionStore();
+        }
+
+        public override bool IsMessageRouteValid(int route)
+        {
+            return route == 7;
         }
 
         public void Load(InputObject input)
@@ -34,7 +38,12 @@ namespace SimulationSystem
 
         }
 
-        public void SetCurrentNode(DecisionNode node)
+        public override void OnReceivedMessage(Message message)
+        {
+            Debug.Log("Received Message");
+        }
+
+        public void SetCurrentNode(DecisionNode<Decision> node)
         {
             currentNode = node;
         }

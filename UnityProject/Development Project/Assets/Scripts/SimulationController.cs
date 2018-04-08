@@ -7,11 +7,14 @@ namespace SimulationSystem
     {
         private List<SimulationComponentBase> simulationComponents;
         private bool initialized;
+        private MessageHandler messageHandler;
 
         public SimulationController()
         {
             simulationComponents = new List<SimulationComponentBase>();
             initialized = false;
+
+            messageHandler = new MessageHandler();
         }
 
         /// <summary>
@@ -84,6 +87,15 @@ namespace SimulationSystem
         }
 
         /// <summary>
+        /// Propagate a message to all simulation components.
+        /// </summary>
+        /// <param name="message"></param>
+        public void PropagateMessage(Message message)
+        {
+            messageHandler.ProcessMessage(message);
+        }
+
+        /// <summary>
         /// Initialize a component
         /// </summary>
         /// <param name="component"></param>
@@ -92,6 +104,8 @@ namespace SimulationSystem
             // If the initialization step has already completed, auto-initialize the component upon creation
             if (initialized)
             {
+                // Auto-register the component to receive messages
+                messageHandler.AddReceiver(component);
                 component.Initialize();
             }
         }

@@ -36,6 +36,10 @@ public class Simulation : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
+		if(Input.GetKeyDown(KeyCode.F))
+        {
+            Message msg = new Message(7, "Hello", null);
+            controller.PropagateMessage(msg);
+        }
 	}
 }
