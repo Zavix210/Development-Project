@@ -17,7 +17,7 @@ namespace SimulationSystem
 
         public override bool IsMessageRouteValid(int route)
         {
-            return route == (int)MessageDestination.DECISION_CHANGE;
+            return true;
         }
 
         public void Load(InputObject input)
@@ -40,7 +40,16 @@ namespace SimulationSystem
 
         public override void OnReceivedMessage(Message message)
         {
-            Debug.Log("Received Message");
+            int routeID = message.Route;
+            switch (routeID)
+            {
+                case(int)MessageDestination.SIMULATION_ROUTE:
+                    Debug.Log("Received simulation message with ID " + message.Identifier);
+                    break;
+                case (int)MessageDestination.DECISION_CHANGE:
+
+                    break;
+            }
         }
 
         public void SetCurrentNode(DecisionNode<Decision> node)

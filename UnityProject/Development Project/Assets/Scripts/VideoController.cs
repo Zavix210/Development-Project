@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SimulationSystem;
-using System;
 
 public class VideoController : SimulationComponentBase
 {
@@ -18,7 +17,7 @@ public class VideoController : SimulationComponentBase
 
     public override void OnInitialize()
     {
-
+        // Basically the Awake method.
     }
 
     public override void OnReceivedMessage(Message message)

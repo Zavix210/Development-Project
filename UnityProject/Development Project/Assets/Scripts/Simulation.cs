@@ -38,8 +38,12 @@ public class Simulation : MonoBehaviour
     {
 		if(Input.GetKeyDown(KeyCode.F))
         {
-            Message msg = new Message(7, "Hello", null);
-            controller.PropagateMessage(msg);
+            controller.StartSimulation();
         }
-	}
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            controller.StopSimulation();
+        }
+    }
 }
