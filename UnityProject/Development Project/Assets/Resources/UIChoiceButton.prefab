@@ -240,8 +240,8 @@ MonoBehaviour:
   textThickness: 0.2
   textPadding: 0.2
   textRenderer: {fileID: 23584025721048294}
-  highlighColour: {r: 0.6838235, g: 0.29419672, b: 0.15084341, a: 1}
-  standardColour: {r: 0.45588237, g: 0.45588237, b: 0.45588237, a: 1}
+  highlighColour: {r: 0.9117647, g: 0.6256592, b: 0.113970585, a: 1}
+  standardColour: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114756268104202632
 MonoBehaviour:
   m_ObjectHideFlags: 1

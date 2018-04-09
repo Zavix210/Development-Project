@@ -290,9 +290,9 @@
     <Compile Include="Assets\Scripts\Messaging\MessageHandler.cs" />
     <Compile Include="Assets\Scripts\NodeStructure.cs" />
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
-    <Compile Include="Assets\Scripts\Simulation.cs" />
-    <Compile Include="Assets\Scripts\SimulationComponentBase.cs" />
-    <Compile Include="Assets\Scripts\SimulationController.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Simulation.cs" />
+    <Compile Include="Assets\Scripts\Simulation\SimulationComponentBase.cs" />
+    <Compile Include="Assets\Scripts\Simulation\SimulationController.cs" />
     <Compile Include="Assets\Scripts\SkyboxPanoramicShaderGUI.cs" />
     <Compile Include="Assets\Scripts\StateController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateMachine.cs" />
