@@ -31,6 +31,7 @@ public class VideoPlayerLoader : MonoBehaviour {
             _videoPlayer = gameObject.AddComponent<VideoPlayer>();
             _videoPlayer.prepareCompleted += PrepareCompleted;
             _videoPlayer.errorReceived += VideoPlayerError;
+            _videoPlayer.loopPointReached += FinishedPlaying;
             _videoPlayer.playOnAwake = false;
             //creating render to texture, the dimensions need to be the dimesions of the video file and it should come from the JSON API.
             RenderTexture renderTexture = new RenderTexture(width, height, 0);
@@ -85,7 +86,6 @@ public class VideoPlayerLoader : MonoBehaviour {
     private void PrepareCompleted(VideoPlayer source)
     {
         source.Play();
-        source.loopPointReached += FinishedPlaying;
     }
 
     private void FinishedPlaying(VideoPlayer source)
