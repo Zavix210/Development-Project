@@ -5,20 +5,32 @@ using UnityEngine.Video;
 using UnityEngine.UI;
 using System;
 
+
 public class VideoPlayerLoader : MonoBehaviour {
 
     VideoPlayer _videoPlayer;
     Material _videoMaterial;
     public delegate void FinishedVideoHandler();
+
+    /// <summary>
+    /// Invoked when the video finishes executing. It will remain paused until another video is asked to be played.
+    /// </summary>
     public event FinishedVideoHandler finishedPlayingCurrentVideo;
 
+
+    /// <summary>
+    /// Use this method to play the videos that will be rendered on the skybox.
+    /// </summary>
+    /// <param name="url">File path of the video, be careful with permissions on the folders.</param>
+    /// <param name="width">Video Width</param>
+    /// <param name="height">Video Height</param>
     public void PlayVideo(string url,int width,int height)
     {
         if(!_videoPlayer)
         {
             _videoPlayer = gameObject.AddComponent<VideoPlayer>();
-            _videoPlayer.prepareCompleted += prepareCompleted;
-            _videoPlayer.errorReceived += videoPlayerError;
+            _videoPlayer.prepareCompleted += PrepareCompleted;
+            _videoPlayer.errorReceived += VideoPlayerError;
             _videoPlayer.playOnAwake = false;
             //creating render to texture, the dimensions need to be the dimesions of the video file and it should come from the JSON API.
             RenderTexture renderTexture = new RenderTexture(width, height, 0);
@@ -38,34 +50,45 @@ public class VideoPlayerLoader : MonoBehaviour {
         videoPlayer.Prepare();
     }
 
+    /// <summary>
+    /// Tints the video with a specific color.
+    /// </summary>
+    /// <param name="color"></param>
     public void SetColor(Color color)
     {
         _videoMaterial.SetColor("_Tint", color);
     }
 
+    /// <summary>
+    /// Changes the exposure of the video making it bighter/darker
+    /// </summary>
+    /// <param name="exposure"></param>
     public void SetExposure(float exposure)
     {
         _videoMaterial.SetFloat("_Exposure", exposure);
     }
 
+    /// <summary>
+    /// Pauses the video
+    /// </summary>
     public void PauseVideo()
     {
         _videoPlayer.Pause();
     }
 
 
-    private void videoPlayerError(VideoPlayer source, string message)
+    private void VideoPlayerError(VideoPlayer source, string message)
     {
         Debug.LogError("Error playing video: " + message);
     }
 
-    private void prepareCompleted(VideoPlayer source)
+    private void PrepareCompleted(VideoPlayer source)
     {
         source.Play();
-        source.loopPointReached += finishedPlaying;
+        source.loopPointReached += FinishedPlaying;
     }
 
-    void finishedPlaying(VideoPlayer source)
+    private void FinishedPlaying(VideoPlayer source)
     {
         _videoPlayer.Pause();
         finishedPlayingCurrentVideo.Invoke();
