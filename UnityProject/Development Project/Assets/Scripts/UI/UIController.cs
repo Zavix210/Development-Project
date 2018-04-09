@@ -32,6 +32,10 @@ public class UIController : SimulationComponentBase
 
     public override void OnInitialize()
     {
+        // ----------------------------------
+        // TEMPORARY CODE
+        // ----------------------------------
+
         float m1 = 1.0f;
         int num = 4;
         float half = num * m1 * 0.5f;
@@ -44,6 +48,10 @@ public class UIController : SimulationComponentBase
             //button.transform.position = new Vector3(-half + (i + 1) * m1, 0.5f, 4.0f);
             button.SetButtonText("Decision " + (i + 1));
         }
+
+        // ----------------------------------
+        // TEMPORARY CODE
+        // ----------------------------------
     }
 
     public override void OnReceivedMessage(Message message)
@@ -56,6 +64,10 @@ public class UIController : SimulationComponentBase
 
     }
 
+    /// <summary>
+    /// Called when a new button needs to be created for the pool.
+    /// </summary>
+    /// <returns></returns>
     private UIChoiceButton CreateButtonInstance()
     {
         UIChoiceButton buttonInstance = GameObject.Instantiate<UIChoiceButton>(prefab);
@@ -65,12 +77,20 @@ public class UIController : SimulationComponentBase
         return buttonInstance;
     }
 
+    /// <summary>
+    /// Called whenever a button is released from the pool.
+    /// </summary>
+    /// <param name="button"></param>
     private void ButtonReleased(UIChoiceButton button)
     {
         // Enable released buttons.
         button.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Called whenever a button is stored in the pool.
+    /// </summary>
+    /// <param name="button"></param>
     private void ButtonStored(UIChoiceButton button)
     {
         // Reset the button and disable it.

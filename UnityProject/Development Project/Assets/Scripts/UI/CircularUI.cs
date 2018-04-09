@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// This class manages the orientation of the circular UI and rotates when necessary. The UI
+/// will automatically rotate when the forward vector of the object is outside the angle limit. 
+/// </summary>
 public class CircularUI : MonoBehaviour
 {
     [SerializeField]

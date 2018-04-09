@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// This class manages its UI buttons and automatically fits them into the content of the circular UI.
+/// The Circular UI angle limit is automatically adjusted accordingly.
+/// </summary>
 public class UIFitter : MonoBehaviour
 {
     [SerializeField]
@@ -17,6 +21,10 @@ public class UIFitter : MonoBehaviour
 
     public List<UIChoiceButton> Buttons { get { return buttons; } }
 
+    /// <summary>
+    /// Add an item to the UI item list.
+    /// </summary>
+    /// <param name="button"></param>
     public void AddItem(UIChoiceButton button)
     {
         if(button != null && !buttons.Contains(button))
@@ -25,15 +33,13 @@ public class UIFitter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove an item from the UI item list.
+    /// </summary>
+    /// <param name="button"></param>
     public void RemoveItem(UIChoiceButton button)
     {
         buttons.Remove(button);
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -43,9 +49,11 @@ public class UIFitter : MonoBehaviour
         int count = buttons.Count;
         int spacingCount = count + 1;
         float totalAngleSpacing = (anglePerButton * count) + (spacingPerButton * spacingCount);
+
+        // Update the limits on the circular UI to match the angular requirements
         circularUI.AngularLimit = totalAngleSpacing * 0.5f;
 
-        // Calculate an offset value to move the start direction by.
+        // Calculate an offset value to move the start direction by
         float offset = -(totalAngleSpacing * 0.5f) + spacingPerButton;
 
         // Create the start direction
@@ -82,6 +90,7 @@ public class UIFitter : MonoBehaviour
             }
         }
 
+        // Draw some values in the editor.
         Vector3 pos = circularUI.transform.position;
         Debug.DrawLine(pos, pos + centreDir * 5.0f, Color.yellow);
         Debug.DrawLine(pos, pos + startDir * 5.0f, Color.cyan);
