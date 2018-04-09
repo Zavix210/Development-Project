@@ -7,7 +7,7 @@ using SimulationSystem;
 public class UIChoiceButton : MonoBehaviour
 {
     [SerializeField]
-    private float timeUtilPressed = 2.0f;
+    private float timeUtilPressed = 1.0f;
 
     [SerializeField]
     private Selectable selectable = null;

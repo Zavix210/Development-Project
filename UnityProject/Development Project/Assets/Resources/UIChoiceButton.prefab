@@ -253,6 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95af3617ad5c92c40ae18c2d1e540b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeUtilPressed: 2
+  timeUtilPressed: 1
   selectable: {fileID: 114111956932270810}
   adjustableText: {fileID: 114375426887723480}
