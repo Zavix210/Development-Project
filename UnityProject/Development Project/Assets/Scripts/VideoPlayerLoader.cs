@@ -72,25 +72,25 @@ public class VideoPlayerLoader : MonoBehaviour {
     }
 
     //TEST---------------------
-    private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
-    private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
-    private int _videoWidth = 3840;
-    private int _videoHeight = 1920;
+    //private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
+    //private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
+    //private int _videoWidth = 3840;
+    //private int _videoHeight = 1920;
 
-    void Awake()
-    {
-        finishedPlayingCurrentVideo += playNextVideoTest;
-    }
+    //void Awake()
+    //{
+    //    finishedPlayingCurrentVideo += playNextVideoTest;
+    //}
 
-    void Start()
-    {
-        PlayVideo(_videoFilePath, _videoWidth, _videoHeight);
-    }
+    //void Start()
+    //{
+    //    PlayVideo(_videoFilePath, _videoWidth, _videoHeight);
+    //}
 
-    private void playNextVideoTest()
-    {
-        PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
-    }
+    //private void playNextVideoTest()
+    //{
+    //    PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
+    //}
 
 
 
