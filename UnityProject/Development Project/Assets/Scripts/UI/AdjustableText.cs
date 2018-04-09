@@ -11,6 +11,8 @@ public class AdjustableText : MonoBehaviour
     [SerializeField]
     private float textThickness = 0.2f;
     [SerializeField]
+    private float textPadding = 0.2f;
+    [SerializeField]
     private MeshRenderer textRenderer;
 
     [SerializeField]
@@ -50,16 +52,19 @@ public class AdjustableText : MonoBehaviour
 
         // Calculate the required size to fit the collision box around the text contents
         Vector3 fScale = textMesh.transform.localScale;
-        Vector3 fSize = new Vector3(rSize.x * (1.0f / fScale.x), rSize.y * (1.0f / fScale.y), textThickness);
+        Vector3 fSize = new Vector3((rSize.x * (1.0f / fScale.x)) + (textPadding * 2.0f), rSize.y * (1.0f / fScale.y), 1.0f);
+
+        // Scale the box collider to fit the text.
+        boxCollider.transform.localScale = fSize;
 
         // Apply the box scale values
-        boxCollider.size = fSize;
+        boxCollider.size = new Vector3(1.0f, 1.0f, textThickness);
         boxCollider.center = Vector3.zero;
     }
 
     private void Update()
     {
-        if(highlighted)
+        if (highlighted)
         {
             textRenderer.material.color = highlighColour;
         }
