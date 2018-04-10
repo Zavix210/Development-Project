@@ -3,15 +3,27 @@ using System.Collections.Generic;
 
 namespace SimulationSystem
 {
+    public enum SimulationState
+    {
+        Loading,
+        Menu,
+        Simulating
+    }
+
     public class SimulationController
     {
         private List<SimulationComponentBase> simulationComponents;
+        private MessageHandler messageHandler;
         private bool initialized;
 
         public SimulationController()
         {
             simulationComponents = new List<SimulationComponentBase>();
+            messageHandler = new MessageHandler();
             initialized = false;
+
+            // Add the important simulation components
+            AddSimulationComponent<StateController>();
         }
 
         /// <summary>
@@ -30,6 +42,9 @@ namespace SimulationSystem
                     InitializeComponent(item);
                 }
             }
+
+            // Push the state component to the menu state now that initialization has finished
+            FinishedLoading();
         }
 
         /// <summary>
@@ -84,6 +99,15 @@ namespace SimulationSystem
         }
 
         /// <summary>
+        /// Propagate a message to all simulation components.
+        /// </summary>
+        /// <param name="message"></param>
+        public void PropagateMessage(Message message)
+        {
+            messageHandler.ProcessMessage(message);
+        }
+
+        /// <summary>
         /// Initialize a component
         /// </summary>
         /// <param name="component"></param>
@@ -92,8 +116,59 @@ namespace SimulationSystem
             // If the initialization step has already completed, auto-initialize the component upon creation
             if (initialized)
             {
+                // Auto-register the component to receive messages
+                messageHandler.AddReceiver(component);
                 component.Initialize();
             }
+        }
+
+        /// <summary>
+        /// Start the simulation and return whether the state of the simulation was actually changed.
+        /// </summary>
+        /// <returns></returns>
+        public bool StartSimulation()
+        {
+            StateController stateController = GetSimulationComponent<StateController>();
+
+            // Ensure the current state isn't already simulating.
+            if (stateController.CurrentState != SimulationState.Simulating)
+            {
+                stateController.SetState(SimulationState.Simulating);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Stop the simulation and return whether the state of the simulation was actually changed.
+        /// </summary>
+        /// <returns></returns>
+        public bool StopSimulation()
+        {
+            StateController stateController = GetSimulationComponent<StateController>();
+
+            // Ensure the current state isn't already menu.
+            if (stateController.CurrentState != SimulationState.Menu)
+            {
+                stateController.SetState(SimulationState.Menu);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Notify the state controller to move to the menu state because loading has finished.
+        /// </summary>
+        private void FinishedLoading()
+        {
+            StateController stateController = GetSimulationComponent<StateController>();
+            stateController.SetState(SimulationState.Menu);
         }
     }
 }

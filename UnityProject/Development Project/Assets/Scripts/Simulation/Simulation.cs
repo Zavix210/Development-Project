@@ -12,16 +12,23 @@ using UnityEngine.Video;
 public class Simulation : MonoBehaviour
 {
     private SimulationController controller;
+    private static Simulation instance;
 
     public SimulationController Controller { get { return controller; } }
+    public static Simulation Instance { get { return instance; } }
 
     void Awake()
     {
+        // TODO: Implement a safer singleton
+        instance = this;
+
         // Create the simulation controller instance
         controller = new SimulationController();
 
         // Add some core components.
         controller.AddSimulationComponent<DecisionMaker>();
+        controller.AddSimulationComponent<VideoController>();
+        controller.AddSimulationComponent<UIController>();
 
         // Initialize the simulation.
         controller.Initialize();
@@ -36,6 +43,14 @@ public class Simulation : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+		if(Input.GetKeyDown(KeyCode.F))
+        {
+            controller.StartSimulation();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            controller.StopSimulation();
+        }
+    }
 }

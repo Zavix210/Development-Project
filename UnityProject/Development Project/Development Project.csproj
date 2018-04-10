@@ -284,11 +284,28 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\DecisionMaker.cs" />
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
+    <Compile Include="Assets\Scripts\MessageDestination.cs" />
+    <Compile Include="Assets\Scripts\Messaging\IMessageReceiver.cs" />
+    <Compile Include="Assets\Scripts\Messaging\Message.cs" />
+    <Compile Include="Assets\Scripts\Messaging\MessageHandler.cs" />
     <Compile Include="Assets\Scripts\NodeStructure.cs" />
-    <Compile Include="Assets\Scripts\Simulation.cs" />
-    <Compile Include="Assets\Scripts\SimulationComponentBase.cs" />
-    <Compile Include="Assets\Scripts\SimulationController.cs" />
+    <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
+    <Compile Include="Assets\Scripts\Simulation\Simulation.cs" />
+    <Compile Include="Assets\Scripts\Simulation\SimulationComponentBase.cs" />
+    <Compile Include="Assets\Scripts\Simulation\SimulationController.cs" />
     <Compile Include="Assets\Scripts\SkyboxPanoramicShaderGUI.cs" />
+    <Compile Include="Assets\Scripts\StateController.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\UI\AdjustableText.cs" />
+    <Compile Include="Assets\Scripts\UI\CircularUI.cs" />
+    <Compile Include="Assets\Scripts\UI\Selectable.cs" />
+    <Compile Include="Assets\Scripts\UI\SelectionController.cs" />
+    <Compile Include="Assets\Scripts\UI\SurfaceCaster.cs" />
+    <Compile Include="Assets\Scripts\UI\UIChoiceButton.cs" />
+    <Compile Include="Assets\Scripts\UI\UIController.cs" />
+    <Compile Include="Assets\Scripts\UI\UIFitter.cs" />
+    <Compile Include="Assets\Scripts\Util\Pool.cs" />
+    <Compile Include="Assets\Scripts\VideoController.cs" />
     <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />
   </ItemGroup>
   <ItemGroup>
