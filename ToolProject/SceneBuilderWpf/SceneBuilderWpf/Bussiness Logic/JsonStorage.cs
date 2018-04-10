@@ -24,7 +24,7 @@ namespace SceneBuilderWpf.Bussiness_Logic
         {
             using (StreamWriter file = File.CreateText(string.Format(@"C:\Temp\{0}.json ", targetFileName)))
             {
-                JsonSerializer serializer = new JsonSerializer();
+                JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented};
                 //serialize object directly into file stream
                 serializer.Serialize(file, serializedScene);
             }

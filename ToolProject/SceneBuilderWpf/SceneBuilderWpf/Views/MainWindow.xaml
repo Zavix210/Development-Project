@@ -4,9 +4,91 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SceneBuilderWpf"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="594.4" Width="993.6">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" 
+        Height="600" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Visibility="Visible" WindowStyle="None">
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="50" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="50" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpen">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonClose">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Grid>
-        <Frame Height="540" Width="960" x:Name="MainFrame" Margin="10" NavigationUIVisibility="Hidden" />
+        <Grid Height="60" VerticalAlignment="Top" OpacityMask="Black" Background="#FF2654B6">
+            <TextBlock Text="Scenario Builder!" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"  FontSize="22"></TextBlock>
+            <StackPanel Width="200" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="35" Height="35" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonMinmise" VerticalAlignment="Center" Foreground="White" >
+                    <materialDesign:PackIcon Kind="WindowMinimize" Height="25" Width="25" BorderBrush="{x:Null}" VerticalAlignment="Center"    />
+                </Button>
+
+
+            </StackPanel>
+        </Grid>
+        <Grid Panel.ZIndex="1" x:Name="GridMenu" Width="50" HorizontalAlignment="Left"  Background="White">
+            <StackPanel>
+                <Grid Height="150" Background="White">
+                    <Button x:Name="ButtonClose" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" Click="ButtonClose_Click">
+                        <materialDesign:PackIcon Width="25" Height="25" Foreground="#FF1368BD" Kind="ArrowLeft"></materialDesign:PackIcon>
+                    </Button>
+                    <Button x:Name="ButtonOpen" Width="60" Height="60"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonOpen_Click">
+                        <materialDesign:PackIcon Width="25" Height="25" Foreground="#FF1368BD" Kind="Menu"></materialDesign:PackIcon>
+                    </Button>
+                </Grid>
+                <ListView BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF1368BD">
+                    <ListViewItem Height="60"  >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Home" Width="25" Height="25" VerticalAlignment="Center"/>
+                            <TextBlock Text="Home" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60"  >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Creation" Width="25" Height="25" VerticalAlignment="Center"/>
+                            <TextBlock Text="Create new scenario" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60"  >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="FolderDownload" Width="25" Height="25" VerticalAlignment="Center"/>
+                            <TextBlock Text="Load Scenario" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60"  >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Reload" Width="25" Height="25" VerticalAlignment="Center"/>
+                            <TextBlock Text="Refresh" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60"  >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Help" Width="25" Height="25" VerticalAlignment="Center"/>
+                            <TextBlock Text="Help" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />
+                        </StackPanel>
+                    </ListViewItem>
+
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <Frame Panel.ZIndex="0" Height="540" Width="1030" x:Name="MainFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
+
 </Window>

@@ -7,16 +7,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="960"
       Title="MainPage"
-      DataContext="{Binding MainPageModel, Source={StaticResource ViewModelLocator}}">
+      DataContext="{Binding MainPageModel, Source={StaticResource ViewModelLocator}}" Background="White">
 
-    <Page.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black" Offset="0"/>
-            <GradientStop Color="#FFA03838" Offset="1"/>
-        </LinearGradientBrush>
-    </Page.Background>
-    
     <Grid>
-        <Button Content="scene Page" Command="{Binding ChangePagCommand}" Margin="47,343,672,52"></Button>
+        <Button Content="Create New Scenario" Command="{Binding ChangePagCommand}" Margin="47,343,672,52"></Button>
+        <Button Content="Load Scenario" Margin="660,343,60,52"></Button>
     </Grid>
 </Page>

@@ -23,5 +23,27 @@ namespace SceneBuilderWpf
         {
             InitializeComponent();
         }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonOpen.Visibility = Visibility.Visible;
+            ButtonClose.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonClose.Visibility = Visibility.Visible;
+            ButtonOpen.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void ButtonMinmise(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
     }
 }
