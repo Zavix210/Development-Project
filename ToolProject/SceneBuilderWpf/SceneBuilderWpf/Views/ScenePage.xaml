@@ -6,25 +6,15 @@
       xmlns:local="clr-namespace:SceneBuilderWpf"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="540" d:DesignWidth="960"
+      d:DesignHeight="540" d:DesignWidth="1030"
       Title="ScenePage"
       DataContext="{Binding Path=ScenePageModel, Source={StaticResource ViewModelLocator}}">
-    <Page.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="DeepSkyBlue" Offset="0"/>
-            <GradientStop Color="AntiqueWhite" Offset="1"/>
-        </LinearGradientBrush>
-    </Page.Background>
+
 
     <Grid>
-        <TabControl Margin="10,10,0,185" SelectedIndex="{Binding TabIndex , Mode=TwoWay}">
+        <TabControl Margin="-1.02,-5.114,-1,0" SelectedIndex="{Binding TabIndex , Mode=TwoWay}">
 
-            <TabControl.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="DeepSkyBlue" Offset="0"/>
-                    <GradientStop Color="AntiqueWhite" Offset="1"/>
-                </LinearGradientBrush>
-            </TabControl.Background>
+
 
             <TabControl.BorderBrush>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -46,9 +36,9 @@
             <TabItem Height="0" TabIndex="0">
                 <Grid>
 
-                    <DataGrid ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene}"  AutoGenerateColumns="False" HorizontalAlignment="Left" Height="252" Margin="-1,10,0,0" VerticalAlignment="Top" Width="550" IsReadOnly="True">
+                    <DataGrid  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene}" Padding="25,0,25,0"  AutoGenerateColumns="False" HorizontalAlignment="Center" Height="252" Margin="0,20,0,0" VerticalAlignment="Top" Width="800" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="File Path" Binding="{Binding FileName}"/>
+                            <DataGridTextColumn  Header="File Path" Binding="{Binding FileName}"/>
                             <DataGridTextColumn Header="Scene Brightness" Binding="{Binding SceneBrightness}"/>
                             <DataGridTextColumn Header="Emergency Lighting" Binding="{Binding EmergencyLighting}"/>
                             <DataGridTextColumn Header="Sound Volume"  Binding="{Binding SoundVolume}"/>
@@ -58,13 +48,13 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <StackPanel Margin="564,0,0,0">
+                    <StackPanel Margin="10,282,604.02,0" Orientation="Vertical">
                         <!-- Label has a default -5,-5,-5,-5 margin-->
                         <Label Content="File Path :" Margin="0,0,0,0"></Label>
 
                         <DockPanel Margin="0,0,10,0">
-                            <TextBox Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Left"></TextBox>
-                            <Button Content="Browse for file." Command="{Binding CurrentScene.BrowseCommand}" HorizontalAlignment="Right" Height="24" Margin="0,0,0,0" Width="110"/>
+                            <TextBox Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Right"></TextBox>
+                            <Button Content="Browse."  Command="{Binding CurrentScene.BrowseCommand}" HorizontalAlignment="Center" Height="28" Margin="0,0,0,0" Width="128"/>
                         </DockPanel>
 
                         <Label Content="Scene Brightness :"  Margin="0,0,0,0"></Label>
@@ -75,21 +65,24 @@
                         <xctk:IntegerUpDown Width="200" Margin="5,0,0,0"  HorizontalAlignment="Left" Value="{Binding CurrentScene.SoundVolume}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
                         <Label Content="Intial Display Text :" Margin="0,0,0,0"></Label>
                         <TextBox Width="200" Text="{Binding CurrentScene.IntroducitonText}"   Margin="5,0,0,0" HorizontalAlignment="Left"/>
-                        <Label Content="Question Display Text :" Margin="0,0,0,0"></Label>
-
-                        <Grid Margin="0,0,10,0">
-                            <TextBox Width="200" Text="{Binding CurrentScene.QuestionText}"   Margin="5,0,0,0" HorizontalAlignment="Left"/>
-                            <Button Content="Add/Edit Decisions. " Command="{Binding DesicionPage}"  Width="145" HorizontalAlignment="Right"/>
-
-                        </Grid>
-
-                        <Grid Height="36" Margin="10" >
-
-                            <Button Content="Add To Scenario. " Command="{Binding AddToScenario}" Width="120" HorizontalAlignment="Left"></Button>
-                            <Button Content="Add New Scene. " Command="{Binding AddNewScene}" Width="120" HorizontalAlignment="Right"></Button>
-                        </Grid>
+                       
 
                     </StackPanel>
+                    <Grid Margin="460,282,155,0" >
+                        <Label Content="Question Display Text :" Margin="0,0,0,0"></Label>
+
+                        <Grid Margin="0,0,10,0" VerticalAlignment="Top">
+                            <TextBox Width="200" Text="{Binding CurrentScene.QuestionText}"   Margin="5,20,0,0" HorizontalAlignment="Left"/>
+                            <Button Content="Add/Edit Decisions. " Command="{Binding DesicionPage}" Margin="0,20,0,0"  Width="155" HorizontalAlignment="Right"/>
+
+                        </Grid>
+
+                        <Grid Height="36" Margin="10" VerticalAlignment="Center" >
+
+                            <Button Content="Add To Scenario. " Command="{Binding AddToScenario}" Width="150" HorizontalAlignment="Left"></Button>
+                            <Button Content="Add New Scene. " Command="{Binding AddNewScene}" Width="150" HorizontalAlignment="Right"></Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
 
             </TabItem>
@@ -141,12 +134,12 @@
 
                     <TextBox Width="200" Text="{Binding CurrentScene.CurrentDescision.Feedback}" Height="50" VerticalAlignment="Bottom" Grid.Row="1"  HorizontalAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2"></TextBox>
                     <Label Content="Next Scene :" Height="30" Width="100" VerticalAlignment="Top"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2"/>
-                    <ComboBox  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene.CurrentDescision.NextScene}" Height="24" Width="200" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,30"/>
+                    <ComboBox  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene.CurrentDescision.NextScene}" Height="40" Width="200" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,30"/>
                     <Button Grid.Row="3" Grid.Column="0" Command="{Binding DesicionPage}" Content="Go Back." Width="100" HorizontalAlignment="Left" Height="30"/>
                     <Button Grid.Row="3" Grid.Column="2" Command="{Binding CurrentScene.AddDescion}" Content="Add Decision." Width="100" HorizontalAlignment="Center" Height="30"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Content="Start Scenario." Margin="773,493,10,10" Command="{Binding SerliazeSave}"/>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Start Scenario." Margin="0,0,20,14" Command="{Binding SerliazeSave}"/>
     </Grid>
 </Page>

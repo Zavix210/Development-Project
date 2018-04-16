@@ -11,6 +11,6 @@
 
     <Grid>
         <Button Content="Create New Scenario" Command="{Binding ChangePagCommand}" Margin="47,343,672,52"></Button>
-        <Button Content="Load Scenario" Margin="660,343,60,52"></Button>
+        <Button Content="Load Scenario" Margin="660,343,60,52" Command="{Binding LoadJsonFile}"></Button>
     </Grid>
 </Page>

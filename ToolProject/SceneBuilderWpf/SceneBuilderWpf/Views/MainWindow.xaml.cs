@@ -36,7 +36,7 @@ namespace SceneBuilderWpf
             ButtonOpen.Visibility = Visibility.Collapsed;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonShutdown(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SceneBuilderWpf
 {
@@ -22,12 +23,19 @@ namespace SceneBuilderWpf
             container.RegisterType<MainPageViewModel>();
             container.RegisterType<ScenePageViewModel>();
             container.RegisterType<DescisionPageViewModel>();
-            
             container.RegisterType<MainPage>();
             container.RegisterType<ScenePage>();
            
             container.RegisterInstance<IPageNavigationService>(App.pageNavigation);
             // container.RegisterType<DescisionPageViewModel>();
+        }
+
+        public ScenePage SceneView
+        {
+            get
+            {
+                return DependencyContainer.Self.Resolve<ScenePage>();
+            }
         }
 
         public MainPageViewModel MainPageModel
@@ -50,6 +58,5 @@ namespace SceneBuilderWpf
         {
             get => DependencyContainer.Self.Resolve<DescisionPageViewModel>();
         }
-
     }
 }
