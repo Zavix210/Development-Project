@@ -91,6 +91,10 @@ public class UIController : SimulationComponentBase
         uiFitter.AddItem(button);
     }
 
+    /// <summary>
+    /// Create the buttons which represent the choices of the specified decision
+    /// </summary>
+    /// <param name="decision"></param>
     private void CreateButtonsForDecision(Decision decision)
     {
         // Get the routes

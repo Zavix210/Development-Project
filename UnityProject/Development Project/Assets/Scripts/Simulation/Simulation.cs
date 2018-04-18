@@ -19,6 +19,12 @@ public class Simulation : MonoBehaviour
 
     void Awake()
     {
+
+    }
+
+	// Use this for initialization
+	void Start ()
+    {
         // TODO: Implement a safer singleton
         instance = this;
 
@@ -29,16 +35,11 @@ public class Simulation : MonoBehaviour
         controller.AddSimulationComponent<DecisionMaker>();
         controller.AddSimulationComponent<VideoController>();
         controller.AddSimulationComponent<UIController>();
+        controller.AddSimulationComponent<TimeController>();
 
         // Initialize the simulation.
         controller.Initialize();
     }
-
-	// Use this for initialization
-	void Start ()
-    {
-
-	}
 	
 	// Update is called once per frame
 	void Update ()
