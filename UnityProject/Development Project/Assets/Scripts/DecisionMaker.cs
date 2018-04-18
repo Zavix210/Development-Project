@@ -10,40 +10,6 @@ namespace SimulationSystem
 {
     using DNode = SimulationSystem.DecisionNode<string, string, int>;
 
-    public class Decision
-    {
-        private DNode wrappedDecision;
-
-        public int Identifier { get { return wrappedDecision.Identifier; } }
-
-        public Decision(DNode decision)
-        {
-            wrappedDecision = decision;
-        }
-
-        public void GetRoutes(List<int> routes, bool autoClear = true)
-        {
-            // Should the routes be automatically cleared
-            if(autoClear)
-            {
-                routes.Clear();
-            }
-
-            List<int> rawRoutes = wrappedDecision.GetRoutes();
-            
-            // Copy elements into the provided route list
-            foreach(int i in rawRoutes)
-            {
-                routes.Add(i);
-            }
-        }
-
-        public bool GetAttribute(string key, out string value)
-        {
-            return wrappedDecision.GetAttribute(key, out value);
-        }
-    }
-
     public class DecisionNode<KeyType, ValueType, IndexType>
     {
         /// <summary>
@@ -66,17 +32,20 @@ namespace SimulationSystem
         /// <summary>
         /// An instance of a wrapped decision which contains this.
         /// </summary>
-        private Decision wrappedDecision;
+        private Decision wrapper;
 
         public IndexType Identifier { get { return identifier; } }
-        public Decision WrappedDecision { get { return wrappedDecision; } }
+        public Decision Wrapper { get { return wrapper; } }
 
-        public DecisionNode(Decision wrappedDecision)
+        public DecisionNode()
         {
-            this.wrappedDecision = wrappedDecision;
-
             attributes = new Dictionary<KeyType, ValueType>();
             routes = new List<IndexType>();
+        }
+
+        public void SetWrapper(Decision wrapper)
+        {
+            this.wrapper = wrapper;
         }
 
         public void SetIdentifier(IndexType identifier)
@@ -164,6 +133,29 @@ namespace SimulationSystem
 
         public void Load(InputObject input)
         {
+            // TEMPORARY TEST CODE
+
+            DNode n1 = new DNode();
+            n1.AddAttribute("TITLE", "ATTRIBUTE_A");
+            n1.SetIdentifier(0);
+            Decision n1d = new Decision(this, n1);
+            n1.SetWrapper(n1d);
+
+            DNode n2 = new DNode();
+            n2.SetIdentifier(1);
+            n2.AddAttribute("TITLE", "ATTRIBUTE_B");
+            Decision n2d = new Decision(this, n2);
+            n2.SetWrapper(n2d);
+
+            n1.AddRoute(n2.Identifier);
+
+            rootNode = n1;
+
+            store.Add(n1);
+            store.Add(n2);
+
+            // END TEMPORARY TEST CODE
+
             // TODO: Parse some input data to populate nodes
         }
 
@@ -179,6 +171,7 @@ namespace SimulationSystem
             {
                 case (int)MessageDestination.SIMULATION_START: // Simulation has started
                     {
+                        Load(null);
                         Reset();
                     }
                     break;
@@ -206,6 +199,21 @@ namespace SimulationSystem
             }
         }
 
+        public bool GetDecision(int choiceID, out Decision decision)
+        {
+            DNode dNode;
+            if(GetNode(choiceID, out dNode))
+            {
+                decision = dNode.Wrapper;
+                return true;
+            }
+            else
+            {
+                decision = null;
+                return false;
+            }
+        }
+
         private bool GetNode(int choiceID, out DNode nextNode)
         {
             // Try to find the desired node
@@ -230,7 +238,7 @@ namespace SimulationSystem
             if (node != null)
             {
                 // Pass a message notifying any components that the decision was VALID
-                Message resultMessage = new Message((int)MessageDestination.DECISION_CHANGE, "DECISION_VALID", node.WrappedDecision);
+                Message resultMessage = new Message((int)MessageDestination.DECISION_CHANGE, "DECISION_VALID", node.Wrapper);
                 Controller.PropagateMessage(resultMessage);
             }
             else // Node is NULL, it's invalid

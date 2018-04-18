@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using SimulationSystem;
 using System;
 
@@ -16,6 +16,9 @@ public class UIController : SimulationComponentBase
     private CircularUI circularUI;
     private UIFitter uiFitter;
 
+    private List<int> decisionChoices;
+    private List<UIChoiceButton> activeButtons;
+
     public UIController(SimulationController controller) : base(controller)
     {
         prefab = Resources.Load<UIChoiceButton>("UIChoiceButton");
@@ -23,6 +26,9 @@ public class UIController : SimulationComponentBase
         uiFitter = GameObject.FindObjectOfType<UIFitter>();
 
         choiceButtonPool = new Pool<UIChoiceButton>(CreateButtonInstance, ButtonStored, ButtonReleased);
+
+        decisionChoices = new List<int>();
+        activeButtons = new List<UIChoiceButton>();
     }
 
     public override bool IsMessageRouteValid(int route)
@@ -36,18 +42,18 @@ public class UIController : SimulationComponentBase
         // TEMPORARY CODE
         // ----------------------------------
 
-        float m1 = 1.0f;
-        int num = 4;
-        float half = num * m1 * 0.5f;
+        //float m1 = 1.0f;
+        //int num = 4;
+        //float half = num * m1 * 0.5f;
 
-        for (int i = 0; i < num; i++)
-        {
-            UIChoiceButton button = choiceButtonPool.Get();
-            uiFitter.AddItem(button);
+        //for (int i = 0; i < num; i++)
+        //{
+        //    UIChoiceButton button = choiceButtonPool.Get();
+        //    uiFitter.AddItem(button);
 
-            //button.transform.position = new Vector3(-half + (i + 1) * m1, 0.5f, 4.0f);
-            button.SetButtonText("Decision " + (i + 1));
-        }
+        //    //button.transform.position = new Vector3(-half + (i + 1) * m1, 0.5f, 4.0f);
+        //    button.SetButtonText("Decision " + (i + 1));
+        //}
 
         // ----------------------------------
         // TEMPORARY CODE
@@ -64,15 +70,69 @@ public class UIController : SimulationComponentBase
                     if (message.Identifier == "DECISION_VALID")
                     {
                         Decision decision = (Decision)message.Data;
+
+                        // Create the UI buttons
+                        CreateButtonsForDecision(decision);
                     }
                 }
                 break;
         }
     }
 
-    public void PlaceButton()
+    public void PlaceButton(int decisionChoice, string decisionText)
     {
+        UIChoiceButton button = choiceButtonPool.Get();
+        activeButtons.Add(button);
 
+        // Populate data entries
+        button.SetSelectionChoice(decisionChoice);
+        button.SetButtonText(decisionText);
+
+        uiFitter.AddItem(button);
+    }
+
+    private void CreateButtonsForDecision(Decision decision)
+    {
+        // Get the routes
+        decision.GetRoutes(decisionChoices);
+
+        // Store all active buttons
+        StoreActiveButtons();
+
+        // Create UI choices
+        foreach(int i in decisionChoices)
+        {
+            // Try to get the decision for the choice index
+            Decision iDecision;
+            if (decision.GetDecisionFromRoute(i, out iDecision))
+            {
+                // Try to get the title text
+                string decisionText;
+                if(iDecision.GetAttribute("TITLE", out decisionText))
+                {
+                    PlaceButton(i, decisionText);
+                }
+                else // Failed to get title
+                {
+                    Debug.LogWarning("Failed to get title from decision with ID: " + i);
+                }
+            }
+            else // Failed to get decision
+            {
+                Debug.LogWarning("Failed to get decision from ID: " + i);
+            }
+        }
+    }
+
+    private void StoreActiveButtons()
+    {
+        foreach(UIChoiceButton button in activeButtons)
+        {
+            choiceButtonPool.Put(button);
+            uiFitter.RemoveItem(button);
+        }
+
+        activeButtons.Clear();
     }
 
     /// <summary>
