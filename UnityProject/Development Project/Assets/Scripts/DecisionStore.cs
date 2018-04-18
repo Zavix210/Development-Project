@@ -6,48 +6,32 @@ using InputObject = System.Object;
 
 namespace SimulationSystem
 {
-    // TODO: implement details of the decision class
-    public class Decision
+    public class Node<T>
     {
-        public Decision()
-        {
-
-        }
-    }
-
-    public class DecisionNode<T>
-    {
-        private DecisionNode<T>[] choices;
+        private Node<T>[] choices;
         private T data;
 
-        public DecisionNode<T>[] Choices { get { return choices; } }
+        public Node<T>[] Choices { get { return choices; } }
         public T Data { get { return data; } set { data = value; } }
 
-        public DecisionNode(DecisionNode<T>[] choices)
+        public Node(Node<T>[] choices)
         {
             this.choices = choices;
         }
     }
 
-    public class DecisionStore
+    public class DecisionStore<T>
     {
-        private List<DecisionNode<Decision>> nodes;
-        private DecisionNode<Decision> root;
+        private List<Node<T>> nodes;
+        private Node<T> root;
 
         public int NodeCount { get { return nodes.Count; } }
-        public DecisionNode<Decision> Root { get { return root; } }
+        public Node<T> Root { get { return root; } }
 
         public DecisionStore()
         {
-            nodes = new List<DecisionNode<Decision>>();
+            nodes = new List<Node<T>>();
             root = null;
-        }
-
-        public bool Load(InputObject data)
-        {
-            // TODO: Implement data loading
-
-            return true;
         }
     }
 }
