@@ -106,9 +106,9 @@ public class UIController : SimulationComponentBase
             Decision iDecision;
             if (decision.GetDecisionFromRoute(i, out iDecision))
             {
-                // Try to get the title text
+                // Try to get the current override title or if not, the next title.
                 string decisionText;
-                if(iDecision.GetAttribute("TITLE", out decisionText))
+                if(decision.GetAttribute("OVERRIDE_TITLE", out decisionText) || iDecision.GetAttribute("TITLE", out decisionText))
                 {
                     PlaceButton(i, decisionText);
                 }

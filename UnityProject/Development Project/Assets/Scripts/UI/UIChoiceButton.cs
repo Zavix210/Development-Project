@@ -78,6 +78,7 @@ public class UIChoiceButton : MonoBehaviour
         // The button is now pressed
         if(holdTime >= timeUtilPressed)
         {
+            Debug.Log("CHOOSING " + selectionChoice);
             // Create the message to be passed
             Message message = new Message((int)MessageDestination.DECISION_UI_CHOICE, "", selectionChoice);
 

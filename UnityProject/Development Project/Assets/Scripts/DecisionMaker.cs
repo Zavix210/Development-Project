@@ -136,23 +136,37 @@ namespace SimulationSystem
             // TEMPORARY TEST CODE
 
             DNode n1 = new DNode();
-            n1.AddAttribute("TITLE", "ATTRIBUTE_A");
+            n1.AddAttribute("TITLE", "Start");
             n1.SetIdentifier(0);
             Decision n1d = new Decision(this, n1);
             n1.SetWrapper(n1d);
 
             DNode n2 = new DNode();
             n2.SetIdentifier(1);
-            n2.AddAttribute("TITLE", "ATTRIBUTE_B");
+            n2.AddAttribute("TITLE", "Go Left");
+            n2.AddAttribute("OVERRIDE_TITLE", "Go Back");
             Decision n2d = new Decision(this, n2);
             n2.SetWrapper(n2d);
 
+            DNode n3 = new DNode();
+            n3.SetIdentifier(2);
+            n3.AddAttribute("TITLE", "Go Right");
+            n3.AddAttribute("OVERRIDE_TITLE", "Go Back");
+            Decision n3d = new Decision(this, n3);
+            n3.SetWrapper(n3d);
+
             n1.AddRoute(n2.Identifier);
+            n1.AddRoute(n3.Identifier);
+
+            // Link back
+            n2.AddRoute(n1.Identifier);
+            n3.AddRoute(n1.Identifier);
 
             rootNode = n1;
 
             store.Add(n1);
             store.Add(n2);
+            store.Add(n3);
 
             // END TEMPORARY TEST CODE
 
