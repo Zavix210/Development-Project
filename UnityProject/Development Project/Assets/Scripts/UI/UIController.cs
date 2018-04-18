@@ -56,7 +56,18 @@ public class UIController : SimulationComponentBase
 
     public override void OnReceivedMessage(Message message)
     {
-
+        switch (message.Route)
+        {
+            case (int)MessageDestination.DECISION_CHANGE:
+                {
+                    // Was the decision a valid decision?
+                    if (message.Identifier == "DECISION_VALID")
+                    {
+                        Decision decision = (Decision)message.Data;
+                    }
+                }
+                break;
+        }
     }
 
     public void PlaceButton()

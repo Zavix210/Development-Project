@@ -41,7 +41,7 @@ public class VideoController : SimulationComponentBase
             if (message.Identifier == "DECISION_VALID")
             {
                 // Get the decision node from the message
-                Decision<string, string, int> decision = (Decision<string, string, int>)message.Data;
+                Decision decision = (Decision)message.Data;
 
                 // Try to get the decision attribute containing the video URL
                 string url; //filePath

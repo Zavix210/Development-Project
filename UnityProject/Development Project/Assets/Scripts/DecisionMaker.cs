@@ -8,9 +8,43 @@ using InputObject = System.Object;
 
 namespace SimulationSystem
 {
-    using DNode = SimulationSystem.Decision<string, string, int>;
+    using DNode = SimulationSystem.DecisionNode<string, string, int>;
 
-    public class Decision<KeyType, ValueType, IndexType>
+    public class Decision
+    {
+        private DNode wrappedDecision;
+
+        public int Identifier { get { return wrappedDecision.Identifier; } }
+
+        public Decision(DNode decision)
+        {
+            wrappedDecision = decision;
+        }
+
+        public void GetRoutes(List<int> routes, bool autoClear = true)
+        {
+            // Should the routes be automatically cleared
+            if(autoClear)
+            {
+                routes.Clear();
+            }
+
+            List<int> rawRoutes = wrappedDecision.GetRoutes();
+            
+            // Copy elements into the provided route list
+            foreach(int i in rawRoutes)
+            {
+                routes.Add(i);
+            }
+        }
+
+        public bool GetAttribute(string key, out string value)
+        {
+            return wrappedDecision.GetAttribute(key, out value);
+        }
+    }
+
+    public class DecisionNode<KeyType, ValueType, IndexType>
     {
         /// <summary>
         /// Attributes are the individual data elements of the decision,
@@ -24,12 +58,23 @@ namespace SimulationSystem
         /// </summary>
         private List<IndexType> routes;
 
+        /// <summary>
+        /// The Identifier is the unique identification method of the decision.
+        /// </summary>
         private IndexType identifier;
 
-        public IndexType Identifier { get { return identifier; } }
+        /// <summary>
+        /// An instance of a wrapped decision which contains this.
+        /// </summary>
+        private Decision wrappedDecision;
 
-        public Decision()
+        public IndexType Identifier { get { return identifier; } }
+        public Decision WrappedDecision { get { return wrappedDecision; } }
+
+        public DecisionNode(Decision wrappedDecision)
         {
+            this.wrappedDecision = wrappedDecision;
+
             attributes = new Dictionary<KeyType, ValueType>();
             routes = new List<IndexType>();
         }
@@ -185,7 +230,7 @@ namespace SimulationSystem
             if (node != null)
             {
                 // Pass a message notifying any components that the decision was VALID
-                Message resultMessage = new Message((int)MessageDestination.DECISION_CHANGE, "DECISION_VALID", node);
+                Message resultMessage = new Message((int)MessageDestination.DECISION_CHANGE, "DECISION_VALID", node.WrappedDecision);
                 Controller.PropagateMessage(resultMessage);
             }
             else // Node is NULL, it's invalid
