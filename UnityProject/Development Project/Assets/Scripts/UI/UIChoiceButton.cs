@@ -79,7 +79,7 @@ public class UIChoiceButton : MonoBehaviour
         if(holdTime >= timeUtilPressed)
         {
             // Create the message to be passed
-            Message message = new Message((int)MessageDestination.DECISION_CHANGE, "CHOICE", selectionChoice);
+            Message message = new Message((int)MessageDestination.DECISION_UI_CHOICE, "", selectionChoice);
 
             // Propagate the message over the simulation controller
             SimulationController simController = Simulation.Instance.Controller;

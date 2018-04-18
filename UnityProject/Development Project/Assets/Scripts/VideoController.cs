@@ -37,13 +37,26 @@ public class VideoController : SimulationComponentBase
         // A decision was made (next video?)
         if(message.Route == (int)MessageDestination.DECISION_CHANGE)
         {
-            
-            // Right now the video is being loaded dynamically. There is only one video instance in the memory.(The video that is currently playing)
-            string url = ""; //filePath
-            int width = 3840;
-            int height = 1920;
-            _videoPlayer.PlayVideo(url, width, height);
-            
+            // Is the decision valid?
+            if (message.Identifier == "DECISION_VALID")
+            {
+                // Get the decision node from the message
+                Decision<string, string, int> decision = (Decision<string, string, int>)message.Data;
+
+                // Try to get the decision attribute containing the video URL
+                string url; //filePath
+                if (decision.GetAttribute("VIDEO_URL", out url))
+                {
+                    // Right now the video is being loaded dynamically. There is only one video instance in the memory.(The video that is currently playing)
+                    int width = 3840;
+                    int height = 1920;
+                    _videoPlayer.PlayVideo(url, width, height);
+                }
+                else // Failure, log a message
+                {
+                    Debug.LogWarning("Failed to get 'VIDEO_URL' attribute from decision node");
+                }
+            }          
         }
     }
 }
