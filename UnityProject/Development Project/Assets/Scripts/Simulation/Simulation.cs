@@ -62,6 +62,7 @@ public class Simulation : MonoBehaviour
         controller.AddSimulationComponent<UIController>();
         controller.AddSimulationComponent<TimeController>();
         controller.AddSimulationComponent<TimelineController>();
+        controller.AddSimulationComponent<DecisionController>();
 
         // Initialize the simulation.
         controller.Initialize();

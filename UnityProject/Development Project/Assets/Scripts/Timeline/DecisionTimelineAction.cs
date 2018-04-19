@@ -11,26 +11,13 @@ public class DecisionTimelineAction : TimelineActionBase
     public override void ExecuteAction()
     {
         Simulation sim = Simulation.Instance;
-        SimulationController controller = sim.Controller;   
-        
-        if(decisionSet != null)
-        {
-            UIController uiController = controller.GetSimulationComponent<UIController>();
+        SimulationController controller = sim.Controller;
 
-            // Clear all the active buttons (if any)
-            uiController.ClearActiveButtons();
+        Debug.Log("DECISION");
 
-            // Place all the buttons containing the information about the decisions
-            List<Decision> decisions = decisionSet.GetDecisions();
-            foreach(Decision decision in decisions)
-            {
-                uiController.PlaceButton(decision.Identifier, decision.DisplayText);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Decision set is NULL");
-        }
+        // Get the decision controller and activate the decision set
+        DecisionController decisionController = controller.GetSimulationComponent<DecisionController>();
+        decisionController.ActivateDecisionSet(decisionSet);
     }
 
     public void SetDecisionSet(DecisionSet set)

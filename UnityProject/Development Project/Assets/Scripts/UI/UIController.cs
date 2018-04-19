@@ -66,14 +66,14 @@ public class UIController : SimulationComponentBase
         {
             case (int)MessageDestination.SCENE_CHANGE:
                 {
-                    // Was the decision a valid decision?
-                    if (message.Identifier == "VALID")
-                    {
-                        SimulationScene scene = (SimulationScene)message.Data;
+                    //// Was the decision a valid decision?
+                    //if (message.Identifier == "VALID")
+                    //{
+                    //    SimulationScene scene = (SimulationScene)message.Data;
 
-                        // Create the UI buttons
-                        CreateButtonsForDecision(scene);
-                    }
+                    //    // Create the UI buttons
+                    //    CreateButtonsForDecision(scene);
+                    //}
                 }
                 break;
         }

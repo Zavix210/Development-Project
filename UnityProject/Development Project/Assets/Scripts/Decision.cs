@@ -28,6 +28,22 @@ public class DecisionSet
     {
         return decisions.Add(decision);
     }
+
+    public bool GetDecisionWithID(int id, out Decision decision)
+    {
+        List<Decision> dList = GetDecisions();
+        foreach(Decision d in dList)
+        {
+            if(d.Identifier == id)
+            {
+                decision = d;
+                return true;
+            }
+        }
+
+        decision = null;
+        return false;
+    }
 }
 
 public enum DecisionResult

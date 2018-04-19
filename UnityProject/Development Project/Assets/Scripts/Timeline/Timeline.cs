@@ -183,6 +183,9 @@ namespace SimulationSystem
             // Ensure the simulation is playing but not paused
             if (playing && !paused)
             {
+
+                Debug.Log("CurrentTime: " + currentTime);
+
                 float start = currentTime;
                 float end = start + timeStep;
 
@@ -214,7 +217,7 @@ namespace SimulationSystem
             // Check the time to see if its over the duration
             if (currentTime >= duration)
             {
-                //currentTime = duration;
+                currentTime = duration;
                 StopTimeline();
             }
         }

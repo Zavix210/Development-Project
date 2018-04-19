@@ -80,11 +80,11 @@ namespace SimulationSystem
             SimulationScene testNodeWrapper = new SimulationScene(this, testNode); // Create the wrapper (outward facing object)
 
             DecisionTimelineAction decisionAction = new DecisionTimelineAction(); // Create the action
-            decisionAction.SetTimeOfAction(2.0f); // Set the action to start at 2.0 seconds in
 
             DecisionSet set = new DecisionSet(); // Create the decision set
             set.AddDecision(new Decision(DecisionResult.FAIL, "Go Left", "Left is BAD")); // Create the decision choice
             set.AddDecision(new Decision(DecisionResult.SUCCESS, "Go Right", "Right is GOOD")); // Create the decision choice
+            set.Time = 2.0f;
             decisionAction.SetDecisionSet(set); // Apply the set
 
             testNode.AddAction(decisionAction); // Add the action to the node
