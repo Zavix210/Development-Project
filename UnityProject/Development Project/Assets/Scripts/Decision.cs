@@ -39,14 +39,17 @@ public enum DecisionResult
 public class Decision
 {
     private DecisionResult result;
+    private string displayText;
     private string feedback;
 
     public DecisionResult Result { get { return result; } }
+    public string DisplayText { get { return displayText; } }
     public string Feedback { get { return feedback; } }
 
-    public Decision(DecisionResult result, string feedback)
+    public Decision(DecisionResult result, string displayText, string feedback)
     {
         this.result = result;
+        this.displayText = displayText;
         this.feedback = feedback;
     }
 }

@@ -16,6 +16,6 @@ public enum MessageDestination
     DECISION_UI_CHOICE = 38, // The UI was pressed for a decision button
 
     SCENE_CHANGE = 50, // A scene has changed
-
-
+    DECISION_START, // Decision selection has started
+    DECISION_END, // Decision selection has ended
 }
