@@ -181,6 +181,23 @@ namespace SimulationSystem
             }
         }
 
+        public void GetActions(List<ITimelineAction> actions, bool autoClear = true)
+        {
+            // Should the routes be automatically cleared
+            if (autoClear)
+            {
+                actions.Clear();
+            }
+
+            List<ITimelineAction> rawActions = wrappedScene.GetActions();
+
+            // Copy elements into the provided route list
+            foreach (ITimelineAction a in rawActions)
+            {
+                actions.Add(a);
+            }
+        }
+
         public bool GetSceneFromRoute(int route, out SimulationScene scene)
         {
             return sceneController.GetScene(route, out scene);

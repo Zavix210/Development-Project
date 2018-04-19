@@ -4,19 +4,15 @@ using UnityEngine;
 
 namespace SimulationSystem
 {
-    public interface ITimelineListener
-    {
-        void OnStart(Timeline timeline);
-        void OnStop(Timeline timeline);
-        void OnPause(Timeline timeline);
-        void OnResume(Timeline timeline);
-    }
-
     public class Timeline
     {
+        [SerializeField]
         private float currentTime;
+        [SerializeField]
         private float duration;
+        [SerializeField]
         private bool playing;
+        [SerializeField]
         private bool paused;
 
         private List<ITimelineAction> actions;
@@ -28,6 +24,11 @@ namespace SimulationSystem
         {
             actions = new List<ITimelineAction>();
             listeners = new List<ITimelineListener>();
+        }
+
+        public List<ITimelineAction> GetRawActions()
+        {
+            return actions;
         }
 
         /// <summary>
@@ -101,30 +102,31 @@ namespace SimulationSystem
         /// Start the timeline playing with the specified total duration.
         /// </summary>
         /// <param name="duration"></param>
-        public void Start(float duration)
+        public void StartTimeline(float duration)
         {
-            if (!playing)
-            {
+            //if (!playing)
+            //{
                 this.duration = duration;
 
-                Reset();
+                currentTime = 0.0f;
                 playing = true;
+                paused = false;
 
-                foreach (ITimelineListener listener in listeners)
-                {
-                    listener.OnStart(this);
-                }
+            foreach (ITimelineListener listener in listeners)
+            {
+                listener.OnStart(this);
             }
+            //}
         }
 
         /// <summary>
         /// Stop the timeline playing.
         /// </summary>
-        public void Stop()
+        public void StopTimeline()
         {
             if (playing)
             {
-                Reset();
+                ResetTimeline();
 
                 foreach (ITimelineListener listener in listeners)
                 {
@@ -163,11 +165,12 @@ namespace SimulationSystem
         /// <summary>
         /// Reset the timeline.
         /// </summary>
-        public void Reset()
+        public void ResetTimeline()
         {
             currentTime = 0.0f;
             playing = false;
             paused = false;
+            actions.Clear();
         }
 
         /// <summary>
@@ -183,21 +186,20 @@ namespace SimulationSystem
                 float start = currentTime;
                 float end = start + timeStep;
 
+                currentTime = end;
+
                 // Find actions to execute
-                foreach (ITimelineAction action in actions)
+                for (int i = 0; i < actions.Count; i++)
                 {
+                    ITimelineAction action = actions[i];
+
                     // Does the action fall within the executed period of time?
                     float time = action.GetTimeOfAction();
                     if (time >= start && time <= end)
                     {
-                        if (!action.HasPlayed())
-                        {
-                            action.Execute();
-                        }
+                        action.Execute();
                     }
                 }
-
-                currentTime = end;
 
                 // Check for finish
                 CheckFinishState();
@@ -212,9 +214,17 @@ namespace SimulationSystem
             // Check the time to see if its over the duration
             if (currentTime >= duration)
             {
-                currentTime = duration;
-                Stop();
+                //currentTime = duration;
+                StopTimeline();
             }
         }
+    }
+
+    public interface ITimelineListener
+    {
+        void OnStart(Timeline timeline);
+        void OnStop(Timeline timeline);
+        void OnPause(Timeline timeline);
+        void OnResume(Timeline timeline);
     }
 }

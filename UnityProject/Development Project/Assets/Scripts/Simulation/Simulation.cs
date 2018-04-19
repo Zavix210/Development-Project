@@ -45,6 +45,11 @@ public class Simulation : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        if(instance != null)
+        {
+            Debug.LogError("Multiple instances of singleton!");
+        }
+
         // TODO: Implement a safer singleton
         instance = this;
 
@@ -81,9 +86,15 @@ public class Simulation : MonoBehaviour
         }
 
         float delta = Time.deltaTime;
-        foreach(IUnityHook hook in hooks)
+        for(int i = 0; i < hooks.Count; i++)
         {
+            IUnityHook hook = hooks[i];
             hook.Update(delta);
         }
+
+        //foreach(IUnityHook hook in hooks)
+        //{
+        //    hook.Update(delta);
+        //}
     }
 }
