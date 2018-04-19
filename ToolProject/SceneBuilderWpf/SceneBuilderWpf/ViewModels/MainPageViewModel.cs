@@ -58,5 +58,9 @@ namespace SceneBuilderWpf.ViewModels
 
             }
         }
+
+        //public List<IEffect> list; 
+
     }
+
 }

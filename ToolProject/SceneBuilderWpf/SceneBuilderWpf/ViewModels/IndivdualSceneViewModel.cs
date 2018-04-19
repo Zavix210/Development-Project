@@ -16,6 +16,8 @@ namespace SceneBuilderWpf.ViewModels
         public Scene Scene;
         private Settings SceneSettings;
         private string _fileName;
+        public int SceneID;
+        public string ParentId = "";
 
         
         readonly ObservableCollection<DescisionPageViewModel> _descision = new ObservableCollection<DescisionPageViewModel>();
@@ -41,18 +43,19 @@ namespace SceneBuilderWpf.ViewModels
             Descision.Add(CurrentDescision);
             ScenceChoice scenceChoice = new ScenceChoice();
             Scene.Choice.Add(scenceChoice);
-            CurrentDescision = new DescisionPageViewModel(pagenav, scenceChoice);
+            
+            CurrentDescision = new DescisionPageViewModel(pagenav, scenceChoice, SceneID);
         }
 
-        public IndivdualSceneViewModel(IPageNavigationService pageNavigation) : base(pageNavigation)
+        public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid) : base(pageNavigation)
         {
+           
             Scene = new Scene();
             ScenceChoice scenceChoice = new ScenceChoice();
-
+            SceneID = sceneid;
             SceneSettings = Scene.GeneralSettings;
             Scene.Choice.Add(scenceChoice);
-
-            CurrentDescision = new DescisionPageViewModel(pageNavigation, scenceChoice);
+            CurrentDescision = new DescisionPageViewModel(pageNavigation, scenceChoice, SceneID);
         }
 
         public ICommand BrowseCommand

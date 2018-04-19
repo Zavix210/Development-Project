@@ -5,6 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SceneBuilderWpf"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:local1="clr-namespace:SceneBuilderWpf.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:sf="http://schemas.syncfusion.com/wpf"
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="1030"
       Title="ScenePage"
@@ -12,16 +15,9 @@
 
 
     <Grid>
+        <local1:ActionElements></local1:ActionElements>
         <TabControl Margin="-1.02,-5.114,-1,0" SelectedIndex="{Binding TabIndex , Mode=TwoWay}">
 
-
-
-            <TabControl.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="DeepSkyBlue" Offset="0"/>
-                    <GradientStop Color="AntiqueWhite" Offset="1"/>
-                </LinearGradientBrush>
-            </TabControl.BorderBrush>
 
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
@@ -35,8 +31,15 @@
 
             <TabItem Height="0" TabIndex="0">
                 <Grid>
-
-                    <DataGrid  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene}" Padding="25,0,25,0"  AutoGenerateColumns="False" HorizontalAlignment="Center" Height="252" Margin="0,20,0,0" VerticalAlignment="Top" Width="800" IsReadOnly="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene}" Padding="25,0,25,0"  AutoGenerateColumns="False" HorizontalAlignment="Center" Height="252" Margin="0,20,0,0" VerticalAlignment="Top" Width="800" IsReadOnly="True" Grid.ColumnSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Header="File Path" Binding="{Binding FileName}"/>
                             <DataGridTextColumn Header="Scene Brightness" Binding="{Binding SceneBrightness}"/>
@@ -47,8 +50,11 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
+                    <Button Grid.Column="2" VerticalAlignment="Bottom" Width="50"  Margin="350,0,0,0" Command="{Binding}">
+                        <materialDesign:PackIcon Kind="VectorPolygon" Height="20" Width="20" BorderBrush="{x:Null}" HorizontalAlignment="Center"    />
 
-                    <StackPanel Margin="10,282,604.02,0" Orientation="Vertical">
+                    </Button>
+                    <StackPanel Margin="0,0,0,0" Orientation="Vertical" Grid.Row="1">
                         <!-- Label has a default -5,-5,-5,-5 margin-->
                         <Label Content="File Path :" Margin="0,0,0,0"></Label>
 
@@ -68,18 +74,20 @@
                        
 
                     </StackPanel>
-                    <Grid Margin="460,282,155,0" >
+                    <Grid Margin="0,0,0,0" Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
                         <Label Content="Question Display Text :" Margin="0,0,0,0"></Label>
 
-                        <Grid Margin="0,0,10,0" VerticalAlignment="Top">
-                            <TextBox Width="200" Text="{Binding CurrentScene.QuestionText}"   Margin="5,20,0,0" HorizontalAlignment="Left"/>
-                            <Button Content="Add/Edit Decisions. " Command="{Binding DesicionPage}" Margin="0,20,0,0"  Width="155" HorizontalAlignment="Right"/>
+  
+                            <TextBox Width="200" Text="{Binding CurrentScene.QuestionText}"   Margin="5,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                            <Button Content="Add/Edit Decisions. " Command="{Binding DesicionPage}" Margin="0,20,0,0"  Width="155" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Top"/>
 
-                        </Grid>
 
-                        <Grid Height="36" Margin="10" VerticalAlignment="Center" >
 
-                            <Button Content="Add To Scenario. " Command="{Binding AddToScenario}" Width="150" HorizontalAlignment="Left"></Button>
+                        <Grid Height="36" Margin="10" VerticalAlignment="Bottom" >
                             <Button Content="Add New Scene. " Command="{Binding AddNewScene}" Width="150" HorizontalAlignment="Right"></Button>
                         </Grid>
                     </Grid>
@@ -137,6 +145,43 @@
                     <ComboBox  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene.CurrentDescision.NextScene}" Height="40" Width="200" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,30"/>
                     <Button Grid.Row="3" Grid.Column="0" Command="{Binding DesicionPage}" Content="Go Back." Width="100" HorizontalAlignment="Left" Height="30"/>
                     <Button Grid.Row="3" Grid.Column="2" Command="{Binding CurrentScene.AddDescion}" Content="Add Decision." Width="100" HorizontalAlignment="Center" Height="30"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Height="0" TabIndex="2">
+                <Grid>
+                    <sf:SfDiagram x:Name="diagramControl"  Grid.Column="0" >
+
+                        <!--Initialize Resources-->
+                        <sf:SfDiagram.Resources>
+                            <Style TargetType="sf:Node">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Border Background="{Binding Path=_Color}">
+                                                    <TextBlock TextWrapping="Wrap"  Text="{Binding Path=Name}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                   Foreground="White"/>
+                                                </Border>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="UnitHeight" Value="40"/>
+                                <Setter Property="UnitWidth" Value="90"/>
+                            </Style>
+                        </sf:SfDiagram.Resources>
+
+                        <!--Initialize Nodes-->
+                        <sf:SfDiagram.Nodes>
+                            <sf:DiagramCollection></sf:DiagramCollection>
+                        </sf:SfDiagram.Nodes>
+
+                        <!--Initialize Connectors-->
+                        <sf:SfDiagram.Connectors>
+                            <sf:DiagramCollection></sf:DiagramCollection>
+                        </sf:SfDiagram.Connectors>
+                    </sf:SfDiagram>
                 </Grid>
             </TabItem>
         </TabControl>

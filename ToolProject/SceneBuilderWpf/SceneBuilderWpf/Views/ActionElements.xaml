@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="SceneBuilderWpf.Views.ActionElements"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <Button Height="65" Padding="0,0,0,0" Margin="0,0,0,0">
+            <Grid Height="65" Margin="0,0,0,0" Width="300">
+                <materialDesign:PackIcon Kind="Fire" Height="60" Width="65" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="0,0,198,0" Padding="0,0,0,0"    />
+                <TextBox Text="Fire" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="47.167,40.893,162.833,-3.514" Width="90"/>
+            </Grid>
+        </Button>
+
+
+    </StackPanel>
+</UserControl>
