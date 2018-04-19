@@ -110,16 +110,19 @@ public class UIController : SimulationComponentBase
             Decision iDecision;
             if (decision.GetDecisionFromRoute(i, out iDecision))
             {
-                // Try to get the current override title or if not, the next title.
-                string decisionText;
-                if(decision.GetAttribute("OVERRIDE_TITLE", out decisionText) || iDecision.GetAttribute("TITLE", out decisionText))
-                {
-                    PlaceButton(i, decisionText);
-                }
-                else // Failed to get title
-                {
-                    Debug.LogWarning("Failed to get title from decision with ID: " + i);
-                }
+                string decisionText = iDecision.GetDisplayTitle();
+                PlaceButton(i, decisionText);
+
+                //// Try to get the current override title or if not, the next title.
+                //string decisionText;
+                //if(decision.GetAttribute("OVERRIDE_TITLE", out decisionText) || iDecision.GetAttribute("TITLE", out decisionText))
+                //{
+                //    PlaceButton(i, decisionText);
+                //}
+                //else // Failed to get title
+                //{
+                //    Debug.LogWarning("Failed to get title from decision with ID: " + i);
+                //}
             }
             else // Failed to get decision
             {

@@ -9,111 +9,7 @@ using InputObject = System.Object;
 namespace SimulationSystem
 {
     using DNode = SimulationSystem.DecisionNode<string, string, int>;
-
-    public class DecisionNode<KeyType, ValueType, IndexType>
-    {
-        /// <summary>
-        /// Attributes are the individual data elements of the decision,
-        /// they can vary from decision to decision.
-        /// </summary>
-        private Dictionary<KeyType, ValueType> attributes;
-
-        /// <summary>
-        /// Routes are the identifiers of the decisions which can be traversed
-        /// to through the decision system.
-        /// </summary>
-        private List<IndexType> routes;
-
-        /// <summary>
-        /// The Identifier is the unique identification method of the decision.
-        /// </summary>
-        private IndexType identifier;
-
-        /// <summary>
-        /// An instance of a wrapped decision which contains this.
-        /// </summary>
-        private Decision wrapper;
-
-        public IndexType Identifier { get { return identifier; } }
-        public Decision Wrapper { get { return wrapper; } }
-
-        public DecisionNode()
-        {
-            attributes = new Dictionary<KeyType, ValueType>();
-            routes = new List<IndexType>();
-        }
-
-        public void SetWrapper(Decision wrapper)
-        {
-            this.wrapper = wrapper;
-        }
-
-        public void SetIdentifier(IndexType identifier)
-        {
-            this.identifier = identifier;
-        }
-
-        public bool AddRoute(IndexType route)
-        {
-            if(!routes.Contains(route))
-            {
-                routes.Add(route);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool RemoveRoute(IndexType route)
-        {
-            return routes.Remove(route);
-        }
-
-        public List<IndexType> GetRoutes()
-        {
-            return routes;
-        }
-
-        public bool AddAttribute(KeyType key, ValueType value)
-        {
-            // Is the attribute not already stored?
-            if(!ContainsAttribute(key))
-            {
-                attributes.Add(key, value);
-                return true;
-            }
-            else // Attribute already exists
-            {
-                return false;
-            }
-        }
-
-        public bool RemoveAttribute(KeyType key)
-        {
-            return attributes.Remove(key);
-        }
-
-        public bool GetAttribute(KeyType key, out ValueType value)
-        {
-            // Try to get the attribute
-            if(attributes.TryGetValue(key, out value))
-            {
-                return true;
-            }
-            else // Attribute not found
-            {
-                return false;
-            }
-        }
-
-        public bool ContainsAttribute(KeyType key)
-        {
-            return attributes.ContainsKey(key);
-        }
-    }
-
+    
     public class DecisionMaker : SimulationComponentBase
     {
         private List<DNode> store;
@@ -144,6 +40,7 @@ namespace SimulationSystem
             DNode n2 = new DNode();
             n2.SetIdentifier(1);
             n2.AddAttribute("TITLE", "Go Left");
+            n2.AddAttribute("IS_FAIL_NODE", "TRUE");
             n2.AddAttribute("OVERRIDE_TITLE", "Go Back");
             Decision n2d = new Decision(this, n2);
             n2.SetWrapper(n2d);
@@ -151,10 +48,18 @@ namespace SimulationSystem
             DNode n3 = new DNode();
             n3.SetIdentifier(2);
             n3.AddAttribute("TITLE", "Go Right");
-            n3.AddAttribute("OVERRIDE_TITLE", "Go Back");
             Decision n3d = new Decision(this, n3);
             n3.SetWrapper(n3d);
 
+            DNode n4 = new DNode();
+            n4.SetIdentifier(2);
+            n4.AddAttribute("TITLE", "You Win");
+            Decision n4d = new Decision(this, n4);
+            n4.SetWrapper(n4d);
+
+            n3.AddRoute(n4.Identifier);
+
+            // Route from 1 to 2/3
             n1.AddRoute(n2.Identifier);
             n1.AddRoute(n3.Identifier);
 
