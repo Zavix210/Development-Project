@@ -85,7 +85,7 @@ public class DecisionController : SimulationComponentBase
                             Debug.LogWarning("Failed to get decision with ID " + choice);
                         }
                     }
-                    
+
                 }
                 break;
         }

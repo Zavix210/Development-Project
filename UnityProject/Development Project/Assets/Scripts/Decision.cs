@@ -48,8 +48,8 @@ public class DecisionSet
 
 public enum DecisionResult
 {
-    SUCCESS,
-    FAIL
+    Correct,
+    Incorrect
 }
 
 public class Decision

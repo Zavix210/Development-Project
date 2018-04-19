@@ -82,8 +82,8 @@ namespace SimulationSystem
             DecisionTimelineAction decisionAction = new DecisionTimelineAction(); // Create the action
 
             DecisionSet set = new DecisionSet(); // Create the decision set
-            set.AddDecision(new Decision(DecisionResult.FAIL, "Go Left", "Left is BAD")); // Create the decision choice
-            set.AddDecision(new Decision(DecisionResult.SUCCESS, "Go Right", "Right is GOOD")); // Create the decision choice
+            set.AddDecision(new Decision(DecisionResult.Incorrect, "Go Left", "Left is BAD")); // Create the decision choice
+            set.AddDecision(new Decision(DecisionResult.Correct, "Go Right", "Right is GOOD")); // Create the decision choice
             set.Time = 2.0f;
             decisionAction.SetDecisionSet(set); // Apply the set
 
