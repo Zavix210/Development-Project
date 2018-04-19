@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SimulationSystem
 {
-    using DNode = SimulationSystem.DecisionNode<string, string, int>;
+    using SceneNode = SimulationSystem.SimulationSceneNode<string, string, int>;
 
-    public class DecisionNode<KeyType, ValueType, IndexType>
+    public class SimulationSceneNode<KeyType, ValueType, IndexType>
     {
         /// <summary>
         /// Attributes are the individual data elements of the decision,
@@ -27,18 +27,18 @@ namespace SimulationSystem
         /// <summary>
         /// An instance of a wrapped decision which contains this.
         /// </summary>
-        private Decision wrapper;
+        private SimulationScene wrapper;
 
         public IndexType Identifier { get { return identifier; } }
-        public Decision Wrapper { get { return wrapper; } }
+        public SimulationScene Wrapper { get { return wrapper; } }
 
-        public DecisionNode()
+        public SimulationSceneNode()
         {
             attributes = new Dictionary<KeyType, ValueType>();
             routes = new List<IndexType>();
         }
 
-        public void SetWrapper(Decision wrapper)
+        public void SetWrapper(SimulationScene wrapper)
         {
             this.wrapper = wrapper;
         }
@@ -120,23 +120,26 @@ namespace SimulationSystem
 
     }
 
-    public class Decision
+    public class SimulationScene
     {
         private DecisionMaker decisionMaker;
-        private DNode wrappedDecision;
+        private SceneNode wrappedScene;
 
-        public int Identifier { get { return wrappedDecision.Identifier; } }
+        public int Identifier { get { return wrappedScene.Identifier; } }
 
-        public Decision(DecisionMaker decisionMaker, DNode decision)
+        public SimulationScene(DecisionMaker decisionMaker, SceneNode wrappedScene)
         {
             this.decisionMaker = decisionMaker;
-            wrappedDecision = decision;
+            this.wrappedScene = wrappedScene;
+
+            // Set the nodes wrapper to this
+            wrappedScene.SetWrapper(this);
         }
 
         public string GetDisplayTitle()
         {
             // Is self-node contained within one of the child nodes? (loop-back case)
-            Decision parentNode;
+            SimulationScene parentNode;
             if (GetParentFromChildren(out parentNode))
             {
                 // Get the override title
@@ -177,9 +180,9 @@ namespace SimulationSystem
             //}
         }
 
-        private bool GetParentFromChildren(out Decision parent)
+        private bool GetParentFromChildren(out SimulationScene parent)
         {
-            List<int> rawRoutes = wrappedDecision.GetRoutes();
+            List<int> rawRoutes = wrappedScene.GetRoutes();
             parent = null;
 
             // Iterate over all child route IDs
@@ -188,16 +191,16 @@ namespace SimulationSystem
                 bool flag = false;
 
                 // Get the decision node from the route ID
-                Decision decision;
-                if (GetDecisionFromRoute(route, out decision))
+                SimulationScene decision;
+                if (GetSceneFromRoute(route, out decision))
                 {
                     // Iterate over the routes in the child to check if this node is contained within it (a loop-back case)
-                    List<int> pRawRoutes = decision.wrappedDecision.GetRoutes();
+                    List<int> pRawRoutes = decision.wrappedScene.GetRoutes();
                     foreach (int pRoute in pRawRoutes)
                     {
                         // Get the child node
-                        Decision pDecision;
-                        if (GetDecisionFromRoute(pRoute, out pDecision))
+                        SimulationScene pDecision;
+                        if (GetSceneFromRoute(pRoute, out pDecision))
                         {
                             // Is this node equal to self?
                             if (pDecision.Identifier == Identifier)
@@ -243,7 +246,7 @@ namespace SimulationSystem
                 routes.Clear();
             }
 
-            List<int> rawRoutes = wrappedDecision.GetRoutes();
+            List<int> rawRoutes = wrappedScene.GetRoutes();
 
             // Copy elements into the provided route list
             foreach (int i in rawRoutes)
@@ -252,14 +255,14 @@ namespace SimulationSystem
             }
         }
 
-        public bool GetDecisionFromRoute(int route, out Decision decision)
+        public bool GetSceneFromRoute(int route, out SimulationScene scene)
         {
-            return decisionMaker.GetDecision(route, out decision);
+            return decisionMaker.GetDecision(route, out scene);
         }
 
         public bool GetAttribute(string key, out string value)
         {
-            return wrappedDecision.GetAttribute(key, out value);
+            return wrappedScene.GetAttribute(key, out value);
         }
     }
 }

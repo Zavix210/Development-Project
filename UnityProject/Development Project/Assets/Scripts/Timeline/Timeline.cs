@@ -175,27 +175,31 @@ namespace SimulationSystem
         /// <param name="timeStep"></param>
         public void QueryTimeline(float timeStep)
         {
-            float start = currentTime;
-            float end = start + timeStep;
-
-            // Find actions to execute
-            foreach (ITimelineAction action in actions)
+            // Ensure the simulation is playing but not paused
+            if (playing && !paused)
             {
-                // Does the action fall within the executed period of time?
-                float time = action.GetTimeOfAction();
-                if (time >= start && time <= end)
+                float start = currentTime;
+                float end = start + timeStep;
+
+                // Find actions to execute
+                foreach (ITimelineAction action in actions)
                 {
-                    if (!action.HasPlayed())
+                    // Does the action fall within the executed period of time?
+                    float time = action.GetTimeOfAction();
+                    if (time >= start && time <= end)
                     {
-                        action.Execute();
+                        if (!action.HasPlayed())
+                        {
+                            action.Execute();
+                        }
                     }
                 }
-            }
 
-            currentTime = end;
-            
-            // Check for finish
-            CheckFinishState();
+                currentTime = end;
+
+                // Check for finish
+                CheckFinishState();
+            }
         }
 
         /// <summary>

@@ -8,17 +8,17 @@ using InputObject = System.Object;
 
 namespace SimulationSystem
 {
-    using DNode = SimulationSystem.DecisionNode<string, string, int>;
+    using SceneNode = SimulationSystem.SimulationSceneNode<string, string, int>;
     
     public class DecisionMaker : SimulationComponentBase
     {
-        private List<DNode> store;
-        private DNode currentNode;
-        private DNode rootNode;
+        private List<SceneNode> store;
+        private SceneNode currentNode;
+        private SceneNode rootNode;
 
         public DecisionMaker(SimulationController controller) : base(controller)
         {
-            store = new List<DNode>();
+            store = new List<SceneNode>();
         }
 
         // Accept all messages
@@ -31,31 +31,27 @@ namespace SimulationSystem
         {
             // TEMPORARY TEST CODE
 
-            DNode n1 = new DNode();
+            SceneNode n1 = new SceneNode();
             n1.AddAttribute("TITLE", "Start");
             n1.SetIdentifier(0);
-            Decision n1d = new Decision(this, n1);
-            n1.SetWrapper(n1d);
+            SimulationScene n1d = new SimulationScene(this, n1);
 
-            DNode n2 = new DNode();
+            SceneNode n2 = new SceneNode();
             n2.SetIdentifier(1);
             n2.AddAttribute("TITLE", "Go Left");
             n2.AddAttribute("IS_FAIL_NODE", "TRUE");
             n2.AddAttribute("OVERRIDE_TITLE", "Go Back");
-            Decision n2d = new Decision(this, n2);
-            n2.SetWrapper(n2d);
+            SimulationScene n2d = new SimulationScene(this, n2);
 
-            DNode n3 = new DNode();
+            SceneNode n3 = new SceneNode();
             n3.SetIdentifier(2);
             n3.AddAttribute("TITLE", "Go Right");
-            Decision n3d = new Decision(this, n3);
-            n3.SetWrapper(n3d);
+            SimulationScene n3d = new SimulationScene(this, n3);
 
-            DNode n4 = new DNode();
+            SceneNode n4 = new SceneNode();
             n4.SetIdentifier(2);
             n4.AddAttribute("TITLE", "You Win");
-            Decision n4d = new Decision(this, n4);
-            n4.SetWrapper(n4d);
+            SimulationScene n4d = new SimulationScene(this, n4);
 
             n3.AddRoute(n4.Identifier);
 
@@ -102,7 +98,7 @@ namespace SimulationSystem
                 case (int)MessageDestination.DECISION_UI_CHOICE: // UI Button pressed
                     {
                         int choiceID = (int)message.Data;
-                        DNode resultNode;
+                        SceneNode resultNode;
 
                         // Get the node from the choice
                         if(!GetNode(choiceID, out resultNode))
@@ -118,25 +114,25 @@ namespace SimulationSystem
             }
         }
 
-        public bool GetDecision(int choiceID, out Decision decision)
+        public bool GetDecision(int choiceID, out SimulationScene scene)
         {
-            DNode dNode;
-            if(GetNode(choiceID, out dNode))
+            SceneNode sNode;
+            if(GetNode(choiceID, out sNode))
             {
-                decision = dNode.Wrapper;
+                scene = sNode.Wrapper;
                 return true;
             }
             else
             {
-                decision = null;
+                scene = null;
                 return false;
             }
         }
 
-        private bool GetNode(int choiceID, out DNode nextNode)
+        private bool GetNode(int choiceID, out SceneNode nextNode)
         {
             // Try to find the desired node
-            foreach(DNode node in store)
+            foreach(SceneNode node in store)
             {
                 // Is this node the desired node?
                 if (node.Identifier == choiceID)
@@ -151,7 +147,7 @@ namespace SimulationSystem
             return false;
         }
 
-        private void ChangeNode(DNode node)
+        private void ChangeNode(SceneNode node)
         {
             // Is the node valid?
             if (node != null)

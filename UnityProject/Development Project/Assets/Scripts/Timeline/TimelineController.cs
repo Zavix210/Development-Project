@@ -12,6 +12,7 @@ public class TimelineController : SimulationComponentBase, IUnityHook
     {
         timeline = new Timeline();
 
+        // Self register and hook into the unity messages
         Simulation simulation = Simulation.Instance;
         simulation.AddHook(this);
     }
@@ -62,6 +63,7 @@ public class TimelineController : SimulationComponentBase, IUnityHook
 
     public void Update(float deltaTime)
     {
-
+        // Query the timeline with the delta time
+        timeline.QueryTimeline(deltaTime);
     }
 }

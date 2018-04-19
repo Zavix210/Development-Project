@@ -41,11 +41,11 @@ public class VideoController : SimulationComponentBase
             if (message.Identifier == "DECISION_VALID")
             {
                 // Get the decision node from the message
-                Decision decision = (Decision)message.Data;
+                SimulationScene scene = (SimulationScene)message.Data;
 
                 // Try to get the decision attribute containing the video URL
                 string url; //filePath
-                if (decision.GetAttribute("VIDEO_URL", out url))
+                if (scene.GetAttribute("VIDEO_URL", out url))
                 {
                     // Right now the video is being loaded dynamically. There is only one video instance in the memory.(The video that is currently playing)
                     int width = 3840;

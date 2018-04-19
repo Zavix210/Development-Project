@@ -69,10 +69,10 @@ public class UIController : SimulationComponentBase
                     // Was the decision a valid decision?
                     if (message.Identifier == "DECISION_VALID")
                     {
-                        Decision decision = (Decision)message.Data;
+                        SimulationScene scene = (SimulationScene)message.Data;
 
                         // Create the UI buttons
-                        CreateButtonsForDecision(decision);
+                        CreateButtonsForDecision(scene);
                     }
                 }
                 break;
@@ -95,10 +95,10 @@ public class UIController : SimulationComponentBase
     /// Create the buttons which represent the choices of the specified decision
     /// </summary>
     /// <param name="decision"></param>
-    private void CreateButtonsForDecision(Decision decision)
+    private void CreateButtonsForDecision(SimulationScene scene)
     {
         // Get the routes
-        decision.GetRoutes(decisionChoices);
+        scene.GetRoutes(decisionChoices);
 
         // Store all active buttons
         StoreActiveButtons();
@@ -107,10 +107,10 @@ public class UIController : SimulationComponentBase
         foreach(int i in decisionChoices)
         {
             // Try to get the decision for the choice index
-            Decision iDecision;
-            if (decision.GetDecisionFromRoute(i, out iDecision))
+            SimulationScene iScene;
+            if (scene.GetSceneFromRoute(i, out iScene))
             {
-                string decisionText = iDecision.GetDisplayTitle();
+                string decisionText = iScene.GetDisplayTitle();
                 PlaceButton(i, decisionText);
 
                 //// Try to get the current override title or if not, the next title.
