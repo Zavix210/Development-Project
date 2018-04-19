@@ -4,12 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SceneBuilderWpf"
+      xmlns:local1="clr-namespace:SceneBuilderWpf.Views"
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="960"
       Title="MainPage"
       DataContext="{Binding MainPageModel, Source={StaticResource ViewModelLocator}}" Background="White">
 
     <Grid>
+       
         <Button Content="Create New Scenario" Command="{Binding ChangePagCommand}" Margin="47,343,672,52"></Button>
         <Button Content="Load Scenario" Margin="660,343,60,52" Command="{Binding LoadJsonFile}"></Button>
     </Grid>

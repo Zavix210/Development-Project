@@ -110,13 +110,7 @@
                     </ListViewItem>
 
                 </ListView>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <command:EventToCommand Command="{Binding ChangePagCommand}"
-                            PassEventArgsToCommand="True" />
 
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
             </StackPanel>
         </Grid>
 

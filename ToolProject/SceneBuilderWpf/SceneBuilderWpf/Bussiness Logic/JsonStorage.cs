@@ -10,6 +10,7 @@ namespace SceneBuilderWpf.Bussiness_Logic
 {
     public class JsonStorage : DocumentStorage
     {
+
         public override string GetData(string filename) // Retrive the Json object which has already been saved. 
         {
             throw new NotImplementedException();
@@ -22,7 +23,7 @@ namespace SceneBuilderWpf.Bussiness_Logic
 
         public override void PersistDocument(string serializedScene, string targetFileName) // Save the Json Object to a file 
         {
-            using (StreamWriter file = File.CreateText(string.Format(@"C:\Temp\{0}.json ", targetFileName)))
+            using (StreamWriter file = File.CreateText(string.Format(@"C:\Temp\{0}.json", targetFileName)))
             {
                 file.WriteLine(serializedScene);
             }
