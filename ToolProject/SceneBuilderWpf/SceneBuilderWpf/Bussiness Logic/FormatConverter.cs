@@ -1,6 +1,7 @@
 ﻿using SceneBuilderWpf.DataModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,14 @@ namespace SceneBuilderWpf.Bussiness_Logic
         /// <returns></returns>
         public Scene ConvertFormat(string sourceFileName)
         {
-            return null;
+            Scene Scenario;
+            using (StreamReader reader = new StreamReader(File.OpenRead(sourceFileName)))
+            {
+                string json = reader.ReadToEnd();
+                Scenario = _inputParser.ParseInput(json);
+            }
+
+            return Scenario;
         }
     }
 }

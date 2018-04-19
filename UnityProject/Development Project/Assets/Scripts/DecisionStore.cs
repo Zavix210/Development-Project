@@ -1,53 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
 
-// TODO: These will allow compilation while input middle-man library is being developed.
-using InputObject = System.Object;
+//// TODO: These will allow compilation while input middle-man library is being developed.
+//using InputObject = System.Object;
 
-namespace SimulationSystem
-{
-    // TODO: implement details of the decision class
-    public class Decision
-    {
-        public Decision()
-        {
+//namespace SimulationSystem
+//{
+//    public class Node<T>
+//    {
+//        private Node<T>[] choices;
+//        private T data;
 
-        }
-    }
+//        public Node<T>[] Choices { get { return choices; } }
+//        public T Data { get { return data; } set { data = value; } }
 
-    public class DecisionNode<T>
-    {
-        private DecisionNode<T>[] choices;
-        private T data;
+//        public Node(Node<T>[] choices)
+//        {
+//            this.choices = choices;
+//        }
+//    }
 
-        public DecisionNode<T>[] Choices { get { return choices; } }
-        public T Data { get { return data; } set { data = value; } }
+//    public class DecisionStore<T>
+//    {
+//        private List<T> nodes;
+//        private T root;
 
-        public DecisionNode(DecisionNode<T>[] choices)
-        {
-            this.choices = choices;
-        }
-    }
+//        public int NodeCount { get { return nodes.Count; } }
+//        public Node<T> Root { get { return root; } }
 
-    public class DecisionStore
-    {
-        private List<DecisionNode<Decision>> nodes;
-        private DecisionNode<Decision> root;
+//        public DecisionStore()
+//        {
+//            nodes = new List<Node<T>>();
+//            root = null;
+//        }
 
-        public int NodeCount { get { return nodes.Count; } }
-        public DecisionNode<Decision> Root { get { return root; } }
-
-        public DecisionStore()
-        {
-            nodes = new List<DecisionNode<Decision>>();
-            root = null;
-        }
-
-        public bool Load(InputObject data)
-        {
-            // TODO: Implement data loading
-
-            return true;
-        }
-    }
-}
+//        public Node<T> AddNode()
+//    }
+//}

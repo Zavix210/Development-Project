@@ -282,6 +282,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Decision.cs" />
     <Compile Include="Assets\Scripts\DecisionMaker.cs" />
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
     <Compile Include="Assets\Scripts\MessageDestination.cs" />
@@ -296,6 +297,8 @@
     <Compile Include="Assets\Scripts\SkyboxPanoramicShaderGUI.cs" />
     <Compile Include="Assets\Scripts\StateController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\TimeController.cs" />
+    <Compile Include="Assets\Scripts\TimeDisplay.cs" />
     <Compile Include="Assets\Scripts\UI\AdjustableText.cs" />
     <Compile Include="Assets\Scripts\UI\CircularUI.cs" />
     <Compile Include="Assets\Scripts\UI\Selectable.cs" />

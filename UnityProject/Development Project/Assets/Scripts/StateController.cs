@@ -42,7 +42,7 @@ public class StateController : SimulationComponentBase, IStateListener<Simulatio
             if (oldState == SimulationState.Loading)
             {
                 // Propagate a message to all listeners to notify them that the simulation has loaded.
-                Message message = new Message((int)MessageDestination.SIMULATION_ROUTE, "SIM_LOADED", null);
+                Message message = new Message((int)MessageDestination.SIMULATION_LOADING, "", null);
                 Controller.PropagateMessage(message);
             }
             else
@@ -50,13 +50,13 @@ public class StateController : SimulationComponentBase, IStateListener<Simulatio
                 if (newState == SimulationState.Simulating) // Menu -> Simulation (Started simulation)
                 {
                     // Propagate a message to all listeners to notify them that the simulation has started.
-                    Message message = new Message((int)MessageDestination.SIMULATION_ROUTE, "SIM_START", null);
+                    Message message = new Message((int)MessageDestination.SIMULATION_START, "", null);
                     Controller.PropagateMessage(message);
                 }
                 else if (newState == SimulationState.Menu) // Simulation -> Menu (Finished simulation)
                 {
                     // Propagate a message to all listners to notify them that the simulation has ended.
-                    Message message = new Message((int)MessageDestination.SIMULATION_ROUTE, "SIM_END", null);
+                    Message message = new Message((int)MessageDestination.SIMULATION_END, "", null);
                     Controller.PropagateMessage(message);
                 }
             }

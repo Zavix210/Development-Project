@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SceneBuilderWpf.Bussiness_Logic;
 using SceneBuilderWpf.DataModels;
 using System;
 using System.Collections.Generic;
@@ -49,11 +50,12 @@ namespace SceneBuilderWpf.ViewModels
             filedia.ShowDialog();
             if (filedia.CheckFileExists && filedia.CheckPathExists)
             {
-                using (StreamReader reader = new StreamReader(filedia.OpenFile()))
-                {
-                    string json = reader.ReadToEnd();
-                    var sceneobject = JsonConvert.DeserializeObject<Scene>(json);
-                }
+
+                IFormatConvert format = new FormatConverter();
+                format.ConvertFormat(filedia.FileName);
+
+
+
             }
         }
     }
