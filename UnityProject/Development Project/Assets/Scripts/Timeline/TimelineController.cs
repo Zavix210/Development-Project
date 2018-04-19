@@ -4,7 +4,7 @@ using UnityEngine;
 using SimulationSystem;
 using System;
 
-public class TimelineController : SimulationComponentBase, ITimelineListener
+public class TimelineController : SimulationComponentBase
 {
     private Timeline timeline;
 
@@ -23,28 +23,37 @@ public class TimelineController : SimulationComponentBase, ITimelineListener
 
     }
 
-    public void OnPause(Timeline timeline)
-    {
-        //Message message = new Message((int)MessageDestination.SIMULATION_PAUSE)
-    }
-
     public override void OnReceivedMessage(Message message)
     {
-
-    }
-
-    public void OnResume(Timeline timeline)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnStart(Timeline timeline)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnStop(Timeline timeline)
-    {
-        throw new NotImplementedException();
+        switch (message.Route)
+        {
+            case (int)MessageDestination.SIMULATION_PAUSE:
+                {
+                    // Pause the timeline
+                    timeline.SetPauseState(true);
+                }
+                break;
+            case (int)MessageDestination.SIMULATION_RESUME:
+                {
+                    // Pause the timeline
+                    timeline.SetPauseState(false);
+                }
+                break;
+            case (int)MessageDestination.SIMULATION_START:
+                {
+                    timeline.Reset();
+                }
+                break;
+            case (int)MessageDestination.SIMULATION_END:
+                {
+                    timeline.Reset();
+                }
+                break;
+            case (int)MessageDestination.DECISION_CHANGE: // A Scene change has occurred
+                {
+                    //timeline.Reset();
+                }
+                break;
+        }
     }
 }

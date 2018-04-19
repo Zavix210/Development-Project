@@ -145,7 +145,7 @@ namespace SimulationSystem
                 {
                     if (!action.HasPlayed())
                     {
-                        action.Execute(this);
+                        action.Execute();
                     }
                 }
             }

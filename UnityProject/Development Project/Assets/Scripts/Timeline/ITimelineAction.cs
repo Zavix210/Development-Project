@@ -7,7 +7,7 @@ namespace SimulationSystem
 {
     public interface ITimelineAction
     {
-        void Execute(Timeline timeline);
+        void Execute();
         float GetTimeOfAction();
         int GetActionID();
         bool HasPlayed();
@@ -52,12 +52,12 @@ namespace SimulationSystem
             hasPlayed = false;
         }
 
-        public void Execute(Timeline timeline)
+        public void Execute()
         {
             if (!hasPlayed)
             {
                 hasPlayed = true;
-                ExecuteAction(timeline);
+                ExecuteAction();
             }
             else
             {
@@ -65,6 +65,6 @@ namespace SimulationSystem
             }
         }
 
-        public abstract void ExecuteAction(Timeline timeline);
+        public abstract void ExecuteAction();
     }
 }

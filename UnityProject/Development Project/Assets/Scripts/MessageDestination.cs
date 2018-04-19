@@ -15,5 +15,7 @@ public enum MessageDestination
     DECISION_CHANGE = 37, // A decision has been made (some change has occurred)
     DECISION_UI_CHOICE = 38, // The UI was pressed for a decision button
 
+    SCENE_CHANGE = 50, // A scene has changed
+
 
 }

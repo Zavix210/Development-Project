@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimulationSystem;
+using System;
 
-public class DecisionTimelineAction : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class DecisionTimelineAction : TimelineActionBase
+{
+    public override void ExecuteAction()
+    {
+        Simulation sim = Simulation.Instance;
+        SimulationController controller = sim.Controller;       
+    }
 }
