@@ -36,6 +36,10 @@ namespace SimulationSystem
             n1.SetIdentifier(0);
             n1.AddAttribute("DURATION", "10.0");
 
+            TransitionTimelineAction action = new TransitionTimelineAction(1);
+            action.SetTimeOfAction(2.0f);
+            n1.AddAction(action);
+
             SceneNode n2 = new SceneNode();
             SimulationScene n2d = new SimulationScene(this, n2);
             n2.SetIdentifier(1);
@@ -78,18 +82,18 @@ namespace SimulationSystem
                     break;
                 case (int)MessageDestination.DECISION_UI_CHOICE: // UI Button pressed
                     {
-                        int choiceID = (int)message.Data;
-                        SceneNode resultNode;
+                        //int choiceID = (int)message.Data;
+                        //SceneNode resultNode;
 
-                        // Get the node from the choice
-                        if(!GetNode(choiceID, out resultNode))
-                        {
-                            // Log a warning about the problem
-                            Debug.LogWarning("Did not find a node in the store for the specified ID: " + choiceID);
-                        }
+                        //// Get the node from the choice
+                        //if(!GetNode(choiceID, out resultNode))
+                        //{
+                        //    // Log a warning about the problem
+                        //    Debug.LogWarning("Did not find a node in the store for the specified ID: " + choiceID);
+                        //}
 
-                        // Change the node
-                        ChangeNode(resultNode);
+                        //// Change the node
+                        //ChangeNode(resultNode);
                     }
                     break;
             }
@@ -103,7 +107,7 @@ namespace SimulationSystem
             if (!GetNode(routeID, out resultNode))
             {
                 // Log a warning about the problem
-                Debug.LogWarning("Did not find a node in the store for the specified ID: " + routeID);
+                Debug.LogError("Did not find a node in the store for the specified ID: " + routeID);
             }
 
             // Change the node

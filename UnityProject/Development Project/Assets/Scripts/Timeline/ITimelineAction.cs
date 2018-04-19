@@ -12,10 +12,6 @@ namespace SimulationSystem
         /// </summary>
         void Execute();
         /// <summary>
-        /// Reset the state of the timeline action.
-        /// </summary>
-        void Reset();
-        /// <summary>
         /// Get the time which the action should be played.
         /// </summary>
         /// <returns></returns>
@@ -25,11 +21,6 @@ namespace SimulationSystem
         /// </summary>
         /// <returns></returns>
         int GetActionID();
-        /// <summary>
-        /// Check if the action has been played yet.
-        /// </summary>
-        /// <returns></returns>
-        bool HasPlayed();
     }
 
     public abstract class TimelineActionBase : ITimelineAction
@@ -38,7 +29,6 @@ namespace SimulationSystem
 
         private float timeOfAction;
         private int actionID;
-        private bool hasPlayed;
 
         public TimelineActionBase()
         {
@@ -60,27 +50,9 @@ namespace SimulationSystem
             return timeOfAction;
         }
 
-        public bool HasPlayed()
-        {
-            return hasPlayed;
-        }
-
-        public void Reset()
-        {
-            hasPlayed = false;
-        }
-
         public void Execute()
         {
-            if (!hasPlayed)
-            {
-                hasPlayed = true;
-                ExecuteAction();
-            }
-            else
-            {
-                Debug.LogWarning("Tried to play an action multiple times");
-            }
+            ExecuteAction();
         }
 
         public abstract void ExecuteAction();

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using SimulationSystem;
-using System;
 
 public class TimelineController : SimulationComponentBase, IUnityHook
 {
@@ -13,7 +11,7 @@ public class TimelineController : SimulationComponentBase, IUnityHook
         timeline = new Timeline();
 
         // Self register and hook into the unity messages
-        Simulation simulation = Simulation.Instance;
+        Simulation simulation = GameObject.FindObjectOfType<Simulation>();
         simulation.AddHook(this);
     }
 
@@ -45,17 +43,42 @@ public class TimelineController : SimulationComponentBase, IUnityHook
                 break;
             case (int)MessageDestination.SIMULATION_START:
                 {
-                    timeline.Reset();
+                    //timeline.Reset();
                 }
                 break;
             case (int)MessageDestination.SIMULATION_END:
                 {
-                    timeline.Reset();
+                    timeline.ResetTimeline();
                 }
                 break;
             case (int)MessageDestination.SCENE_CHANGE: // A Scene change has occurred
                 {
-                    //timeline.Reset();
+                    if (message.Identifier == "VALID")
+                    {
+                        SimulationScene scene = (SimulationScene)message.Data;
+
+                        // Get the timeline actions and push them to the timeline
+                        List<ITimelineAction> actions = timeline.GetRawActions();
+                        scene.GetActions(actions);
+
+                        string durationStr;
+                        if (scene.GetAttribute("DURATION", out durationStr))
+                        {
+                            float duration;
+                            if (float.TryParse(durationStr, out duration))
+                            {
+                                timeline.StartTimeline(duration);
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Failed to parse scene duration");
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Failed to get scene duration");
+                        }
+                    }
                 }
                 break;
         }
