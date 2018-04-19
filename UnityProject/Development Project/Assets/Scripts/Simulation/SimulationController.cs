@@ -7,7 +7,8 @@ namespace SimulationSystem
     {
         Loading,
         Menu,
-        Simulating
+        Simulating,
+        Paused
     }
 
     public class SimulationController
@@ -157,6 +158,64 @@ namespace SimulationSystem
                 return true;
             }
             else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Pause the simulation and return whether the state of the simulation was actually changed.
+        /// </summary>
+        /// <returns></returns>
+        public bool PauseSimulation()
+        {
+            StateController stateController = GetSimulationComponent<StateController>();
+
+            // Ensure the current state is simulating
+            if (stateController.CurrentState == SimulationState.Simulating)
+            {
+                stateController.SetState(SimulationState.Paused);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Resume the simulation and return whether the state of the simulation was actually changed.
+        /// </summary>
+        /// <returns></returns>
+        public bool ResumeSimulation()
+        {
+            StateController stateController = GetSimulationComponent<StateController>();
+
+            // Ensure the current state is paused
+            if (stateController.CurrentState == SimulationState.Paused)
+            {
+                stateController.SetState(SimulationState.Simulating);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool ToggleSimulationPause()
+        {
+            StateController stateController = GetSimulationComponent<StateController>();
+
+            if(stateController.CurrentState == SimulationState.Simulating) // Simulating -> Paused
+            {
+                return PauseSimulation();
+            }
+            else if(stateController.CurrentState == SimulationState.Paused) // Paused -> Simulating
+            {
+                return ResumeSimulation();
+            }
+            else // Not currently either state
             {
                 return false;
             }

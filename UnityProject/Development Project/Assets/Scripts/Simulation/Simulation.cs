@@ -53,5 +53,10 @@ public class Simulation : MonoBehaviour
         {
             controller.StopSimulation();
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            controller.ToggleSimulationPause();
+        }
     }
 }
