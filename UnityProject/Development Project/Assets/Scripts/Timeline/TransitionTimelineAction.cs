@@ -18,6 +18,8 @@ public class TransitionTimelineAction : TimelineActionBase
         Simulation sim = Simulation.Instance;
         SimulationController controller = sim.Controller;
 
+        Debug.Log("TRANSITION");
+
         // Change scene
         SimulationSceneController sceneController = controller.GetSimulationComponent<SimulationSceneController>();
         sceneController.ChangeScene(routeID);

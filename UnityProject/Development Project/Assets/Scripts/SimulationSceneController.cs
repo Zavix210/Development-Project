@@ -16,6 +16,8 @@ namespace SimulationSystem
         private SceneNode currentNode;
         private SceneNode rootNode;
 
+        public SimulationScene CurrentScene { get { return currentNode.Wrapper; } }
+
         public SimulationSceneController(SimulationController controller) : base(controller)
         {
             store = new List<SceneNode>();
@@ -73,6 +75,9 @@ namespace SimulationSystem
 
             // START DEMONSTRATION CODE
 
+            SceneNode endNode = CreateSceneNode(75);
+            endNode.AddAttribute("DURATION", "10.0");
+
             SceneNode testNode = new SceneNode(); // Create Node
             testNode.AddAttribute("DURATION", "10.0"); // DURATION = the length of a scene (length of video most likely)
             testNode.SetIdentifier(74); // Set Unique ID
@@ -88,6 +93,11 @@ namespace SimulationSystem
             decisionAction.SetDecisionSet(set); // Apply the set
 
             testNode.AddAction(decisionAction); // Add the action to the node
+
+            TransitionTimelineAction transitionAction = new TransitionTimelineAction(endNode.Identifier);
+            transitionAction.SetTimeOfAction(9.0f);
+
+            testNode.AddAction(transitionAction);
 
             rootNode = testNode; // Set the root as the test node
 
@@ -152,6 +162,11 @@ namespace SimulationSystem
                         //ChangeNode(resultNode);
                     }
                     break;
+                case (int)MessageDestination.TIMELINE_FINISH: // Timeline has finished
+                    {
+
+                    }
+                    break;
             }
         }
 
@@ -208,6 +223,9 @@ namespace SimulationSystem
             // Is the node valid?
             if (node != null)
             {
+                // Apply the current node
+                currentNode = node;
+
                 // Pass a message notifying any components that the decision was VALID
                 Message resultMessage = new Message((int)MessageDestination.SCENE_CHANGE, "VALID", node.Wrapper);
                 Controller.PropagateMessage(resultMessage);

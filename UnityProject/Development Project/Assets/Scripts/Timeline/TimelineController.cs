@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using SimulationSystem;
+using System;
 
-public class TimelineController : SimulationComponentBase, IUnityHook
+public class TimelineController : SimulationComponentBase, IUnityHook, ITimelineListener
 {
     private Timeline timeline;
 
     public TimelineController(SimulationController controller) : base(controller)
     {
         timeline = new Timeline();
+        timeline.AddListener(this);
 
         // Self register and hook into the unity messages
         Simulation simulation = GameObject.FindObjectOfType<Simulation>();
@@ -18,6 +20,17 @@ public class TimelineController : SimulationComponentBase, IUnityHook
     public override bool IsMessageRouteValid(int route)
     {
         return true;
+    }
+
+    /// <summary>
+    /// Called when the timeline finishes.
+    /// </summary>
+    /// <param name="timeline"></param>
+    public void OnTimelineFinished(Timeline timeline)
+    {
+        // Post a message to notify the timeline finishing
+        Message message = new Message((int)MessageDestination.TIMELINE_FINISH, "", null);
+        Controller.PropagateMessage(message);
     }
 
     public override void OnInitialize()

@@ -24,7 +24,7 @@ public class VideoController : SimulationComponentBase
 
     public override bool IsMessageRouteValid(int route)
     {
-        return route == (int)MessageDestination.SCENE_CHANGE;
+        return route == (int)MessageDestination.SCENE_CHANGE || route == (int)MessageDestination.SIMULATION_PAUSE || route == (int)MessageDestination.SIMULATION_RESUME;
     }
 
     public override void OnInitialize()
@@ -56,7 +56,15 @@ public class VideoController : SimulationComponentBase
                 {
                     Debug.LogWarning("Failed to get 'VIDEO_URL' attribute from scene node");
                 }
-            }          
+            }
+        }
+        else if (message.Route == (int)MessageDestination.SIMULATION_PAUSE) // Pause Video
+        {
+            
+        }
+        else if (message.Route == (int)MessageDestination.SIMULATION_RESUME) // Resume Video
+        {
+
         }
     }
 }
