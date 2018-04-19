@@ -1,4 +1,5 @@
 ﻿using SceneBuilderWpf.Bussiness_Logic;
+using SceneBuilderWpf.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,8 @@ namespace SceneBuilderWpf.ViewModels
     {
         private int _tabindex = 0;
         private IFormatConvert formatConvert = new FormatConverter();
+        private int SceneID = 1; 
+        private string parentID = "";
         private IndivdualSceneViewModel _currentSceneViewModel;
         private IndivdualSceneViewModel _currentComboScene;
         readonly ObservableCollection<IndivdualSceneViewModel> _Scenes = new ObservableCollection<IndivdualSceneViewModel>();
@@ -45,9 +48,13 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
+        private Scene firstscene;
+
         public ScenePageViewModel(IPageNavigationService pageNavigation) : base(pageNavigation)
         {
-            CurrentScene = new IndivdualSceneViewModel(pageNavigation);
+            CurrentScene = new IndivdualSceneViewModel(pageNavigation, SceneID);
+            Scenes.Add(CurrentScene);
+            firstscene = CurrentScene.Scene; 
             CurrentComboScene = CurrentScene;
         }
 
@@ -87,22 +94,9 @@ namespace SceneBuilderWpf.ViewModels
 
         private void NewScene()
         {
-            CurrentScene = new IndivdualSceneViewModel(pagenav);
+            SceneID++;
+            CurrentScene = new IndivdualSceneViewModel(pagenav,SceneID);
             Scenes.Add(CurrentScene);
-        }
-
-        public ICommand AddToScenario
-        {
-            get
-            {
-                return new CommandHandler(() => this.AddScenario());
-            }
-        }
-
-        private void AddScenario()
-        {
-            Scenes.Add(CurrentScene);
-            CurrentScene = new IndivdualSceneViewModel(pagenav);
         }
 
         public ICommand SerliazeSave
@@ -115,7 +109,7 @@ namespace SceneBuilderWpf.ViewModels
 
         private void SerilazeAndSave()
         {
-            formatConvert.ConvertFormat(CurrentScene.Scene, "TestSerliaze");
+            formatConvert.ConvertFormat(firstscene, "TestSerliaze");
         }
     }
 }

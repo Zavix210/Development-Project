@@ -14,10 +14,12 @@ namespace SceneBuilderWpf.ViewModels
         private IndivdualSceneViewModel _nextscene;
 
         private ScenceChoice scenceChoice;
+        private int _sceneid; 
 
-        public DescisionPageViewModel(IPageNavigationService pageNavigation, ScenceChoice choice) : base(pageNavigation)
+        public DescisionPageViewModel(IPageNavigationService pageNavigation, ScenceChoice choice, int SceneID) : base(pageNavigation)
         {
             scenceChoice = choice;
+            _sceneid = SceneID;
         }
 
         public string Feedback
@@ -45,8 +47,8 @@ namespace SceneBuilderWpf.ViewModels
             get => _nextscene;
             set
             {
-                
                 _nextscene = value;
+                _nextscene.ParentId = _sceneid.ToString();
                 scenceChoice.Whereyougo = _nextscene.Scene;
                 OnPropertyChanged(nameof(NextScene));
             }
