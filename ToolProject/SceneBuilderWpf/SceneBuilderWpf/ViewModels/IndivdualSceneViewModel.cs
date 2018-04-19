@@ -7,7 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace SceneBuilderWpf.ViewModels
 {
@@ -22,12 +24,16 @@ namespace SceneBuilderWpf.ViewModels
         
         readonly ObservableCollection<DescisionPageViewModel> _descision = new ObservableCollection<DescisionPageViewModel>();
         public ObservableCollection<DescisionPageViewModel> Descision => _descision;
-
+        private ScenceChoice _scenceChoice = new ScenceChoice();
         private DescisionPageViewModel _currentDescisionViewModel;
         public DescisionPageViewModel CurrentDescision
         {
             get => _currentDescisionViewModel;
-            set => _currentDescisionViewModel = value;
+            set
+            {
+                _currentDescisionViewModel = value;
+                OnPropertyChanged(nameof(CurrentDescision));
+            }
         }
 
         public ICommand AddDescion
@@ -40,22 +46,56 @@ namespace SceneBuilderWpf.ViewModels
 
         public void AddDecsi()
         {
+
+            if (_scenceChoice.Whereyougo == null)
+            {
+                var x = Xceed.Wpf.Toolkit.MessageBox.Show("This descsion has no direction are you sure you wish to put this decision in?"
+                    , "Do you want to contuine?", MessageBoxButton.YesNo);
+                if (x != MessageBoxResult.Yes)
+                    return;
+            }
+            else
+            {
+                CurrentDescision.NextScene.ParentId = SceneID.ToString();
+                _scenceChoice.Whereyougo = CurrentDescision.NextScene.Scene;
+            }
+
+            Scene.Choice.Add(_scenceChoice);
+
+            _scenceChoice = new ScenceChoice();
+            Scene.Choice.Add(_scenceChoice);
+
+            CurrentDescision = new DescisionPageViewModel(pagenav, _scenceChoice, SceneID);
             Descision.Add(CurrentDescision);
+<<<<<<< Updated upstream
             ScenceChoice scenceChoice = new ScenceChoice();
             Scene.Choice.Add(scenceChoice);
             
             CurrentDescision = new DescisionPageViewModel(pagenav, scenceChoice, SceneID);
+=======
+            
+
+
+>>>>>>> Stashed changes
         }
 
         public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid) : base(pageNavigation)
         {
            
             Scene = new Scene();
+<<<<<<< Updated upstream
             ScenceChoice scenceChoice = new ScenceChoice();
             SceneID = sceneid;
             SceneSettings = Scene.GeneralSettings;
             Scene.Choice.Add(scenceChoice);
             CurrentDescision = new DescisionPageViewModel(pageNavigation, scenceChoice, SceneID);
+=======
+            SceneID = sceneid;
+            SceneSettings = Scene.GeneralSettings;
+            
+            CurrentDescision = new DescisionPageViewModel(pageNavigation, _scenceChoice, SceneID);
+            Descision.Add(CurrentDescision);
+>>>>>>> Stashed changes
         }
 
         public ICommand BrowseCommand

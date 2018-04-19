@@ -117,6 +117,10 @@
     <Compile Include="DataModels\Settings.cs" />
     <Compile Include="ViewModels\DescisionPageViewModel.cs" />
     <Compile Include="ViewModels\IndivdualSceneViewModel.cs" />
+<<<<<<< Updated upstream
+=======
+    <Compile Include="ViewModels\MainViewModel.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Views\ActionElements.xaml.cs">
       <DependentUpon>ActionElements.xaml</DependentUpon>
     </Compile>

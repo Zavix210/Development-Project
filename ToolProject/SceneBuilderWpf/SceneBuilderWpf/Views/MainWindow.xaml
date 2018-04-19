@@ -38,10 +38,10 @@
         <Grid Height="60" VerticalAlignment="Top" OpacityMask="Black" Background="#FF2654B6">
             <TextBlock Text="Scenario Builder!" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"  FontSize="22"></TextBlock>
             <StackPanel Width="100" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Width="50" Height="50" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonMinmise" VerticalAlignment="Center" Foreground="White" >
+                <Button Width="50" Height="50" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Command="{Binding Minmize}" VerticalAlignment="Center" Foreground="White" >
                     <materialDesign:PackIcon Kind="WindowMinimize" Height="20" Width="20" BorderBrush="{x:Null}" HorizontalAlignment="Center"   />
                 </Button>
-                <Button Width="50" Height="50" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonShutdown" VerticalAlignment="Center" Foreground="White" >
+                <Button Command="{Binding ShutDown}" Width="50" Height="50" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="{x:Null}"  VerticalAlignment="Center" Foreground="White" >
                     <materialDesign:PackIcon Kind="Power" Height="20" Width="20" BorderBrush="{x:Null}" HorizontalAlignment="Center"    />
                 </Button>
 
@@ -61,7 +61,7 @@
                 <ListView BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF1368BD" >
 
                     <ListViewItem Height="60" Padding="0,0,0,0" >
-                        <Button Padding="0,0,0,0" Height="60" Width="200">
+                        <Button Command="{Binding HomeCommand }" Padding="0,0,0,0" Height="60" Width="200">
                             <StackPanel Orientation="Horizontal" Margin="-80,0,0,0"   >
                                 <materialDesign:PackIcon  Kind="Home" Width="25" Height="25" VerticalAlignment="Center"/>
                                 <TextBlock Text="Home" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />
@@ -71,7 +71,7 @@
 
                     
                     <ListViewItem Height="60" Padding="0,0,0,0" >
-                        <Button Padding="0,0,0,0" Height="60" Width="200">
+                        <Button Command="{Binding SceneCommand}" Padding="0,0,0,0" Height="60" Width="200">
                             <StackPanel Orientation="Horizontal" Margin="5,0,0,0"   >
                                 <materialDesign:PackIcon Kind="Creation" Width="25" Height="25" VerticalAlignment="Center"/>
                                 <TextBlock Text="Create new scenario" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />

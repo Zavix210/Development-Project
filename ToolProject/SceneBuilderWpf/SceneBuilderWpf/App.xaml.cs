@@ -26,8 +26,8 @@ namespace SceneBuilderWpf
             MainFrame = mainWindow.MainFrame;
             pageNavigation = new PageNavigationService(mainWindow.MainFrame);
 
-            var x = Application.Current.Resources["ViewModelLocator"];
-            mainWindow.DataContext = x;
+            var x = (ViewModelLocator)Application.Current.Resources["ViewModelLocator"];
+            mainWindow.DataContext = x.Main;
 
             pageNavigation.Navigate<MainPage>();
         }

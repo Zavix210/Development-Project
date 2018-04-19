@@ -36,14 +36,5 @@ namespace SceneBuilderWpf
             ButtonOpen.Visibility = Visibility.Collapsed;
         }
 
-        private void ButtonShutdown(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void ButtonMinmise(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
     }
 }
