@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -282,7 +284,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\DecisionMaker.cs" />
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
     <Compile Include="Assets\Scripts\MessageDestination.cs" />
     <Compile Include="Assets\Scripts\Messaging\IMessageReceiver.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Assets\Scripts\Simulation\SimulationComponentBase.cs" />
     <Compile Include="Assets\Scripts\Simulation\SimulationController.cs" />
     <Compile Include="Assets\Scripts\SimulationScene.cs" />
+    <Compile Include="Assets\Scripts\SimulationSceneController.cs" />
     <Compile Include="Assets\Scripts\SkyboxPanoramicShaderGUI.cs" />
     <Compile Include="Assets\Scripts\StateController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\StateMachine.cs" />
@@ -314,6 +316,7 @@
     <Compile Include="Assets\Scripts\UI\UIFitter.cs" />
     <Compile Include="Assets\Scripts\Util\IUnityHook.cs" />
     <Compile Include="Assets\Scripts\Util\Pool.cs" />
+    <Compile Include="Assets\Scripts\Util\Store.cs" />
     <Compile Include="Assets\Scripts\VideoController.cs" />
     <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />
   </ItemGroup>

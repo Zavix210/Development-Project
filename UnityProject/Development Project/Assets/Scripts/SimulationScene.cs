@@ -3,25 +3,13 @@ using System.Collections.Generic;
 
 namespace SimulationSystem
 {
-    using SceneNode = SimulationSystem.SimulationSceneNode<string, string, int>;
+    using SceneNode = SimulationSystem.SimulationSceneNode<string, string, int, ITimelineAction>;
 
-    public class SimulationSceneNode<KeyType, ValueType, IndexType>
+    public class SimulationSceneNode<KeyType, ValueType, IndexType, ActionType>
     {
-        /// <summary>
-        /// Attributes are the individual data elements of the decision,
-        /// they can vary from decision to decision.
-        /// </summary>
         private Dictionary<KeyType, ValueType> attributes;
-
-        /// <summary>
-        /// Routes are the identifiers of the decisions which can be traversed
-        /// to through the decision system.
-        /// </summary>
-        private List<IndexType> routes;
-
-        /// <summary>
-        /// The Identifier is the unique identification method of the decision.
-        /// </summary>
+        private Store<IndexType> routes;
+        private Store<ActionType> actions;
         private IndexType identifier;
 
         /// <summary>
@@ -35,7 +23,8 @@ namespace SimulationSystem
         public SimulationSceneNode()
         {
             attributes = new Dictionary<KeyType, ValueType>();
-            routes = new List<IndexType>();
+            routes = new Store<IndexType>();
+            actions = new Store<ActionType>();
         }
 
         public void SetWrapper(SimulationScene wrapper)
@@ -50,15 +39,7 @@ namespace SimulationSystem
 
         public bool AddRoute(IndexType route)
         {
-            if (!routes.Contains(route))
-            {
-                routes.Add(route);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return routes.Add(route);
         }
 
         public bool RemoveRoute(IndexType route)
@@ -68,7 +49,22 @@ namespace SimulationSystem
 
         public List<IndexType> GetRoutes()
         {
-            return routes;
+            return routes.GetRawList();
+        }
+
+        public bool AddAction(ActionType action)
+        {
+            return actions.Add(action);
+        }
+
+        public bool RemoveAction(ActionType action)
+        {
+            return actions.Remove(action);
+        }
+
+        public List<ActionType> GetActions()
+        {
+            return actions.GetRawList();
         }
 
         public bool AddAttribute(KeyType key, ValueType value)
@@ -109,77 +105,22 @@ namespace SimulationSystem
         }
     }
 
-    enum RouteType
-    {
-        Scene_Transition,
-
-    }
-
-    class Route
-    {
-
-    }
-
     public class SimulationScene
     {
-        private DecisionMaker decisionMaker;
+        private SimulationSceneController sceneController;
         private SceneNode wrappedScene;
 
         public int Identifier { get { return wrappedScene.Identifier; } }
 
-        public SimulationScene(DecisionMaker decisionMaker, SceneNode wrappedScene)
+        public SimulationScene(SimulationSceneController sceneController, SceneNode wrappedScene)
         {
-            this.decisionMaker = decisionMaker;
+            this.sceneController = sceneController;
             this.wrappedScene = wrappedScene;
 
             // Set the nodes wrapper to this
             wrappedScene.SetWrapper(this);
         }
-
-        public string GetDisplayTitle()
-        {
-            // Is self-node contained within one of the child nodes? (loop-back case)
-            SimulationScene parentNode;
-            if (GetParentFromChildren(out parentNode))
-            {
-                // Get the override title
-                string str;
-                if (GetAttribute("OVERRIDE_TITLE", out str))
-                {
-                    return str;
-                }
-                else // Failed to get override titlae
-                {
-                    Debug.LogWarning("Failed to get the override title");
-                    return GetDefaultTitle();
-                }
-            }
-            else // Normal node
-            {
-                return GetDefaultTitle();
-            }
-
-            //// Is the node classed as a failure?
-            //string str;
-            //if (GetAttribute("IS_FAIL_NODE", out str))
-            //{
-            //    // Get the override title
-            //    if (GetAttribute("OVERRIDE_TITLE", out str))
-            //    {
-            //        return str;
-            //    }
-            //    else // Failed to get override titlae
-            //    {
-            //        Debug.LogWarning("Failed to get the override title");
-            //        return GetDefaultTitle();
-            //    }
-            //}
-            //else // The node is not a fail node, get the default title
-            //{
-            //    return GetDefaultTitle();
-            //}
-        }
-
+        
         private bool GetParentFromChildren(out SimulationScene parent)
         {
             List<int> rawRoutes = wrappedScene.GetRoutes();
@@ -223,21 +164,6 @@ namespace SimulationSystem
             return parent != null;
         }
 
-        public string GetDefaultTitle()
-        {
-            // Get the default title
-            string str;
-            if (GetAttribute("TITLE", out str))
-            {
-                return str;
-            }
-            else
-            {
-                Debug.LogWarning("Failed to get the default title");
-                return "MISSING_TITLE";
-            }
-        }
-
         public void GetRoutes(List<int> routes, bool autoClear = true)
         {
             // Should the routes be automatically cleared
@@ -257,7 +183,7 @@ namespace SimulationSystem
 
         public bool GetSceneFromRoute(int route, out SimulationScene scene)
         {
-            return decisionMaker.GetDecision(route, out scene);
+            return sceneController.GetScene(route, out scene);
         }
 
         public bool GetAttribute(string key, out string value)

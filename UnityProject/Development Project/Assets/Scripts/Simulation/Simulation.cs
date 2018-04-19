@@ -52,7 +52,7 @@ public class Simulation : MonoBehaviour
         controller = new SimulationController();
 
         // Add some core components.
-        controller.AddSimulationComponent<DecisionMaker>();
+        controller.AddSimulationComponent<SimulationSceneController>();
         controller.AddSimulationComponent<VideoController>();
         controller.AddSimulationComponent<UIController>();
         controller.AddSimulationComponent<TimeController>();

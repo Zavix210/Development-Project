@@ -24,7 +24,7 @@ public class VideoController : SimulationComponentBase
 
     public override bool IsMessageRouteValid(int route)
     {
-        return route == (int)MessageDestination.DECISION_CHANGE;
+        return route == (int)MessageDestination.SCENE_CHANGE;
     }
 
     public override void OnInitialize()
@@ -35,10 +35,10 @@ public class VideoController : SimulationComponentBase
     public override void OnReceivedMessage(Message message)
     {
         // A decision was made (next video?)
-        if(message.Route == (int)MessageDestination.DECISION_CHANGE)
+        if(message.Route == (int)MessageDestination.SCENE_CHANGE)
         {
             // Is the decision valid?
-            if (message.Identifier == "DECISION_VALID")
+            if (message.Identifier == "VALID")
             {
                 // Get the decision node from the message
                 SimulationScene scene = (SimulationScene)message.Data;

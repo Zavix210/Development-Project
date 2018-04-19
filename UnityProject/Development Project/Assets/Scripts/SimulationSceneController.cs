@@ -8,15 +8,15 @@ using InputObject = System.Object;
 
 namespace SimulationSystem
 {
-    using SceneNode = SimulationSystem.SimulationSceneNode<string, string, int>;
+    using SceneNode = SimulationSystem.SimulationSceneNode<string, string, int, ITimelineAction>;
     
-    public class DecisionMaker : SimulationComponentBase
+    public class SimulationSceneController : SimulationComponentBase
     {
         private List<SceneNode> store;
         private SceneNode currentNode;
         private SceneNode rootNode;
 
-        public DecisionMaker(SimulationController controller) : base(controller)
+        public SimulationSceneController(SimulationController controller) : base(controller)
         {
             store = new List<SceneNode>();
         }
@@ -114,10 +114,10 @@ namespace SimulationSystem
             }
         }
 
-        public bool GetDecision(int choiceID, out SimulationScene scene)
+        public bool GetScene(int routeID, out SimulationScene scene)
         {
             SceneNode sNode;
-            if(GetNode(choiceID, out sNode))
+            if(GetNode(routeID, out sNode))
             {
                 scene = sNode.Wrapper;
                 return true;
@@ -153,13 +153,13 @@ namespace SimulationSystem
             if (node != null)
             {
                 // Pass a message notifying any components that the decision was VALID
-                Message resultMessage = new Message((int)MessageDestination.DECISION_CHANGE, "DECISION_VALID", node.Wrapper);
+                Message resultMessage = new Message((int)MessageDestination.SCENE_CHANGE, "VALID", node.Wrapper);
                 Controller.PropagateMessage(resultMessage);
             }
             else // Node is NULL, it's invalid
             {
                 // Pass a message notifying any components that the decision was INVALID
-                Message resultMessage = new Message((int)MessageDestination.DECISION_CHANGE, "DECISION_INVALID", null);
+                Message resultMessage = new Message((int)MessageDestination.SCENE_CHANGE, "INVALID", null);
                 Controller.PropagateMessage(resultMessage);
             }
         }

@@ -64,10 +64,10 @@ public class UIController : SimulationComponentBase
     {
         switch (message.Route)
         {
-            case (int)MessageDestination.DECISION_CHANGE:
+            case (int)MessageDestination.SCENE_CHANGE:
                 {
                     // Was the decision a valid decision?
-                    if (message.Identifier == "DECISION_VALID")
+                    if (message.Identifier == "VALID")
                     {
                         SimulationScene scene = (SimulationScene)message.Data;
 
@@ -110,7 +110,7 @@ public class UIController : SimulationComponentBase
             SimulationScene iScene;
             if (scene.GetSceneFromRoute(i, out iScene))
             {
-                string decisionText = iScene.GetDisplayTitle();
+                string decisionText = "DEFAULT BUTTON\nTEST";// iScene.GetDisplayTitle();
                 PlaceButton(i, decisionText);
 
                 //// Try to get the current override title or if not, the next title.
