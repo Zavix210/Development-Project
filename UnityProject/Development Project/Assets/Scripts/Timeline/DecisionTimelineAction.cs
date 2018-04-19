@@ -20,10 +20,11 @@ public class DecisionTimelineAction : TimelineActionBase
             // Clear all the active buttons (if any)
             uiController.ClearActiveButtons();
 
+            // Place all the buttons containing the information about the decisions
             List<Decision> decisions = decisionSet.GetDecisions();
             foreach(Decision decision in decisions)
             {
-                uiController.PlaceButton(0, decision.DisplayText);
+                uiController.PlaceButton(decision.Identifier, decision.DisplayText);
             }
         }
         else

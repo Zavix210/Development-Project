@@ -224,5 +224,15 @@ namespace SimulationSystem
         {
             ChangeNode(rootNode);
         }
+
+        SceneNode CreateSceneNode(int idValue)
+        {
+            SceneNode node = new SceneNode();
+            node.SetIdentifier(idValue);
+            store.Add(node);
+            SimulationScene wrapper = new SimulationScene(this, node);
+
+            return node;
+        }
     }
 }

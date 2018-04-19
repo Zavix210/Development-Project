@@ -38,18 +38,25 @@ public enum DecisionResult
 
 public class Decision
 {
+    private static int NextID = 0;
+
     private DecisionResult result;
     private string displayText;
     private string feedback;
+    private int identifier;
 
     public DecisionResult Result { get { return result; } }
     public string DisplayText { get { return displayText; } }
     public string Feedback { get { return feedback; } }
+    public int Identifier { get { return identifier; } }
 
     public Decision(DecisionResult result, string displayText, string feedback)
     {
         this.result = result;
         this.displayText = displayText;
         this.feedback = feedback;
+
+        // Set the ID value to the next available ID
+        identifier = NextID++;
     }
 }
