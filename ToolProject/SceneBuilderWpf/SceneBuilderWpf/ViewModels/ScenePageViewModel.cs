@@ -15,12 +15,19 @@ namespace SceneBuilderWpf.ViewModels
     {
         private int _tabindex = 0;
         private IFormatConvert formatConvert = new FormatConverter();
+<<<<<<< Updated upstream
         private int SceneID = 1; 
         private string parentID = "";
+=======
+        private int SceneID = 1;
+        private string parentID = "";
+        private Scene firstscene;
+>>>>>>> Stashed changes
         private IndivdualSceneViewModel _currentSceneViewModel;
         private IndivdualSceneViewModel _currentComboScene;
         readonly ObservableCollection<IndivdualSceneViewModel> _Scenes = new ObservableCollection<IndivdualSceneViewModel>();
         public ObservableCollection<IndivdualSceneViewModel> Scenes => _Scenes;
+
 
         /// <summary>
         /// Current Scene selected in datagrid. 
@@ -54,7 +61,11 @@ namespace SceneBuilderWpf.ViewModels
         {
             CurrentScene = new IndivdualSceneViewModel(pageNavigation, SceneID);
             Scenes.Add(CurrentScene);
+<<<<<<< Updated upstream
             firstscene = CurrentScene.Scene; 
+=======
+            firstscene = CurrentScene.Scene;
+>>>>>>> Stashed changes
             CurrentComboScene = CurrentScene;
         }
 
@@ -79,9 +90,9 @@ namespace SceneBuilderWpf.ViewModels
         public void DecsionIndexChange()
         {
             if (_tabindex == 0)
-                TabIndex++;
+                TabIndex = 1;
             else
-                TabIndex--;
+                TabIndex = 0;
         }
 
         public ICommand AddNewScene
@@ -95,7 +106,11 @@ namespace SceneBuilderWpf.ViewModels
         private void NewScene()
         {
             SceneID++;
+<<<<<<< Updated upstream
             CurrentScene = new IndivdualSceneViewModel(pagenav,SceneID);
+            Scenes.Add(CurrentScene);
+=======
+            CurrentScene = new IndivdualSceneViewModel(pagenav, SceneID);
             Scenes.Add(CurrentScene);
         }
 
@@ -110,6 +125,45 @@ namespace SceneBuilderWpf.ViewModels
         private void SerilazeAndSave()
         {
             formatConvert.ConvertFormat(firstscene, "TestSerliaze");
+>>>>>>> Stashed changes
         }
+
+        public ICommand SceneDiagram
+        {
+            get
+            {
+                return new CommandHandler(() => this.UpdateScenePage());
+            }
+        }
+
+        private void UpdateScenePage()
+        {
+<<<<<<< Updated upstream
+            formatConvert.ConvertFormat(firstscene, "TestSerliaze");
+=======
+            Scenario1View = new ObservableCollection<Scene>();
+            /*
+            try
+            {
+                foreach (IndivdualSceneViewModel f in Scenes)
+                {
+                  if(f.ParentId != null )
+                }
+
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    this.DirSearch(d);
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                listBox1.Items.Add(ex.Message);
+            }
+            */
+>>>>>>> Stashed changes
+        }
+
+        ObservableCollection<Scene> Scenario1View { get; set; }
+
     }
 }

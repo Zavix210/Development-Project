@@ -54,7 +54,11 @@
                         <materialDesign:PackIcon Kind="VectorPolygon" Height="20" Width="20" BorderBrush="{x:Null}" HorizontalAlignment="Center"    />
 
                     </Button>
+<<<<<<< Updated upstream
                     <StackPanel Margin="0,0,0,0" Orientation="Vertical" Grid.Row="1">
+=======
+                    <StackPanel Margin="60,0,0,0" Orientation="Vertical" Grid.Row="1">
+>>>>>>> Stashed changes
                         <!-- Label has a default -5,-5,-5,-5 margin-->
                         <Label Content="File Path :" Margin="0,0,0,0"></Label>
 
@@ -109,23 +113,23 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <DataGrid ItemsSource="{Binding CurrentScene.Descision}" SelectedItem="{Binding CurrentScene.CurrentDescision}"  AutoGenerateColumns="False" HorizontalAlignment="Left" Height="252" Grid.RowSpan="3" Grid.ColumnSpan="2"  VerticalAlignment="Top" Width="542" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding CurrentScene.Descision}" SelectedItem="{Binding CurrentScene.CurrentDescision}" Padding="25,0,25,0" Margin="0,20,0,0"  AutoGenerateColumns="False" HorizontalAlignment="Center" Height="320" Grid.RowSpan="3" Grid.ColumnSpan="2"  VerticalAlignment="Center" Width="600" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="180" Header="Choice Text" Binding="{Binding Feedback}">
+                            <DataGridTextColumn Width="180" Header="Choice Text" Binding="{Binding ChoiceText}">
                                 <DataGridTextColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
                                     </Style>
                                 </DataGridTextColumn.HeaderStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Feedback" Width="180" Binding="{Binding SceneBrightness}">
+                            <DataGridTextColumn Header="Feedback" Width="180" Binding="{Binding Feedback}">
                                 <DataGridTextColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
                                     </Style>
                                 </DataGridTextColumn.HeaderStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Next Scene" Width="180" Binding="{Binding EmergencyLighting}">
+                            <DataGridTextColumn Header="Next Scene" Width="180" Binding="{Binding NextScene}">
                                 <DataGridTextColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
                                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -136,15 +140,52 @@
                     </DataGrid>
 
 
-                    <Label Content="Choice Text :" Height="30" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
+                    <Label Content="Choice Text :" Height="30" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                     <TextBox Text="{Binding CurrentScene.CurrentDescision.ChoiceText}" Height="50" Width="200" VerticalAlignment="Bottom" Grid.Row="0" HorizontalAlignment="Left" Grid.Column="2" ></TextBox>
-                    <Label Content="Feedback Text :" Height="30" Width="100" VerticalAlignment="Top"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2"/>
+                    <Label Content="Feedback Text :" Height="30" Width="100" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2"/>
 
                     <TextBox Width="200" Text="{Binding CurrentScene.CurrentDescision.Feedback}" Height="50" VerticalAlignment="Bottom" Grid.Row="1"  HorizontalAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2"></TextBox>
                     <Label Content="Next Scene :" Height="30" Width="100" VerticalAlignment="Top"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2"/>
                     <ComboBox  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene.CurrentDescision.NextScene}" Height="40" Width="200" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,30"/>
-                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding DesicionPage}" Content="Go Back." Width="100" HorizontalAlignment="Left" Height="30"/>
-                    <Button Grid.Row="3" Grid.Column="2" Command="{Binding CurrentScene.AddDescion}" Content="Add Decision." Width="100" HorizontalAlignment="Center" Height="30"/>
+                    <Button Grid.Row="3" Grid.Column="0" Command="{Binding DesicionPage}" Content="Go Back." Width="100" HorizontalAlignment="Center" Height="30"/>
+                    <Button Grid.Row="3" Grid.Column="1" Command="{Binding CurrentScene.AddDescion}" Margin="0,0,40,0" Content="Add Decision." Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Height="0" TabIndex="2">
+                <Grid>
+                    <sf:SfDiagram x:Name="diagramControl"  Grid.Column="0" >
+
+                        <!--Initialize Resources-->
+                        <sf:SfDiagram.Resources>
+                            <Style TargetType="sf:Node">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Border Background="{Binding Path=_Color}">
+                                                    <TextBlock TextWrapping="Wrap"  Text="{Binding Path=Name}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                   Foreground="White"/>
+                                                </Border>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="UnitHeight" Value="40"/>
+                                <Setter Property="UnitWidth" Value="90"/>
+                            </Style>
+                        </sf:SfDiagram.Resources>
+
+                        <!--Initialize Nodes-->
+                        <sf:SfDiagram.Nodes>
+                            <sf:DiagramCollection></sf:DiagramCollection>
+                        </sf:SfDiagram.Nodes>
+
+                        <!--Initialize Connectors-->
+                        <sf:SfDiagram.Connectors>
+                            <sf:DiagramCollection></sf:DiagramCollection>
+                        </sf:SfDiagram.Connectors>
+                    </sf:SfDiagram>
                 </Grid>
             </TabItem>
 

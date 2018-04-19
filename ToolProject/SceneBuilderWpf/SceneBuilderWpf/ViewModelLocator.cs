@@ -23,11 +23,20 @@ namespace SceneBuilderWpf
             container.RegisterType<MainPageViewModel>();
             container.RegisterType<ScenePageViewModel>();
             container.RegisterType<DescisionPageViewModel>();
+            container.RegisterType<MainViewModel>();
             container.RegisterType<MainPage>();
             container.RegisterType<ScenePage>();
            
             container.RegisterInstance<IPageNavigationService>(App.pageNavigation);
             // container.RegisterType<DescisionPageViewModel>();
+        }
+
+        public MainViewModel Main
+        {
+            get
+            {
+                return DependencyContainer.Self.Resolve<MainViewModel>();
+            }
         }
 
         public ScenePage SceneView

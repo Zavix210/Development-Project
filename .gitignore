@@ -57,6 +57,14 @@ sysinfo.txt
 
 # Visual Studio 2015 cache/options directory
 .vs/
+ToolProject/SceneBuilder/SceneBuilderWpf/[Oo]bj/
+ToolProject/SceneBuilder/SceneBuilderWpf/[Bb]in/
+ToolProject/SceneBuilder/SceneBuilder/[Dd]ebug/
+ToolProject/SceneBuilder/SceneBuilderWpf/[Dd]ebugPublic/
+ToolProject/SceneBuilder/SceneBuilder/[Rr]elease/
+ToolProject/SceneBuilder/SceneBuilderWpf/[Rr]eleases/
+ToolProject/SceneBuilder/SceneBuilderWpf/[Gg]enerated Files/
+
 
 ToolProject/SceneBuilderWpf/SceneBuilderWpf/[Oo]bj/
 ToolProject/SceneBuilderWpf/SceneBuilderWpf/[Bb]in/

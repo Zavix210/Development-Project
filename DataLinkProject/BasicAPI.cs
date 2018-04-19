@@ -11,7 +11,7 @@ namespace DevClassSetup
         /// <summary>
         /// List of Files for this particular scene 
         /// <summary/>
-        File SceneFiles { get; }
+        public string SceneFile { get; }
         
         /// <summary>
         /// All the general settings for the scene.
@@ -25,15 +25,7 @@ namespace DevClassSetup
 
         /// last scenec  is List<Choice>.Count </Choice>
     }
-    public class File
-    {
-        /// <summary>
-        /// The video file path.
-        /// <summary/>
-        public string Video { get; }
-        
 
-    }
     public class Settings
     {
         /// <summary>
