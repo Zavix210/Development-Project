@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using SceneBuilderWpf.DataModels;
 // TODO: These will allow compilation while input middle-man library is being developed.
 using InputObject = System.Object;
 
@@ -27,7 +27,7 @@ namespace SimulationSystem
             return true;
         }
 
-        public void Load(InputObject input)
+        public void Load(Scene input)
         {
             // TEMPORARY TEST CODE
 
@@ -56,6 +56,9 @@ namespace SimulationSystem
 
             // END TEMPORARY TEST CODE
 
+            
+
+
             // TODO: Parse some input data to populate nodes
         }
 
@@ -71,7 +74,8 @@ namespace SimulationSystem
             {
                 case (int)MessageDestination.SIMULATION_START: // Simulation has started
                     {
-                        Load(null);
+                        Scene scene = JsonParseUnity.LoadJsonFileIntoScenePage(Application.dataPath + @"\JsonScene\scene.json");
+                        Load(scene);
                         Reset();
                     }
                     break;
