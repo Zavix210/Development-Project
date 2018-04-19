@@ -11,7 +11,7 @@ namespace SceneBuilderWpf.DataModels
         /// <summary>
         /// Fire Smoke etc.. 
         /// </summary>
-        public Actions Actions { get; }
+        public Actions ActionEnum { get; }
 
         /// <summary>
         /// 0 to 100 would be relative fire/smoke intestinty could increase based on time etc.. 
