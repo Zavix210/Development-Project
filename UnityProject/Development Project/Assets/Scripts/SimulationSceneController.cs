@@ -65,7 +65,7 @@ namespace SimulationSystem
             sceneRoot.AddAttribute("SOUND_VOLUME", input.GeneralSettings.SoundVolume.ToString());
             sceneRoot.SetIdentifier(0);
 
-            //need to make this recursive choice.Whereyougo contains the linked scene to the decision
+            //need to make this recursive. Whereyougo contains the linked scene to the decision
             foreach (ScenceChoice choice in input.Choice)
             {
                 
