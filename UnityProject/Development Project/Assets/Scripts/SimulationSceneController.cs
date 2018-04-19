@@ -56,7 +56,24 @@ namespace SimulationSystem
 
             // END TEMPORARY TEST CODE
 
-            
+
+
+            SceneNode sceneRoot = new SceneNode();
+            sceneRoot.AddAttribute("SCENE_FILE", input.SceneFile);
+            sceneRoot.AddAttribute("QUESTION_TEXT", input.GeneralSettings.QuestionText);
+            sceneRoot.AddAttribute("SCENE_BRIGHTNESS", input.GeneralSettings.SceneBrightness.ToString());
+            sceneRoot.AddAttribute("SOUND_VOLUME", input.GeneralSettings.SoundVolume.ToString());
+            sceneRoot.SetIdentifier(0);
+
+            //need to make this recursive choice.Whereyougo contains the linked scene to the decision
+            foreach (ScenceChoice choice in input.Choice)
+            {
+                
+            }
+
+
+
+
 
 
             // TODO: Parse some input data to populate nodes
