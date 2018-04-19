@@ -34,16 +34,16 @@ public class VideoController : SimulationComponentBase
 
     public override void OnReceivedMessage(Message message)
     {
-        // A decision was made (next video?)
-        if(message.Route == (int)MessageDestination.SCENE_CHANGE)
+        // A scene was changed (next video?)
+        if (message.Route == (int)MessageDestination.SCENE_CHANGE)
         {
-            // Is the decision valid?
+            // Is the scene valid?
             if (message.Identifier == "VALID")
             {
-                // Get the decision node from the message
+                // Get the scene node from the message
                 SimulationScene scene = (SimulationScene)message.Data;
 
-                // Try to get the decision attribute containing the video URL
+                // Try to get the scene attribute containing the video URL
                 string url; //filePath
                 if (scene.GetAttribute("VIDEO_URL", out url))
                 {
@@ -54,7 +54,7 @@ public class VideoController : SimulationComponentBase
                 }
                 else // Failure, log a message
                 {
-                    Debug.LogWarning("Failed to get 'VIDEO_URL' attribute from decision node");
+                    Debug.LogWarning("Failed to get 'VIDEO_URL' attribute from scene node");
                 }
             }          
         }

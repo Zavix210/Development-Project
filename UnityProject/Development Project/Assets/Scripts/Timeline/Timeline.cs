@@ -105,6 +105,8 @@ namespace SimulationSystem
         {
             if (!playing)
             {
+                this.duration = duration;
+
                 Reset();
                 playing = true;
 
