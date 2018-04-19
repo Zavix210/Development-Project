@@ -314,6 +314,7 @@
     <Compile Include="Assets\Scripts\UI\UIChoiceButton.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\UI\UIFitter.cs" />
+    <Compile Include="Assets\Scripts\Util\IUnityHook.cs" />
     <Compile Include="Assets\Scripts\Util\Pool.cs" />
     <Compile Include="Assets\Scripts\VideoController.cs" />
     <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />

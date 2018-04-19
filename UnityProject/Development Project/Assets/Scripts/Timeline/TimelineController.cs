@@ -4,13 +4,16 @@ using UnityEngine;
 using SimulationSystem;
 using System;
 
-public class TimelineController : SimulationComponentBase
+public class TimelineController : SimulationComponentBase, IUnityHook
 {
     private Timeline timeline;
 
     public TimelineController(SimulationController controller) : base(controller)
     {
         timeline = new Timeline();
+
+        Simulation simulation = Simulation.Instance;
+        simulation.AddHook(this);
     }
 
     public override bool IsMessageRouteValid(int route)
@@ -49,11 +52,16 @@ public class TimelineController : SimulationComponentBase
                     timeline.Reset();
                 }
                 break;
-            case (int)MessageDestination.DECISION_CHANGE: // A Scene change has occurred
+            case (int)MessageDestination.SCENE_CHANGE: // A Scene change has occurred
                 {
                     //timeline.Reset();
                 }
                 break;
         }
+    }
+
+    public void Update(float deltaTime)
+    {
+
     }
 }

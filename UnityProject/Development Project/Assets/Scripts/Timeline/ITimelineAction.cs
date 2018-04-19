@@ -7,11 +7,29 @@ namespace SimulationSystem
 {
     public interface ITimelineAction
     {
+        /// <summary>
+        /// Execute the timeline action.
+        /// </summary>
         void Execute();
-        float GetTimeOfAction();
-        int GetActionID();
-        bool HasPlayed();
+        /// <summary>
+        /// Reset the state of the timeline action.
+        /// </summary>
         void Reset();
+        /// <summary>
+        /// Get the time which the action should be played.
+        /// </summary>
+        /// <returns></returns>
+        float GetTimeOfAction();
+        /// <summary>
+        /// Get the unique ID value of the action.
+        /// </summary>
+        /// <returns></returns>
+        int GetActionID();
+        /// <summary>
+        /// Check if the action has been played yet.
+        /// </summary>
+        /// <returns></returns>
+        bool HasPlayed();
     }
 
     public abstract class TimelineActionBase : ITimelineAction

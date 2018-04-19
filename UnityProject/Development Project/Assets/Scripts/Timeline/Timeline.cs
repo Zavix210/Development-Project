@@ -30,6 +30,11 @@ namespace SimulationSystem
             listeners = new List<ITimelineListener>();
         }
 
+        /// <summary>
+        /// Add an action to the timeline.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public bool AddAction(ITimelineAction action)
         {
             int id = action.GetActionID();
@@ -46,16 +51,29 @@ namespace SimulationSystem
             return true;
         }
 
+        /// <summary>
+        /// Remove an action from the timeline.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public bool RemoveAction(ITimelineAction action)
         {
             return actions.Remove(action);
         }
 
+        /// <summary>
+        /// Remove all actions from the timeline.
+        /// </summary>
         public void ClearActions()
         {
             actions.Clear();
         }
 
+        /// <summary>
+        /// Add a listener for timeline events.
+        /// </summary>
+        /// <param name="listener"></param>
+        /// <returns></returns>
         public bool AddListener(ITimelineListener listener)
         {
             if(!listeners.Contains(listener))
@@ -69,11 +87,20 @@ namespace SimulationSystem
             }
         }
 
+        /// <summary>
+        /// Remove a listener for timeline events.
+        /// </summary>
+        /// <param name="listener"></param>
+        /// <returns></returns>
         public bool RemoveListener(ITimelineListener listener)
         {
             return listeners.Remove(listener);
         }
 
+        /// <summary>
+        /// Start the timeline playing with the specified total duration.
+        /// </summary>
+        /// <param name="duration"></param>
         public void Start(float duration)
         {
             if (!playing)
@@ -88,6 +115,9 @@ namespace SimulationSystem
             }
         }
 
+        /// <summary>
+        /// Stop the timeline playing.
+        /// </summary>
         public void Stop()
         {
             if (playing)
@@ -101,6 +131,10 @@ namespace SimulationSystem
             }
         }
 
+        /// <summary>
+        /// Set the paused state of the timeline.
+        /// </summary>
+        /// <param name="state"></param>
         public void SetPauseState(bool state)
         {
             if (paused != state)
@@ -124,6 +158,9 @@ namespace SimulationSystem
             }
         }
 
+        /// <summary>
+        /// Reset the timeline.
+        /// </summary>
         public void Reset()
         {
             currentTime = 0.0f;
@@ -131,6 +168,11 @@ namespace SimulationSystem
             paused = false;
         }
 
+        /// <summary>
+        /// Query the timeline and provide it a timestep to increment by. Any actions which
+        /// have a time between the current and new time will be performed.
+        /// </summary>
+        /// <param name="timeStep"></param>
         public void QueryTimeline(float timeStep)
         {
             float start = currentTime;
@@ -151,8 +193,14 @@ namespace SimulationSystem
             }
 
             currentTime = end;
+            
+            // Check for finish
+            CheckFinishState();
         }
 
+        /// <summary>
+        /// Check if the timeline has finished.
+        /// </summary>
         private void CheckFinishState()
         {
             // Check the time to see if its over the duration

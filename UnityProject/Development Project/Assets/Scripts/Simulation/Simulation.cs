@@ -14,12 +14,32 @@ public class Simulation : MonoBehaviour
     private SimulationController controller;
     private static Simulation instance;
 
+    private List<IUnityHook> hooks;
+
     public SimulationController Controller { get { return controller; } }
     public static Simulation Instance { get { return instance; } }
 
+    public bool AddHook(IUnityHook hook)
+    {
+        if(!hooks.Contains(hook))
+        {
+            hooks.Add(hook);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool RemoveHook(IUnityHook hook)
+    {
+        return hooks.Remove(hook);
+    }
+
     void Awake()
     {
-
+        hooks = new List<IUnityHook>();
     }
 
 	// Use this for initialization
@@ -36,6 +56,7 @@ public class Simulation : MonoBehaviour
         controller.AddSimulationComponent<VideoController>();
         controller.AddSimulationComponent<UIController>();
         controller.AddSimulationComponent<TimeController>();
+        controller.AddSimulationComponent<TimelineController>();
 
         // Initialize the simulation.
         controller.Initialize();
@@ -57,6 +78,12 @@ public class Simulation : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             controller.ToggleSimulationPause();
+        }
+
+        float delta = Time.deltaTime;
+        foreach(IUnityHook hook in hooks)
+        {
+            hook.Update(delta);
         }
     }
 }
