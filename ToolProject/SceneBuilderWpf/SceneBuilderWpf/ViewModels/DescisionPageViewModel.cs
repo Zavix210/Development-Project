@@ -41,14 +41,13 @@ namespace SceneBuilderWpf.ViewModels
                 OnPropertyChanged(nameof(ChoiceText));
             }
         }
-        
+
         public IndivdualSceneViewModel NextScene
         {
             get => _nextscene;
             set
             {
                 _nextscene = value;
-                _nextscene.ParentId = _sceneid.ToString();
                 scenceChoice.Whereyougo = _nextscene.Scene;
                 OnPropertyChanged(nameof(NextScene));
             }

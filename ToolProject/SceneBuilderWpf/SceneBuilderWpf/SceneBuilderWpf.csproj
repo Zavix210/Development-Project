@@ -110,6 +110,7 @@
     <Compile Include="Bussiness Logic\IPersit.cs" />
     <Compile Include="Bussiness Logic\JsonDocumentSerializer.cs" />
     <Compile Include="Bussiness Logic\JsonStorage.cs" />
+    <Compile Include="DataModels\Action.cs" />
     <Compile Include="DataModels\EnumActions.cs" />
     <Compile Include="DataModels\EnumAssets.cs" />
     <Compile Include="DataModels\Scene.cs" />
@@ -117,10 +118,7 @@
     <Compile Include="DataModels\Settings.cs" />
     <Compile Include="ViewModels\DescisionPageViewModel.cs" />
     <Compile Include="ViewModels\IndivdualSceneViewModel.cs" />
-<<<<<<< Updated upstream
-=======
     <Compile Include="ViewModels\MainViewModel.cs" />
->>>>>>> Stashed changes
     <Compile Include="Views\ActionElements.xaml.cs">
       <DependentUpon>ActionElements.xaml</DependentUpon>
     </Compile>

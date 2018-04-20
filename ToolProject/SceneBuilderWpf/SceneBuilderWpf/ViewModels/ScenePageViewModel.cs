@@ -15,14 +15,9 @@ namespace SceneBuilderWpf.ViewModels
     {
         private int _tabindex = 0;
         private IFormatConvert formatConvert = new FormatConverter();
-<<<<<<< Updated upstream
-        private int SceneID = 1; 
-        private string parentID = "";
-=======
         private int SceneID = 1;
         private string parentID = "";
         private Scene firstscene;
->>>>>>> Stashed changes
         private IndivdualSceneViewModel _currentSceneViewModel;
         private IndivdualSceneViewModel _currentComboScene;
         readonly ObservableCollection<IndivdualSceneViewModel> _Scenes = new ObservableCollection<IndivdualSceneViewModel>();
@@ -55,17 +50,11 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
-        private Scene firstscene;
-
         public ScenePageViewModel(IPageNavigationService pageNavigation) : base(pageNavigation)
         {
             CurrentScene = new IndivdualSceneViewModel(pageNavigation, SceneID);
             Scenes.Add(CurrentScene);
-<<<<<<< Updated upstream
-            firstscene = CurrentScene.Scene; 
-=======
             firstscene = CurrentScene.Scene;
->>>>>>> Stashed changes
             CurrentComboScene = CurrentScene;
         }
 
@@ -106,10 +95,6 @@ namespace SceneBuilderWpf.ViewModels
         private void NewScene()
         {
             SceneID++;
-<<<<<<< Updated upstream
-            CurrentScene = new IndivdualSceneViewModel(pagenav,SceneID);
-            Scenes.Add(CurrentScene);
-=======
             CurrentScene = new IndivdualSceneViewModel(pagenav, SceneID);
             Scenes.Add(CurrentScene);
         }
@@ -125,7 +110,6 @@ namespace SceneBuilderWpf.ViewModels
         private void SerilazeAndSave()
         {
             formatConvert.ConvertFormat(firstscene, "TestSerliaze");
->>>>>>> Stashed changes
         }
 
         public ICommand SceneDiagram
@@ -138,9 +122,6 @@ namespace SceneBuilderWpf.ViewModels
 
         private void UpdateScenePage()
         {
-<<<<<<< Updated upstream
-            formatConvert.ConvertFormat(firstscene, "TestSerliaze");
-=======
             Scenario1View = new ObservableCollection<Scene>();
             /*
             try
@@ -160,7 +141,6 @@ namespace SceneBuilderWpf.ViewModels
                 listBox1.Items.Add(ex.Message);
             }
             */
->>>>>>> Stashed changes
         }
 
         ObservableCollection<Scene> Scenario1View { get; set; }

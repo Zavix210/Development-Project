@@ -63,39 +63,24 @@ namespace SceneBuilderWpf.ViewModels
             Scene.Choice.Add(_scenceChoice);
 
             _scenceChoice = new ScenceChoice();
-            Scene.Choice.Add(_scenceChoice);
+
 
             CurrentDescision = new DescisionPageViewModel(pagenav, _scenceChoice, SceneID);
             Descision.Add(CurrentDescision);
-<<<<<<< Updated upstream
-            ScenceChoice scenceChoice = new ScenceChoice();
-            Scene.Choice.Add(scenceChoice);
-            
-            CurrentDescision = new DescisionPageViewModel(pagenav, scenceChoice, SceneID);
-=======
-            
 
-
->>>>>>> Stashed changes
         }
 
         public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid) : base(pageNavigation)
         {
            
             Scene = new Scene();
-<<<<<<< Updated upstream
-            ScenceChoice scenceChoice = new ScenceChoice();
-            SceneID = sceneid;
-            SceneSettings = Scene.GeneralSettings;
-            Scene.Choice.Add(scenceChoice);
-            CurrentDescision = new DescisionPageViewModel(pageNavigation, scenceChoice, SceneID);
-=======
+
             SceneID = sceneid;
             SceneSettings = Scene.GeneralSettings;
             
             CurrentDescision = new DescisionPageViewModel(pageNavigation, _scenceChoice, SceneID);
             Descision.Add(CurrentDescision);
->>>>>>> Stashed changes
+
         }
 
         public ICommand BrowseCommand

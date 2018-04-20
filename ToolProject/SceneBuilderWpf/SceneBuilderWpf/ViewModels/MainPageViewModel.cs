@@ -58,12 +58,6 @@ namespace SceneBuilderWpf.ViewModels
 
             }
         }
-
-<<<<<<< Updated upstream
-        //public List<IEffect> list; 
-
-=======
->>>>>>> Stashed changes
     }
 
 }

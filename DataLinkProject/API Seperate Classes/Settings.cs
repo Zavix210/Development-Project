@@ -35,9 +35,9 @@ namespace SceneBuilderWpf.DataModels
         /// <summary>
         /// The Actions that could possibly be implemented. 
         /// <summary/>
-        private List<Actions> _actionElements = new List<Actions>();
+        private List<Action> _actionElements = new List<Action>();
 
-        public List<Actions> ActionElements
+        public List<Action> ActionElements
         {
             get => _actionElements;
             set => _actionElements = value;

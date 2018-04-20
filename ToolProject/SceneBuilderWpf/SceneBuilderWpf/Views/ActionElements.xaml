@@ -7,12 +7,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <Button Height="65" Padding="0,0,0,0" Margin="0,0,0,0">
-            <Grid Height="65" Margin="0,0,0,0" Width="300">
+
+            <Grid Height="65" Margin="0,0,0,0" Width="300" Background="AliceBlue">
                 <materialDesign:PackIcon Kind="Fire" Height="60" Width="65" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="0,0,198,0" Padding="0,0,0,0"    />
-                <TextBox Text="Fire" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="47.167,40.893,162.833,-3.514" Width="90"/>
+                <Slider Name="FireIntensity" Maximum="100" Minimum="0" Margin="90,0,0,0" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="180" TickFrequency="0" />
+                <Label Content="Intensity: " Width="60" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="105,.997,135,0" />
+                <TextBlock Text="{Binding Value, ElementName=FireIntensity}"
+               VerticalAlignment="Center" Margin="159.666,5.997,-159.666,43.043"/>
+                <TextBox Text="Fire" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="45,43.05,235,-3.01" Width="25"/>
+                
+                
             </Grid>
-        </Button>
+        <Grid Height="65" Margin="0,0,0,0" Width="300" Background="AliceBlue">
+
+            <materialDesign:PackIcon Kind="WeatherCloudy" Height="60" Width="65" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="0,0,198,0" Padding="0,0,0,0"    />
+                <Slider Name="SmokeIntesinty" Maximum="100" Minimum="0" Margin="90,0,0,0" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="180" TickFrequency="0" />
+                <Label Content="Intensity: " Width="60" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="105,.997,135,0" />
+                <TextBlock Text="{Binding Value, ElementName=SmokeIntesinty}"
+                 VerticalAlignment="Center" Margin="159.666,5.997,-159.666,43.043"/>
+                <TextBox  Text="Smoke" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="White" Margin="45,0,0,0" Width="40"/>
+            </Grid>
+
 
 
     </StackPanel>

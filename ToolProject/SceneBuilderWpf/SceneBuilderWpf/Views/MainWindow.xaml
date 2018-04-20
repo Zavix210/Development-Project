@@ -8,7 +8,7 @@
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" 
-        Height="600" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Visibility="Visible" WindowStyle="None">
+        Height="600" Width="1080" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Visibility="Visible" WindowStyle="None">
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">

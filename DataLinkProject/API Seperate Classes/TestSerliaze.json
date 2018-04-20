@@ -1,1 +1,6 @@
-{"SceneFile":"1","GeneralSettings":{"SceneBrightness":0,"EmergLight":0,"SoundVolume":0,"QuestionText":null,"Text":null,"ActionElements":[],"AssetElements":[]},"Choice":[{"Decision":"1 to 2 ","Feedback":"u went from one to two","Whereyougo":{"SceneFile":"2","GeneralSettings":{"SceneBrightness":0,"EmergLight":0,"SoundVolume":0,"QuestionText":null,"Text":null,"ActionElements":[],"AssetElements":[]},"Choice":[{"Decision":"2 to 3.1","Feedback":null,"Whereyougo":{"SceneFile":"3.1","GeneralSettings":{"SceneBrightness":0,"EmergLight":0,"SoundVolume":0,"QuestionText":null,"Text":null,"ActionElements":[],"AssetElements":[]},"Choice":[]}},{"Decision":"2 to 3","Feedback":null,"Whereyougo":{"SceneFile":"3","GeneralSettings":{"SceneBrightness":0,"EmergLight":0,"SoundVolume":0,"QuestionText":null,"Text":null,"ActionElements":[],"AssetElements":[]},"Choice":[]}}]}}]}
+{"SceneFile":"1","GeneralSettings":{"SceneBrightness":100,"EmergLight":20,"SoundVolume":30,
+"QuestionText":null,"Text":"",
+"ActionElements":[],
+"AssetElements":[]},
+"Choice":[{"Decision":null,"Feedback":null,"Whereyougo":
+{"SceneFile":"2","GeneralSettings":{"SceneBrightness":0,"EmergLight":0,"SoundVolume":0,"QuestionText":null,"Text":null,"ActionElements":[],"AssetElements":[]},"Choice":[]}}]}
