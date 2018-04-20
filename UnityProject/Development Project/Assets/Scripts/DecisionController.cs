@@ -27,26 +27,7 @@ public class DecisionController : SimulationComponentBase
         if (decisionSet != null)
         {
             activeDecisionSet = decisionSet;
-
-            // Get the UI Controller
-            UIController uiController = Controller.GetSimulationComponent<UIController>();
-
-            // Clear all the active buttons (if any)
-            uiController.ClearActiveButtons();
-
-            // Place all the buttons containing the information about the decisions
-            List<Decision> decisions = decisionSet.GetDecisions();
-            foreach (Decision decision in decisions)
-            {
-                uiController.PlaceButton(decision.Identifier, decision.DisplayText);
-            }
-
-            // Pause the simulation until the decision has finished
-            Controller.PauseSimulation();
-
-            // Post a message to notify all other components that the decision process has started
-            Message message = new Message((int)MessageDestination.DECISION_START, "", decisionSet);
-            Controller.PropagateMessage(message);
+            DecisionStarted();
         }
         else
         {
@@ -67,18 +48,7 @@ public class DecisionController : SimulationComponentBase
                         Decision decision;
                         if (activeDecisionSet.GetDecisionWithID(choice, out decision))
                         {
-                            // Get the UI Controller
-                            UIController uiController = Controller.GetSimulationComponent<UIController>();
-
-                            // Clear all the active buttons
-                            uiController.ClearActiveButtons();
-
-                            // Resume the simulation once the decision has been made
-                            Controller.ResumeSimulation();
-
-                            // Post a message to notify all other components that the decision process has ended
-                            Message resultMessage = new Message((int)MessageDestination.DECISION_END, "", decision);
-                            Controller.PropagateMessage(resultMessage);
+                            DecisionFinished(decision);
                         }
                         else // Cannot find the chosen decision
                         {
@@ -88,6 +58,63 @@ public class DecisionController : SimulationComponentBase
 
                 }
                 break;
+            case (int)MessageDestination.SIMULATION_END: // Simulation ending
+                {
+                    // Is there a decision active
+                    if(activeDecisionSet != null)
+                    {
+                        CleanupDecisionVisuals();
+                    }
+                }
+                break;
         }
+    }
+
+    private void DecisionStarted()
+    {
+        // Get the UI Controller
+        UIController uiController = Controller.GetSimulationComponent<UIController>();
+
+        // Clear all the active buttons (if any)
+        uiController.ClearActiveButtons();
+
+        // Place all the buttons containing the information about the decisions
+        List<Decision> decisions = activeDecisionSet.GetDecisions();
+        foreach (Decision decision in decisions)
+        {
+            uiController.PlaceButton(decision.Identifier, decision.DisplayText);
+        }
+
+        // Pause the simulation until the decision has finished
+        Controller.PauseSimulation();
+
+        // Post a message to notify all other components that the decision process has started
+        Message message = new Message((int)MessageDestination.DECISION_START, "", activeDecisionSet);
+        Controller.PropagateMessage(message);
+    }
+
+    private void DecisionFinished(Decision decision)
+    {
+        // Post a message to notify all other components that the decision process has ended
+        Message resultMessage = new Message((int)MessageDestination.DECISION_END, "", decision);
+        Controller.PropagateMessage(resultMessage);
+
+        // Cleanup visuals from the decision
+        CleanupDecisionVisuals();
+    }
+
+    private void CleanupDecisionVisuals()
+    {
+        // Get the UI Controller
+        UIController uiController = Controller.GetSimulationComponent<UIController>();
+
+        // Clear all the active buttons
+        uiController.ClearActiveButtons();
+
+        // Resume the simulation once the decision has been made
+        Controller.ResumeSimulation();
+
+        // Clear the active decision set
+        activeDecisionSet = null;
     }
 }
