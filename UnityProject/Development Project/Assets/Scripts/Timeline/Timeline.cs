@@ -111,11 +111,6 @@ namespace SimulationSystem
                 currentTime = 0.0f;
                 playing = true;
                 paused = false;
-
-            foreach (ITimelineListener listener in listeners)
-            {
-                listener.OnStart(this);
-            }
             //}
         }
 
@@ -127,11 +122,6 @@ namespace SimulationSystem
             if (playing)
             {
                 ResetTimeline();
-
-                foreach (ITimelineListener listener in listeners)
-                {
-                    listener.OnStop(this);
-                }
             }
         }
 
@@ -144,21 +134,6 @@ namespace SimulationSystem
             if (paused != state)
             {
                 paused = state;
-
-                if (state) // Paused
-                {
-                    foreach (ITimelineListener listener in listeners)
-                    {
-                        listener.OnPause(this);
-                    }
-                }
-                else // Resumed
-                {
-                    foreach (ITimelineListener listener in listeners)
-                    {
-                        listener.OnResume(this);
-                    }
-                }
             }
         }
 
@@ -185,7 +160,6 @@ namespace SimulationSystem
             {
                 float start = currentTime;
                 float end = start + timeStep;
-
                 currentTime = end;
 
                 // Find actions to execute
@@ -214,7 +188,12 @@ namespace SimulationSystem
             // Check the time to see if its over the duration
             if (currentTime >= duration)
             {
-                //currentTime = duration;
+                foreach (ITimelineListener listener in listeners)
+                {
+                    listener.OnTimelineFinished(this);
+                }
+
+                currentTime = duration;
                 StopTimeline();
             }
         }
@@ -222,9 +201,6 @@ namespace SimulationSystem
 
     public interface ITimelineListener
     {
-        void OnStart(Timeline timeline);
-        void OnStop(Timeline timeline);
-        void OnPause(Timeline timeline);
-        void OnResume(Timeline timeline);
+        void OnTimelineFinished(Timeline timeline);
     }
 }

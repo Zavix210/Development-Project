@@ -280,10 +280,20 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>Library\UnityAssemblies\UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Scripts\JsonParser\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Decision.cs" />
+    <Compile Include="Assets\Scripts\DecisionController.cs" />
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\EnumActions.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\EnumAssets.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\JsonParseUnity.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\Scene.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\SceneChoice.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\Settings.cs" />
     <Compile Include="Assets\Scripts\MessageDestination.cs" />
     <Compile Include="Assets\Scripts\Messaging\IMessageReceiver.cs" />
     <Compile Include="Assets\Scripts\Messaging\Message.cs" />
@@ -320,6 +330,7 @@
     <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Scripts\JsonParser\Newtonsoft.Json.xml" />
     <None Include="Assets\Shaders\Skybox-Panoramic.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

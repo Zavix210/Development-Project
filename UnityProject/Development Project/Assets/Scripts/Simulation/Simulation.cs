@@ -14,22 +14,14 @@ public class Simulation : MonoBehaviour
     private SimulationController controller;
     private static Simulation instance;
 
-    private List<IUnityHook> hooks;
+    private Store<IUnityHook> hooks;
 
     public SimulationController Controller { get { return controller; } }
     public static Simulation Instance { get { return instance; } }
 
     public bool AddHook(IUnityHook hook)
     {
-        if(!hooks.Contains(hook))
-        {
-            hooks.Add(hook);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return hooks.Add(hook);
     }
 
     public bool RemoveHook(IUnityHook hook)
@@ -39,7 +31,7 @@ public class Simulation : MonoBehaviour
 
     void Awake()
     {
-        hooks = new List<IUnityHook>();
+        hooks = new Store<IUnityHook>();
     }
 
 	// Use this for initialization
@@ -60,8 +52,11 @@ public class Simulation : MonoBehaviour
         controller.AddSimulationComponent<SimulationSceneController>();
         controller.AddSimulationComponent<VideoController>();
         controller.AddSimulationComponent<UIController>();
-        controller.AddSimulationComponent<TimeController>();
         controller.AddSimulationComponent<TimelineController>();
+        controller.AddSimulationComponent<DecisionController>();
+
+        TimeController timeController = controller.AddSimulationComponent<TimeController>();
+        timeController.SetTimeLimit(60);
 
         // Initialize the simulation.
         controller.Initialize();
@@ -86,15 +81,17 @@ public class Simulation : MonoBehaviour
         }
 
         float delta = Time.deltaTime;
-        for(int i = 0; i < hooks.Count; i++)
-        {
-            IUnityHook hook = hooks[i];
-            hook.Update(delta);
-        }
-
-        //foreach(IUnityHook hook in hooks)
+        //List<IUnityHook> hList = hooks.GetRawList();
+        //for(int i = 0; i < hooks.Count; i++)
         //{
+        //    IUnityHook hook = hooks[i];
         //    hook.Update(delta);
         //}
+
+        List<IUnityHook> hList = hooks.GetRawList();
+        foreach (IUnityHook hook in hList)
+        {
+            hook.Update(delta);
+        }
     }
 }

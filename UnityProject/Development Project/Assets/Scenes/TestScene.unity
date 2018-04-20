@@ -136,12 +136,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 61340306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.68, z: 7}
+  m_LocalPosition: {x: 0, y: 2.431, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1981248129}
-  m_Father: {fileID: 1961612010}
-  m_RootOrder: 3
+  m_Father: {fileID: 1349759090}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &61340308
 MonoBehaviour:
@@ -492,7 +492,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 61340307}
   m_Father: {fileID: 2098148626}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -649,7 +650,6 @@ Transform:
   - {fileID: 2098148626}
   - {fileID: 1824302111}
   - {fileID: 186961569}
-  - {fileID: 61340307}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -690,9 +690,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1981248128}
-  m_Text: Hello World
+  m_Text: TIMER
   m_OffsetZ: 0
-  m_CharacterSize: 0.025
+  m_CharacterSize: 0.05
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 0

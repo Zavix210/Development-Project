@@ -21,8 +21,7 @@ public class TimeDisplay : MonoBehaviour
         // Ensure the time controller is initialized
 		if(timeController != null)
         {
-            float time = timeController.QueryTime();
-            DisplayTime(time);
+            displayText.text = timeController.GetFormattedDisplayTime();
         }
 	}
 

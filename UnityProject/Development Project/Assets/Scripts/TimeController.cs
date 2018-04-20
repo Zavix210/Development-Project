@@ -4,16 +4,18 @@ using UnityEngine;
 using SimulationSystem;
 using System;
 
-public class TimeController : SimulationComponentBase
+public class TimeController : SimulationComponentBase, IUnityHook
 {
+    private TimeDisplay timeDisplay;
     private float currentTime;
     private float timeLimit;
-    private DateTime snapshot;
-    private TimeDisplay timeDisplay;
+    private bool active;
 
     public TimeController(SimulationController controller) : base(controller)
     {
-        timeLimit = 10 * 1000;
+        // Self-register to the unity messaging
+        Simulation simulation = Simulation.Instance;
+        simulation.AddHook(this);
     }
 
     public override bool IsMessageRouteValid(int route)
@@ -52,30 +54,42 @@ public class TimeController : SimulationComponentBase
         }
     }
 
-    public float QueryTime()
+    public void Update(float deltaTime)
     {
-        DateTime time = DateTime.Now;
-        TimeSpan diff = time - snapshot;
-        float ms = diff.Milliseconds;
-        snapshot = time;
+        if (active)
+        {
+            currentTime += Time.deltaTime;
 
-        currentTime = ms;
-
-        // Calculate the actual remaining time from the current
-        float diffTime = timeLimit - currentTime;
-        return diffTime;
+            // Check whether time has finished
+            if (currentTime >= timeLimit)
+            {
+                // TODO: TIMES UP
+            }
+        }
     }
 
     private void StartTimer()
     {
-        // Init time as now
-        snapshot = DateTime.Now;
-        // Query the current time
-        QueryTime();
+        currentTime = 0.0f;
+        active = true;
     }
 
     private void StopTimer()
     {
         currentTime = 0.0f;
+        active = false;
+    }
+
+    public void SetTimeLimit(float timeLimit)
+    {
+        this.timeLimit = timeLimit;
+    }
+
+    public string GetFormattedDisplayTime()
+    { 
+        float remainder = timeLimit - currentTime;
+        TimeSpan span = TimeSpan.FromSeconds(remainder);
+        string displayStr = string.Format("{0:D2}:{1:D2}", span.Minutes, span.Seconds);
+        return displayStr;
     }
 }

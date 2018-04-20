@@ -66,14 +66,14 @@ public class UIController : SimulationComponentBase
         {
             case (int)MessageDestination.SCENE_CHANGE:
                 {
-                    // Was the decision a valid decision?
-                    if (message.Identifier == "VALID")
-                    {
-                        SimulationScene scene = (SimulationScene)message.Data;
+                    //// Was the decision a valid decision?
+                    //if (message.Identifier == "VALID")
+                    //{
+                    //    SimulationScene scene = (SimulationScene)message.Data;
 
-                        // Create the UI buttons
-                        CreateButtonsForDecision(scene);
-                    }
+                    //    // Create the UI buttons
+                    //    CreateButtonsForDecision(scene);
+                    //}
                 }
                 break;
         }
@@ -101,7 +101,7 @@ public class UIController : SimulationComponentBase
         scene.GetRoutes(decisionChoices);
 
         // Store all active buttons
-        StoreActiveButtons();
+        ClearActiveButtons();
 
         // Create UI choices
         foreach(int i in decisionChoices)
@@ -131,7 +131,7 @@ public class UIController : SimulationComponentBase
         }
     }
 
-    private void StoreActiveButtons()
+    public void ClearActiveButtons()
     {
         foreach(UIChoiceButton button in activeButtons)
         {
