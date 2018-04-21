@@ -9,6 +9,11 @@ namespace SceneBuilderWpf.DataModels
     public class Action
     {
         public Actions ActionEnum { get; }
+		
+		/// <summary>
+        /// 0 to 360 ?  would there need to be other angles or something ? as its gonna be a sphere ?
+        /// </summary>
+		public float Angle {get; }
 
         /// <summary>
         /// 0 to 100 would be relative fire/smoke intestinty could increase based on time etc.. 
