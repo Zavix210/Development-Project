@@ -54,7 +54,6 @@ namespace SceneBuilderWpf.ViewModels
             pagenav.Navigate<MainPage>();
         }
 
-
         public ICommand SceneCommand
         {
             get
@@ -66,6 +65,64 @@ namespace SceneBuilderWpf.ViewModels
         private void ScenePage()
         {
             pagenav.Navigate<ScenePage>();
+        }
+
+        private Visibility _openButtonVisibility = Visibility.Visible;
+
+        public Visibility OpenButtonVisibility
+        {
+            get
+            {
+                return _openButtonVisibility;
+            }
+            set
+            {
+                _openButtonVisibility = value;
+                OnPropertyChanged(nameof(OpenButtonVisibility));
+            }
+        }
+
+        private Visibility _closeButtonVisibility = Visibility.Collapsed;
+
+        public Visibility CloseButtonVisibility
+        {
+            get
+            {
+                return _closeButtonVisibility;
+            }
+            set
+            {
+                _closeButtonVisibility = value;
+                OnPropertyChanged(nameof(CloseButtonVisibility));
+            }
+        }
+
+        public ICommand ButtonOpenCommand
+        {
+            get
+            {
+                return new CommandHandler(() => ButtonOpenClick());
+            }
+        }
+
+        public void ButtonOpenClick()
+        {
+            CloseButtonVisibility = Visibility.Visible;
+            OpenButtonVisibility = Visibility.Collapsed;
+        }
+
+        public ICommand ButtonCloseCommand
+        {
+            get
+            {
+                return new CommandHandler(() => ButtonCloseClick());
+            }
+        }
+
+        public void ButtonCloseClick()
+        {
+            OpenButtonVisibility = Visibility.Visible;
+            CloseButtonVisibility = Visibility.Collapsed;
         }
     }
 }

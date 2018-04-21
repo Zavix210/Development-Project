@@ -51,10 +51,10 @@
         <Grid Panel.ZIndex="1" x:Name="GridMenu" Width="50" HorizontalAlignment="Left"  Background="White">
             <StackPanel>
                 <Grid Height="150" Background="White">
-                    <Button x:Name="ButtonClose" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" Click="ButtonClose_Click">
+                    <Button Command="{Binding ButtonCloseCommand}" Visibility="{Binding CloseButtonVisibility}" x:Name="ButtonClose" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right">
                         <materialDesign:PackIcon Width="25" Height="25" Foreground="#FF1368BD" Kind="ArrowLeft"></materialDesign:PackIcon>
                     </Button>
-                    <Button x:Name="ButtonOpen" Width="60" Height="60"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonOpen_Click">
+                    <Button Visibility="{Binding OpenButtonVisibility}" x:Name="ButtonOpen" Width="60" Height="60"  Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding ButtonOpenCommand}">
                         <materialDesign:PackIcon Width="25" Height="25" Foreground="#FF1368BD" Kind="Menu"></materialDesign:PackIcon>
                     </Button>
                 </Grid>

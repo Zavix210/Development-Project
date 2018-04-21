@@ -5,28 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="200">
     <StackPanel>
 
-            <Grid Height="65" Margin="0,0,0,0" Width="300" Background="AliceBlue">
-                <materialDesign:PackIcon Kind="Fire" Height="60" Width="65" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="0,0,198,0" Padding="0,0,0,0"    />
-                <Slider Name="FireIntensity" Maximum="100" Minimum="0" Margin="90,0,0,0" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="180" TickFrequency="0" />
-                <Label Content="Intensity: " Width="60" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="105,.997,135,0" />
-                <TextBlock Text="{Binding Value, ElementName=FireIntensity}"
-               VerticalAlignment="Center" Margin="159.666,5.997,-159.666,43.043"/>
-                <TextBox Text="Fire" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="45,43.05,235,-3.01" Width="25"/>
-                
-                
-            </Grid>
-        <Grid Height="65" Margin="0,0,0,0" Width="300" Background="AliceBlue">
+        <Grid Height="90" Margin="0,0,0,0" Width="250" Background="AliceBlue">
+            <materialDesign:PackIcon Kind="Fire" Height="90" Width="85" BorderBrush="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0"    />
+            <Slider Name="FireIntensity" Maximum="100" Minimum="0" Margin="90,19,60,49" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <Label Content="Intensity: " Width="80" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="83,0" />
+            <TextBlock Text="{Binding Value, ElementName=FireIntensity}"
+                 VerticalAlignment="Center" Margin="139,6,51,68"/>
+            <TextBox BorderBrush="White" Text="Fire" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="61,65,164,0" Width="25"/>
+            <Label Content="Angle: " Width="100" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="90,41,60,0" />
+            <Slider x:Name="FireIntensity_Copy" Maximum="100" Minimum="0" Margin="91,59,59,10" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <TextBlock Text="{Binding Value, ElementName=FireIntensity_Copy}"
+                VerticalAlignment="Center" Margin="130,47,60,27"/>
 
-            <materialDesign:PackIcon Kind="WeatherCloudy" Height="60" Width="65" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="0,0,198,0" Padding="0,0,0,0"    />
-                <Slider Name="SmokeIntesinty" Maximum="100" Minimum="0" Margin="90,0,0,0" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="180" TickFrequency="0" />
-                <Label Content="Intensity: " Width="60" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="105,.997,135,0" />
-                <TextBlock Text="{Binding Value, ElementName=SmokeIntesinty}"
-                 VerticalAlignment="Center" Margin="159.666,5.997,-159.666,43.043"/>
-                <TextBox  Text="Smoke" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="White" Margin="45,0,0,0" Width="40"/>
-            </Grid>
+
+        </Grid>
+        <Grid Height="90" Margin="0,0,0,0" Width="250" Background="AliceBlue">
+
+            <materialDesign:PackIcon Kind="WeatherCloudy" Height="90" Width="85" BorderBrush="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0"    />
+            <Slider Name="SmokeIntesinty" Maximum="100" Minimum="0" Margin="90,21,60,47" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <Label Content="Intensity: " Width="80" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="83,1,87,0" />
+            <TextBlock Text="{Binding Value, ElementName=SmokeIntesinty}"
+                 VerticalAlignment="Center" Margin="138,7,60,67"/>
+            <TextBox  Text="Smoke" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="White" Margin="45,0,0,0" Width="40"/>
+            <Slider x:Name="SmokeIntesinty_Copy" Maximum="100" Minimum="0" Margin="90,59,60,10" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <Label Content="Angle: " Width="100" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="84,36,66,0" />
+            <TextBlock Text="{Binding Value, ElementName=SmokeIntesinty_Copy}"
+                VerticalAlignment="Center" Margin="123,42,103,32"/>
+
+        </Grid>
 
 
 
