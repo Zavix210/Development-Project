@@ -176,6 +176,10 @@ public class DecisionController : SimulationComponentBase, IUnityHook
         state = DecisionControllerState.DisplayingResult;
         time = 0.0f;
 
+        // Post a message to notify all other components that a choice was made
+        Message message = new Message((int)MessageDestination.DECISION_CHOICE_MADE, "", choice);
+        Controller.PropagateMessage(message);
+
         // Hide the choices
         HideChoices();
 

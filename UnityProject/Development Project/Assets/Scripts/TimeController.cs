@@ -92,4 +92,9 @@ public class TimeController : SimulationComponentBase, IUnityHook
         string displayStr = string.Format("{0:D2}:{1:D2}", span.Minutes, span.Seconds);
         return displayStr;
     }
+
+    public float GetCurrentTime()
+    {
+        return currentTime;
+    }
 }

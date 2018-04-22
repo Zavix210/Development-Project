@@ -19,5 +19,6 @@ public enum MessageDestination
 
     SCENE_CHANGE = 50, // A scene has changed
     DECISION_START, // Decision selection has started
+    DECISION_CHOICE_MADE, // A choice was selected
     DECISION_END, // Decision selection has ended
 }

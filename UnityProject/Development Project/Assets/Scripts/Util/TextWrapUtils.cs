@@ -12,14 +12,20 @@ public enum TextWrapMode
 
 public class TextWrapUtils
 {
+    /// <summary>
+    /// Wrap a string by inserting newline characters into the string after the specified limit
+    /// based upon the wrap mode specified.
+    /// </summary>
+    /// <param name="rawText"></param>
+    /// <param name="charactersPerLine"></param>
+    /// <param name="wrapMode"></param>
+    /// <returns></returns>
     public static string GetWrappedText(string rawText, int charactersPerLine, TextWrapMode wrapMode = TextWrapMode.IncludeLastWord)
     {
         char delimiter = ' ';
         string newLineChar = Environment.NewLine;
         string final = "";
         string line = "";
-
-        int counter = 0;
 
         string[] split = rawText.Split(delimiter);
         foreach(string str in split)

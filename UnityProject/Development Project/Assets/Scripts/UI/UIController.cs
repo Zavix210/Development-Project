@@ -24,6 +24,7 @@ public class UIController : SimulationComponentBase
 
     public UIController(SimulationController controller) : base(controller)
     {
+        // Get the central display text and set some default values
         centralDisplayText = GameObject.Find("CENTRAL_DISPLAY_TEXT").GetComponent<TextMesh>();
         SetCentralDisplayText("");
         SetCentralDisplayTextVisibility(false);
