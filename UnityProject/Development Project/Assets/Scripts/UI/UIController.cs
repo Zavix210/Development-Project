@@ -16,6 +16,7 @@ public class UIController : SimulationComponentBase
     private CircularUI circularUI;
     private UIFitter uiFitter;
     private int titleWordCharacterLimit = 16;
+    private int largeTitleWordCharacterLimit = 32;
 
     private TextMesh centralDisplayText;
 
@@ -93,7 +94,7 @@ public class UIController : SimulationComponentBase
 
     public void SetCentralDisplayText(string text)
     {
-        text = TextWrapUtils.GetWrappedText(text, titleWordCharacterLimit);
+        text = TextWrapUtils.GetWrappedText(text, largeTitleWordCharacterLimit);
         centralDisplayText.text = text;
     }
 

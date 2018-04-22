@@ -84,7 +84,7 @@ namespace SimulationSystem
             DecisionTimelineAction decisionAction = new DecisionTimelineAction(); // Create the action
 
             DecisionSet set = new DecisionSet(); // Create the decision set
-            set.AddDecision(new Decision(DecisionResult.Incorrect, "Ask colleague to ring the Fire Brigade on 999 ", "INCORRECT because...")); // Create the decision choice
+            set.AddDecision(new Decision(DecisionResult.Incorrect, "Ask colleague to ring the Fire Brigade on 999 ", "Some very very long feedback string which tests the new wrapping system because it's such a very very long un-necessary string! Words words words words words")); // Create the decision choice
             set.AddDecision(new Decision(DecisionResult.Correct, "Ask colleague to raise the alarm and ring switchboard on 2222 ", "CORRECT because...")); // Create the decision choice
             set.AddDecision(new Decision(DecisionResult.Incorrect, "Begin evacuating the ward", "INCORRECT because..."));
             set.Time = 2.0f;
