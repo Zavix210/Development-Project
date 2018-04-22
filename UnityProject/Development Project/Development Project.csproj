@@ -326,6 +326,7 @@
     <Compile Include="Assets\Scripts\Util\IUnityHook.cs" />
     <Compile Include="Assets\Scripts\Util\Pool.cs" />
     <Compile Include="Assets\Scripts\Util\Store.cs" />
+    <Compile Include="Assets\Scripts\Util\TextWrapUtils.cs" />
     <Compile Include="Assets\Scripts\VideoController.cs" />
     <Compile Include="Assets\Scripts\VideoPlayerLoader.cs" />
   </ItemGroup>

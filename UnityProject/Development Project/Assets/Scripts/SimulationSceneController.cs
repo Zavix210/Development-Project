@@ -75,20 +75,18 @@ namespace SimulationSystem
 
             // START DEMONSTRATION CODE
 
-            SceneNode endNode = CreateSceneNode(75);
-            endNode.AddAttribute("DURATION", "10.0");
+            SceneNode endNode = CreateSceneNode(75); // Create Node
+            endNode.AddAttribute("DURATION", "10.0"); // DURATION = the length of a scene (length of video most likely)
 
-            SceneNode testNode = new SceneNode(); // Create Node
+            SceneNode testNode = CreateSceneNode(74); // Create Node
             testNode.AddAttribute("DURATION", "10.0"); // DURATION = the length of a scene (length of video most likely)
-            testNode.SetIdentifier(74); // Set Unique ID
-            store.Add(testNode); // Add the item to the store
-            SimulationScene testNodeWrapper = new SimulationScene(this, testNode); // Create the wrapper (outward facing object)
 
             DecisionTimelineAction decisionAction = new DecisionTimelineAction(); // Create the action
 
             DecisionSet set = new DecisionSet(); // Create the decision set
-            set.AddDecision(new Decision(DecisionResult.Incorrect, "Go Left", "Left is BAD")); // Create the decision choice
-            set.AddDecision(new Decision(DecisionResult.Correct, "Go Right", "Right is GOOD")); // Create the decision choice
+            set.AddDecision(new Decision(DecisionResult.Incorrect, "Ask colleague to ring the Fire Brigade on 999 ", "INCORRECT because...")); // Create the decision choice
+            set.AddDecision(new Decision(DecisionResult.Correct, "Ask colleague to raise the alarm and ring switchboard on 2222 ", "CORRECT because...")); // Create the decision choice
+            set.AddDecision(new Decision(DecisionResult.Incorrect, "Begin evacuating the ward", "INCORRECT because..."));
             set.Time = 2.0f;
             decisionAction.SetDecisionSet(set); // Apply the set
 

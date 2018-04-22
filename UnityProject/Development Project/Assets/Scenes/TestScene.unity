@@ -951,8 +951,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circularUI: {fileID: 2098148628}
-  anglePerButton: 10
-  spacingPerButton: 15
+  anglePerButton: 20
+  spacingPerButton: 20
   buttonYOffsetBelow: 2
   buttons: []
 --- !u!114 &2098148628

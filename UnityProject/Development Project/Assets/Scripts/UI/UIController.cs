@@ -15,6 +15,7 @@ public class UIController : SimulationComponentBase
     private UIChoiceButton prefab;
     private CircularUI circularUI;
     private UIFitter uiFitter;
+    private int titleWordCharacterLimit = 16;
 
     private TextMesh centralDisplayText;
 
@@ -91,6 +92,7 @@ public class UIController : SimulationComponentBase
 
     public void SetCentralDisplayText(string text)
     {
+        text = TextWrapUtils.GetWrappedText(text, titleWordCharacterLimit);
         centralDisplayText.text = text;
     }
 
@@ -101,6 +103,8 @@ public class UIController : SimulationComponentBase
 
     public void PlaceButton(int decisionChoice, string decisionText)
     {
+        decisionText = TextWrapUtils.GetWrappedText(decisionText, titleWordCharacterLimit);
+
         UIChoiceButton button = choiceButtonPool.Get();
         activeButtons.Add(button);
 
