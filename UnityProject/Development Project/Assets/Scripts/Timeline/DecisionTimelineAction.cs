@@ -13,11 +13,11 @@ public class DecisionTimelineAction : TimelineActionBase
         Simulation sim = Simulation.Instance;
         SimulationController controller = sim.Controller;
 
-        Debug.Log("DECISION");
+        //Debug.Log("DECISION");
 
         // Get the decision controller and activate the decision set
         DecisionController decisionController = controller.GetSimulationComponent<DecisionController>();
-        decisionController.ActivateDecisionSet(decisionSet);
+        decisionController.StartDecisionProcess(decisionSet);
     }
 
     public void SetDecisionSet(DecisionSet set)
