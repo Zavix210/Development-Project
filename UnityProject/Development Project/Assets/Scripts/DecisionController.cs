@@ -26,13 +26,22 @@ public class DecisionController : SimulationComponentBase, IUnityHook
     private float decisionWaitTime;
     private float time;
 
+    // Colours
+    private Color defaultColour;
+    private Color incorrectColour;
+    private Color correctColour;
+
     public DecisionController(SimulationController controller) : base(controller)
     {
         Simulation sim = Simulation.Instance;
         sim.AddHook(this);
 
         decisionWaitTime = 2.0f;
-        mode = DecisionControllerMode.Standard;
+        mode = DecisionControllerMode.RepeatUtilCorrect;
+
+        defaultColour = Color.white + new Color(0,0,0,1);
+        correctColour = Color.green - Color.grey + new Color(0, 0, 0, 1);
+        incorrectColour = Color.red - Color.grey + new Color(0, 0, 0, 1);
 
         ResetState();
     }
@@ -136,13 +145,29 @@ public class DecisionController : SimulationComponentBase, IUnityHook
 
     private void ShowFeedback()
     {
+        // Get the UI Controller
+        UIController uiController = Controller.GetSimulationComponent<UIController>();
 
+        uiController.SetCentralDisplayTextVisibility(true);
+        uiController.SetCentralDisplayText(choice.Feedback);
 
+        if(choice.Result == DecisionResult.Correct)
+        {
+            uiController.SetCentralDisplayColour(correctColour);
+        }
+        else
+        {
+            uiController.SetCentralDisplayColour(incorrectColour);
+        }
     }
 
     private void HideFeedback()
     {
-
+        // Get the UI Controller
+        UIController uiController = Controller.GetSimulationComponent<UIController>();
+        uiController.SetCentralDisplayTextVisibility(false);
+        uiController.SetCentralDisplayText("");
+        uiController.SetCentralDisplayColour(defaultColour);
     }
 
     private void OnChoiceMade(Decision decision)

@@ -16,17 +16,22 @@ public class UIController : SimulationComponentBase
     private CircularUI circularUI;
     private UIFitter uiFitter;
 
+    private TextMesh centralDisplayText;
+
     private List<int> decisionChoices;
     private List<UIChoiceButton> activeButtons;
 
     public UIController(SimulationController controller) : base(controller)
     {
+        centralDisplayText = GameObject.Find("CENTRAL_DISPLAY_TEXT").GetComponent<TextMesh>();
+        SetCentralDisplayText("");
+        SetCentralDisplayTextVisibility(false);
+
         prefab = Resources.Load<UIChoiceButton>("UIChoiceButton");
         circularUI = GameObject.FindObjectOfType<CircularUI>();
         uiFitter = GameObject.FindObjectOfType<UIFitter>();
 
         choiceButtonPool = new Pool<UIChoiceButton>(CreateButtonInstance, ButtonStored, ButtonReleased);
-
         decisionChoices = new List<int>();
         activeButtons = new List<UIChoiceButton>();
     }
@@ -77,6 +82,21 @@ public class UIController : SimulationComponentBase
                 }
                 break;
         }
+    }
+
+    public void SetCentralDisplayTextVisibility(bool state)
+    {
+        centralDisplayText.gameObject.SetActive(state);
+    }
+
+    public void SetCentralDisplayText(string text)
+    {
+        centralDisplayText.text = text;
+    }
+
+    public void SetCentralDisplayColour(Color colour)
+    {
+        centralDisplayText.color = colour;
     }
 
     public void PlaceButton(int decisionChoice, string decisionText)

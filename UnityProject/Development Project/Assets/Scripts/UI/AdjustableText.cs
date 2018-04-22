@@ -7,7 +7,9 @@ public class AdjustableText : MonoBehaviour
     [SerializeField]
     private TextMesh textMesh;
     [SerializeField]
-    private BoxCollider boxCollider;
+    private Transform backgroundBox;
+    [SerializeField]
+    private BoxCollider textCollider;
     [SerializeField]
     private float textThickness = 0.2f;
     [SerializeField]
@@ -47,23 +49,49 @@ public class AdjustableText : MonoBehaviour
     /// </summary>
     private void FixBox()
     {
-        Bounds rBounds = textRenderer.bounds;
-        Vector3 rSize = rBounds.size;
+        // TODO: Improvement to this mechanic, it's inefficient but works
 
-        // Calculate the required size to fit the collision box around the text contents
-        Vector3 fScale = textMesh.transform.localScale;
-        Vector3 fSize = new Vector3((rSize.x * (1.0f / fScale.x)) + (textPadding * 2.0f), rSize.y * (1.0f / fScale.y), 1.0f);
+        // Re-create the component which resets the bounds of the box correctly
+        GameObject parentObj = textCollider.gameObject;
+        Destroy(textCollider);
+        textCollider = parentObj.AddComponent<BoxCollider>();
 
-        // Scale the box collider to fit the text.
-        boxCollider.transform.localScale = fSize;
+        Vector3 size = textCollider.size;
+        size.x += textPadding;
+        size.y += textPadding;
+        size.z = textThickness;
 
-        // Apply the box scale values
-        boxCollider.size = new Vector3(1.0f, 1.0f, textThickness);
-        boxCollider.center = Vector3.zero;
+        backgroundBox.position = textCollider.transform.position;
+        backgroundBox.transform.localScale = size;
+
+        //Vector3 size = textCollider.size;
+        ////size.z = textThickness;
+        //textCollider.size = size;
+
+        //Bounds rBounds = textRenderer.bounds;
+        //Vector3 rSize = rBounds.size;
+
+        //// Calculate the required size to fit the collision box around the text contents
+        //Vector3 fScale = textMesh.transform.localScale;
+        ////Vector3 fScale = Vector3.one;
+
+        //Vector3 fSize = new Vector3((rSize.x * (1.0f / fScale.x)) + (textPadding * 2.0f), rSize.y * (1.0f / fScale.y), 1.0f);
+        ////Vector3 fSize = rSize;
+
+        //// Scale the box collider to fit the text.
+        //boxCollider.transform.localScale = fSize;
+
+        //// Apply the box scale values
+        //boxCollider.size = new Vector3(1.0f, 1.0f, textThickness);
+        //boxCollider.center = Vector3.zero;
     }
 
     private void Update()
     {
+        
+
+       // FixBox();
+
         if (highlighted)
         {
             textRenderer.material.color = highlighColour;

@@ -50,6 +50,12 @@ public class UIFitter : MonoBehaviour
         int spacingCount = count + 1;
         float totalAngleSpacing = (anglePerButton * count) + (spacingPerButton * spacingCount);
 
+        // Empty UI will have some fitting space
+        if(count == 0)
+        {
+            totalAngleSpacing = 60;
+        }
+
         // Update the limits on the circular UI to match the angular requirements
         circularUI.AngularLimit = totalAngleSpacing * 0.5f;
 
