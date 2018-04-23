@@ -7,7 +7,7 @@ namespace SceneBuilderWpf.Bussiness_Logic
     {
         public string Serialize(Scene scenario)
         {
-            return JsonConvert.SerializeObject(scenario);
+            return JsonConvert.SerializeObject(scenario, Formatting.Indented);
         }
     }
 }

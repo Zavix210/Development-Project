@@ -6,17 +6,92 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="200">
+
+    <UserControl.Resources>
+        <!-- Some credit given too https://stackoverflow.com/questions/865767/slider-on-off-switch-in-wpf for the checkbox.-->
+        <Style x:Key="CheckBoxStyle1" TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="OnChecking">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="70"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="OnUnchecking">
+                                <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                    <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                                <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                                    <SplineThicknessKeyFrame KeyTime="00:00:00.3000000" Value="1,1,1,1"/>
+                                </ThicknessAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Border BorderBrush="#FFD1E2FF" BorderThickness="1" Padding="0,0,0,0">
+                            <DockPanel x:Name="dockPanel">
+                                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True" VerticalAlignment="Center"/>
+                                <Grid Margin="0,0,0,0" Width="129" HorizontalAlignment="Left" Background="White" >
+                                    <TextBlock Text="Disabled" VerticalAlignment="Center" TextWrapping="Wrap" FontWeight="Bold" FontSize="12" HorizontalAlignment="Right" Margin="0,0,0,0"/>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2,0,0,0" FontSize="12" FontWeight="Bold" Text="Enabled" TextWrapping="Wrap"/>
+                                    <Border HorizontalAlignment="Left" x:Name="slider" Width="59" Height="Auto" BorderThickness="1,1,1,1" CornerRadius="3,3,3,3" RenderTransformOrigin="0.5,0.5" Margin="0">
+                                        <Border.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                                <SkewTransform AngleX="0" AngleY="0"/>
+                                                <RotateTransform Angle="0"/>
+                                                <TranslateTransform X="0" Y="0"/>
+                                            </TransformGroup>
+                                        </Border.RenderTransform>
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                                <GradientStop Color="#FF4490FF" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF8AB4FF" Offset="1"/>
+                                                <GradientStop Color="#FFD1E2FF" Offset="0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource OnUnchecking}" x:Name="OnUnchecking_BeginStoryboard"/>
+                                </Trigger.ExitActions>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource OnChecking}" x:Name="OnChecking_BeginStoryboard"/>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <StackPanel>
 
         <Grid Height="90" Margin="0,0,0,0" Width="250" Background="AliceBlue">
-            <materialDesign:PackIcon Kind="Fire" Height="90" Width="85" BorderBrush="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0"    />
-            <Slider Name="FireIntensity" Maximum="100" Minimum="0" Margin="90,19,60,49" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <materialDesign:PackIcon Kind="Fire" Height="65" Width="61" BorderBrush="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0" Margin="13,17,0,0"    />
+            <Slider Name="FireIntensity" Value="{Binding FireIntensity}" Maximum="100" Minimum="0" Margin="90,19,60,49" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
             <Label Content="Intensity: " Width="80" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="83,0" />
             <TextBlock Text="{Binding Value, ElementName=FireIntensity}"
                  VerticalAlignment="Center" Margin="139,6,51,68"/>
             <TextBox BorderBrush="White" Text="Fire" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="61,65,164,0" Width="25"/>
             <Label Content="Angle: " Width="100" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="90,41,60,0" />
-            <Slider x:Name="FireIntensity_Copy" Maximum="100" Minimum="0" Margin="91,59,59,10" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <Slider Value="{Binding FireAngle}" x:Name="FireIntensity_Copy" Maximum="360" Minimum="0" Margin="91,59,59,10" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
             <TextBlock Text="{Binding Value, ElementName=FireIntensity_Copy}"
                 VerticalAlignment="Center" Margin="130,47,60,27"/>
 
@@ -24,16 +99,26 @@
         </Grid>
         <Grid Height="90" Margin="0,0,0,0" Width="250" Background="AliceBlue">
 
-            <materialDesign:PackIcon Kind="WeatherCloudy" Height="90" Width="85" BorderBrush="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0"    />
-            <Slider Name="SmokeIntesinty" Maximum="100" Minimum="0" Margin="90,21,60,47" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <materialDesign:PackIcon Kind="WeatherCloudy" Height="74" Width="69" BorderBrush="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0" Margin="10,6,0,0"    />
+            <Slider Value="{Binding SmokeIntensity}" Name="SmokeIntesinty" Maximum="100" Minimum="0" Margin="90,21,60,47" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
             <Label Content="Intensity: " Width="80" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="83,1,87,0" />
             <TextBlock Text="{Binding Value, ElementName=SmokeIntesinty}"
                  VerticalAlignment="Center" Margin="138,7,60,67"/>
             <TextBox  Text="Smoke" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="White" Margin="45,0,0,0" Width="40"/>
-            <Slider x:Name="SmokeIntesinty_Copy" Maximum="100" Minimum="0" Margin="90,59,60,10" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
+            <Slider Value="{Binding SmokeAngle}" x:Name="SmokeIntesinty_Copy" Maximum="360" Minimum="0" Margin="90,59,60,10" TickPlacement="BottomRight" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" TickFrequency="0" />
             <Label Content="Angle: " Width="100" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="84,36,66,0" />
             <TextBlock Text="{Binding Value, ElementName=SmokeIntesinty_Copy}"
-                VerticalAlignment="Center" Margin="123,42,103,32"/>
+                VerticalAlignment="Center" Margin="123,42,75,32"/>
+
+        </Grid>
+        <Grid Height="90" Margin="0,0,0,0" Width="250" Background="AliceBlue">
+
+            <materialDesign:PackIcon Kind="GasCylinder" Height="75" Width="70" BorderBrush="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0" Margin="5,7,0,0"    />
+            <Label Content="Fire extinguisher" Width="100" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="53,64,97,-4" />
+            <Grid Height="25" Margin="63,31,56,34">
+                <CheckBox Style="{DynamicResource CheckBoxStyle1}" />
+            </Grid>
+
 
         </Grid>
 

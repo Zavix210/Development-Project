@@ -26,6 +26,9 @@ namespace SceneBuilderWpf.ViewModels
         public ObservableCollection<DescisionPageViewModel> Descision => _descision;
         private ScenceChoice _scenceChoice = new ScenceChoice();
         private DescisionPageViewModel _currentDescisionViewModel;
+        private ActionViewModel _viewModelAction;
+
+
         public DescisionPageViewModel CurrentDescision
         {
             get => _currentDescisionViewModel;
@@ -77,7 +80,7 @@ namespace SceneBuilderWpf.ViewModels
 
             SceneID = sceneid;
             SceneSettings = Scene.GeneralSettings;
-            
+            ViewModelAction = new ActionViewModel(pageNavigation, Scene.GeneralSettings.ActionElements);
             CurrentDescision = new DescisionPageViewModel(pageNavigation, _scenceChoice, SceneID);
             Descision.Add(CurrentDescision);
 
@@ -103,6 +106,14 @@ namespace SceneBuilderWpf.ViewModels
                 FileName = openFileDialog.FileName; //Set textblock to filename. chossen
             }
 
+        }
+
+        public int SceneId
+        {
+            get
+            {
+                return SceneID;
+            }
         }
 
         public string FileName
@@ -166,13 +177,26 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
+        public ActionViewModel ViewModelAction
+        {
+            get
+            {
+                return _viewModelAction;
+            }
+            set
+            {
+                _viewModelAction = value;
+                OnPropertyChanged(nameof(ViewModelAction));
+            }
+        }
+
         /// <summary>
         /// What the Combobox will show. 
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return FileName;
+            return SceneID.ToString()  + ": " + FileName;
         }
     }
 }

@@ -39,7 +39,7 @@
     </Page.Triggers>
 
     <Grid>
-        
+
         <TabControl Margin="-1.02,-5.114,-1,0" SelectedIndex="{Binding TabIndex , Mode=TwoWay}">
 
             <TabControl.ItemContainerStyle>
@@ -54,7 +54,7 @@
 
             <TabItem Height="0" TabIndex="0">
                 <Grid>
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -68,17 +68,18 @@
                         <Button x:Name="ButtonSettingClose" Width="60" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Width="25" Height="25" Foreground="#FF1368BD" Kind="ArrowLeft"></materialDesign:PackIcon>
                         </Button>
-                        <local1:ActionElements Margin="0,35,0,0"></local1:ActionElements>
+                        <local1:ActionElements DataContext="{Binding CurrentScene.ViewModelAction}" Margin="0,35,0,0"></local1:ActionElements>
                     </Grid>
 
-                    <DataGrid ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene}" Padding="25,0,25,0"  AutoGenerateColumns="False" HorizontalAlignment="Left" Height="252" Margin="65,20,0,0" VerticalAlignment="Top" Width="750" IsReadOnly="True" Grid.ColumnSpan="2">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn  Header="File Path" Binding="{Binding FileName}"/>
-                        <DataGridTextColumn Header="Scene Brightness" Binding="{Binding SceneBrightness}"/>
-                        <DataGridTextColumn Header="Emergency Lighting" Binding="{Binding EmergencyLighting}"/>
-                        <DataGridTextColumn Header="Sound Volume"  Binding="{Binding SoundVolume}"/>
-                        <DataGridTextColumn Header="Introduciton Text" Binding="{Binding IntroducitonText}"/>
-                        <DataGridTextColumn Header="Question Text" Binding="{Binding QuestionText}"/>
+                    <DataGrid ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene}" Padding="15,0,15,0"  AutoGenerateColumns="False" HorizontalAlignment="Left" Height="252" Margin="50,15,0,0" VerticalAlignment="Top" Width="766" IsReadOnly="True" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding SceneId}"/>
+                            <DataGridTextColumn Header="File Path" Binding="{Binding FileName}"/>
+                            <DataGridTextColumn Header="Scene Brightness" Binding="{Binding SceneBrightness}"/>
+                            <DataGridTextColumn Header="Emergency Lighting" Binding="{Binding EmergencyLighting}"/>
+                            <DataGridTextColumn Header="Sound Volume"  Binding="{Binding SoundVolume}"/>
+                            <DataGridTextColumn Header="Introduciton Text" Binding="{Binding IntroducitonText}"/>
+                            <DataGridTextColumn Header="Question Text" Binding="{Binding QuestionText}"/>
 
                         </DataGrid.Columns>
                     </DataGrid>
@@ -90,13 +91,13 @@
                         <materialDesign:PackIcon Kind="Settings" Height="20" Width="20" BorderBrush="{x:Null}" HorizontalAlignment="Center"    />
 
                     </Button>
-                    
+
                     <StackPanel Margin="60,0,0,0" Orientation="Vertical" Grid.Row="1">
                         <!-- Label has a default -5,-5,-5,-5 margin-->
                         <Label Content="File Path :" Margin="0,0,0,0"></Label>
 
                         <DockPanel Margin="0,0,10,0">
-                            <TextBox Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Right"></TextBox>
+                            <TextBox IsReadOnly="True" Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Right"></TextBox>
                             <Button Content="Browse."  Command="{Binding CurrentScene.BrowseCommand}" HorizontalAlignment="Center" Height="28" Margin="0,0,0,0" Width="128"/>
                         </DockPanel>
 
@@ -157,7 +158,7 @@
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    
+
                     <Label Content="Choice Text :" Height="30" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
                     <TextBox Text="{Binding CurrentScene.CurrentDescision.ChoiceText}" Height="50" Width="200" VerticalAlignment="Bottom" Grid.Row="0" HorizontalAlignment="Left" Grid.Column="2" ></TextBox>
                     <Label Content="Feedback Text :" Height="30" Width="100" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2"/>

@@ -116,9 +116,11 @@
     <Compile Include="DataModels\Scene.cs" />
     <Compile Include="DataModels\SceneChoice.cs" />
     <Compile Include="DataModels\Settings.cs" />
+    <Compile Include="ViewModels\ActionViewModel.cs" />
     <Compile Include="ViewModels\DescisionPageViewModel.cs" />
     <Compile Include="ViewModels\IndivdualSceneViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ScenarioStorer.cs" />
     <Compile Include="Views\ActionElements.xaml.cs">
       <DependentUpon>ActionElements.xaml</DependentUpon>
     </Compile>

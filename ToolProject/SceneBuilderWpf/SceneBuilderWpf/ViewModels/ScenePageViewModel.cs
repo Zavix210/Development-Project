@@ -16,7 +16,7 @@ namespace SceneBuilderWpf.ViewModels
         private int _tabindex = 0;
         private IFormatConvert formatConvert = new FormatConverter();
         private int SceneID = 1;
-        private string parentID = "";
+        //private string parentID = "";
         private Scene firstscene;
         private IndivdualSceneViewModel _currentSceneViewModel;
         private IndivdualSceneViewModel _currentComboScene;

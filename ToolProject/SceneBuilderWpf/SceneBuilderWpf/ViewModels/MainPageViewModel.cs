@@ -43,19 +43,17 @@ namespace SceneBuilderWpf.ViewModels
 
         public void LoadJsonFileIntoScenePage()
         {
-            OpenFileDialog filedia = new OpenFileDialog();
-            filedia.Filter = "JSON files (*.json)| *.json"; // change if u want to include more files. 
-            filedia.Multiselect = false;
-            filedia.Title = "Load JSON File.";
+            OpenFileDialog filedia = new OpenFileDialog
+            {
+                Filter = "JSON files (*.json)| *.json", // change if u want to include more files. 
+                Multiselect = false,
+                Title = "Load JSON File."
+            };
             filedia.ShowDialog();
             if (filedia.CheckFileExists && filedia.CheckPathExists)
-            {
-
+            { 
                 IFormatConvert format = new FormatConverter();
                 format.ConvertFormat(filedia.FileName);
-
-
-
             }
         }
     }
