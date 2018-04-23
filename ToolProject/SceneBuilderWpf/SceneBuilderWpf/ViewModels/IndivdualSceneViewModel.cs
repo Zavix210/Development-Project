@@ -73,11 +73,10 @@ namespace SceneBuilderWpf.ViewModels
 
         }
 
-        public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid) : base(pageNavigation)
+        public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid, Scene scene) : base(pageNavigation)
         {
            
-            Scene = new Scene();
-
+            Scene = scene;
             SceneID = sceneid;
             SceneSettings = Scene.GeneralSettings;
             ViewModelAction = new ActionViewModel(pageNavigation, Scene.GeneralSettings.ActionElements);

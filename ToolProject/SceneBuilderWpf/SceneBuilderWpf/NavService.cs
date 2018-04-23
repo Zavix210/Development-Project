@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonServiceLocator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace SceneBuilderWpf
 
         public void Navigate(Type sourcePage, object parameter = null)
         {
-            var src = DependencyContainer.Self.Resolve(sourcePage);
+            var src = ServiceLocator.Current.GetInstance(sourcePage);
             MainFrame.Navigate(src, parameter);
         }
 

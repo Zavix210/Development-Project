@@ -9,7 +9,7 @@ namespace SceneBuilderWpf.ViewModels
 {
     public class ScenarioStorer
     {
-        public Scene Scenerio { get; }
-        public bool NewScene { get; }
+        public Scene Scenerio { get; set; }
+        public bool NewScene { get; set; }
     }
 }

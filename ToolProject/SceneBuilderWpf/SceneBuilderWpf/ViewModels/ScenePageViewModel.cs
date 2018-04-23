@@ -50,11 +50,16 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
-        public ScenePageViewModel(IPageNavigationService pageNavigation) : base(pageNavigation)
+        public ScenePageViewModel(IPageNavigationService pageNavigation, ScenarioStorer scenarioStorer) : base(pageNavigation)
         {
-            CurrentScene = new IndivdualSceneViewModel(pageNavigation, SceneID);
-            Scenes.Add(CurrentScene);
+            Scene currentScene = scenarioStorer.NewScene ? scenarioStorer.Scenerio :  new Scene();
+            CurrentScene = new IndivdualSceneViewModel(pageNavigation, SceneID, currentScene);
             firstscene = CurrentScene.Scene;
+            Scenes.Add(CurrentScene);
+            if (scenarioStorer.NewScene == true)
+                LoadScenes(currentScene);
+
+            
             CurrentComboScene = CurrentScene;
         }
 
@@ -95,7 +100,7 @@ namespace SceneBuilderWpf.ViewModels
         private void NewScene()
         {
             SceneID++;
-            CurrentScene = new IndivdualSceneViewModel(pagenav, SceneID);
+            CurrentScene = new IndivdualSceneViewModel(pagenav, SceneID, new Scene());
             Scenes.Add(CurrentScene);
         }
 
@@ -141,6 +146,23 @@ namespace SceneBuilderWpf.ViewModels
                 listBox1.Items.Add(ex.Message);
             }
             */
+        }
+        
+        private void LoadScenes(Scene currentScene)
+        {
+            if(SceneID == 1)
+                CurrentScene.FileName = firstscene.SceneFile;
+            SceneID++;
+            
+
+
+            foreach (var x in currentScene.Choice)
+            {
+                IndivdualSceneViewModel indivdualScene = new IndivdualSceneViewModel(pagenav, SceneID, x.Whereyougo);
+                indivdualScene.FileName = x.Whereyougo.SceneFile;
+                Scenes.Add(indivdualScene);
+                LoadScenes(x.Whereyougo);
+            }     
         }
 
         ObservableCollection<Scene> Scenario1View { get; set; }

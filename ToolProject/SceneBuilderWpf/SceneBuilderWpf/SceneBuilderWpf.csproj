@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extras.CommonServiceLocator, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Extras.CommonServiceLocator.5.0.0\lib\net45\Autofac.Extras.CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -130,16 +136,12 @@
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DependencyContainer.cs" />
-    <Compile Include="DependencyContainerWrapper.cs" />
-    <Compile Include="IDependencyContainer.cs" />
-    <Compile Include="IDependencyResolver.cs" />
     <Compile Include="IPageNavigationService.cs" />
     <Compile Include="Views\ScenePage.xaml.cs">
       <DependentUpon>ScenePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="NavService.cs" />
-    <Compile Include="ViewModelLocator.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\BaseViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModels\Commands\CommandHandler.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />

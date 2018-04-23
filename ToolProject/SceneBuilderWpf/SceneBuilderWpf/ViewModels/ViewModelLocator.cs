@@ -1,41 +1,45 @@
-﻿using SceneBuilderWpf.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Autofac;
+using Autofac.Extras.CommonServiceLocator;
+using CommonServiceLocator;
+using SceneBuilderWpf.ViewModels;
 using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace SceneBuilderWpf
+namespace SceneBuilderWpf.ViewModels
 {
     public sealed class ViewModelLocator
     {
 
         public ViewModelLocator()
         {
-            var container = DependencyContainer.Self;
+            var container = new ContainerBuilder();
 
-            container.RegisterInstance<Frame>(App.MainFrame);
+            container.RegisterInstance(App.MainFrame).As<Frame>();
 
-            // register view models
+            container.RegisterType<ScenarioStorer>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
             container.RegisterType<PageNavigationService>();
             container.RegisterType<MainPageViewModel>();
             container.RegisterType<ScenePageViewModel>();
-            container.RegisterType<DescisionPageViewModel>();
             container.RegisterType<MainViewModel>();
+            container.RegisterType<DescisionPageViewModel>();
             container.RegisterType<MainPage>();
             container.RegisterType<ScenePage>();
-           
+
             container.RegisterInstance<IPageNavigationService>(App.pageNavigation);
-            // container.RegisterType<DescisionPageViewModel>();
+
+            var con = container.Build();
+            var cs1 = new AutofacServiceLocator(con);
+            ServiceLocator.SetLocatorProvider(() => cs1);
         }
 
         public MainViewModel Main
         {
             get
             {
-                return DependencyContainer.Self.Resolve<MainViewModel>();
+                return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 
@@ -43,7 +47,7 @@ namespace SceneBuilderWpf
         {
             get
             {
-                return DependencyContainer.Self.Resolve<ScenePage>();
+                return ServiceLocator.Current.GetInstance<ScenePage>();
             }
         }
 
@@ -51,7 +55,7 @@ namespace SceneBuilderWpf
         {
             get
             {
-                return DependencyContainer.Self.Resolve<MainPageViewModel>();
+                return ServiceLocator.Current.GetInstance<MainPageViewModel>();
             }
         }
 
@@ -59,13 +63,14 @@ namespace SceneBuilderWpf
         {
             get
             {
-                return DependencyContainer.Self.Resolve<ScenePageViewModel>();
+                return ServiceLocator.Current.GetInstance<ScenePageViewModel>();
             }
         }
 
         public DescisionPageViewModel DescicionPageModel
         {
-            get => DependencyContainer.Self.Resolve<DescisionPageViewModel>();
+            get => ServiceLocator.Current.GetInstance<DescisionPageViewModel>();
         }
+
     }
 }
