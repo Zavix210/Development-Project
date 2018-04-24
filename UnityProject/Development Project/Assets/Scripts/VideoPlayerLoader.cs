@@ -172,27 +172,27 @@ public class VideoPlayerLoader : MonoBehaviour {
             FadeToClearFinished.Invoke();
     }
     //TEST---------------------
-    private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
-    private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
-    private int _videoWidth = 3840;
-    private int _videoHeight = 1920;
+    //private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
+    //private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
+    //private int _videoWidth = 3840;
+    //private int _videoHeight = 1920;
 
-    void Awake()
-    {
+    //void Awake()
+    //{
 
-        finishedPlayingCurrentVideo += playNextVideoTest;
-    }
+    //    finishedPlayingCurrentVideo += playNextVideoTest;
+    //}
 
-    void Start()
-    {
-        PlayVideo(_videoFilePath, _videoWidth, _videoHeight);
-        _videoPlayer.EnableAudioTrack(0, true);
-    }
+    //void Start()
+    //{
+    //    PlayVideo(_videoFilePath, _videoWidth, _videoHeight);
+    //    _videoPlayer.EnableAudioTrack(0, true);
+    //}
 
-    private void playNextVideoTest()
-    {
-        PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
-    }
+    //private void playNextVideoTest()
+    //{
+    //    PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
+    //}
 
 
 
