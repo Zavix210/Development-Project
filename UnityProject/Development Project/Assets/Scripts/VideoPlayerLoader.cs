@@ -17,6 +17,7 @@ public class VideoPlayerLoader : MonoBehaviour {
     public float FadeDuration = 1.5f;
     public AudioSource audioSource;
     public bool _firstTime = true;
+    public bool _emergencyLights = false;
     /// <summary>
     /// Invoked when the video finishes executing. It will remain paused until another video is asked to be played.
     /// </summary>
@@ -171,6 +172,52 @@ public class VideoPlayerLoader : MonoBehaviour {
         if(FadeToClearFinished != null)
             FadeToClearFinished.Invoke();
     }
+
+    public void StartEmergencyLights()
+    {
+        _emergencyLights = true;
+        IEnumerator coroutine = InnerEmergencyLights();
+        StartCoroutine(coroutine);
+    }
+
+    public void StopEmergencyLights()
+    {
+        _emergencyLights = false;
+    }
+
+    private IEnumerator InnerEmergencyLights()
+    {
+
+        while (_emergencyLights)
+        {
+            Color startColor = _videoMaterial.GetColor("_Tint");
+            Color endColor = new Color(0.3f,0.0f,0.0f,0.5f);
+            float t = 0.0f;
+
+            while (t < 1.0f)
+            {
+                SetColor(Color.Lerp(startColor, endColor, t));
+                t += Time.deltaTime / 1.0f;
+                yield return new WaitForEndOfFrame();
+            }
+
+            startColor = _videoMaterial.GetColor("_Tint");
+            endColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+            t = 0.0f;
+
+            while (t < 1.0f)
+            {
+                SetColor(Color.Lerp(startColor, endColor, t));
+                t += Time.deltaTime / 1.0f;
+                yield return new WaitForEndOfFrame();
+            }
+
+
+        }
+    }
+
+   
+
     //TEST---------------------
     //private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
     //private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
@@ -192,6 +239,18 @@ public class VideoPlayerLoader : MonoBehaviour {
     //private void playNextVideoTest()
     //{
     //    PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
+    //}
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Z))
+    //    {
+    //        StopEmergencyLights();
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.X))
+    //    {
+    //        StartEmergencyLights();
+    //    }
     //}
 
 
