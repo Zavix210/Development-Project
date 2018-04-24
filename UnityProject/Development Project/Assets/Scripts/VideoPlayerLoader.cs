@@ -11,12 +11,21 @@ public class VideoPlayerLoader : MonoBehaviour {
     VideoPlayer _videoPlayer;
     Material _videoMaterial;
     public delegate void FinishedVideoHandler();
-
+    public delegate void FadeToBlackFinishedHandler();
+    public delegate void FadeToClearFinishedHandler();
+    public Image FadeImage;
+    public float FadeDuration = 1.5f;
+    public AudioSource audioSource;
+    public bool _firstTime = true;
+    public bool _emergencyLights = false;
     /// <summary>
     /// Invoked when the video finishes executing. It will remain paused until another video is asked to be played.
     /// </summary>
     public event FinishedVideoHandler finishedPlayingCurrentVideo;
 
+    public event FadeToBlackFinishedHandler FadeToBlackFinished;
+
+    public event FadeToClearFinishedHandler FadeToClearFinished;
 
     /// <summary>
     /// Use this method to play the videos that will be rendered on the skybox.
@@ -26,9 +35,13 @@ public class VideoPlayerLoader : MonoBehaviour {
     /// <param name="height">Video Height</param>
     public void PlayVideo(string url,int width,int height)
     {
-        if(!_videoPlayer)
+        _videoPlayer = gameObject.GetComponent<VideoPlayer>();
+        if(_videoPlayer == null)
         {
-            _videoPlayer = gameObject.AddComponent<VideoPlayer>();
+            Debug.LogError("Video Player Not Found on Component");
+        }
+        if (_videoPlayer && _firstTime)
+        {
             _videoPlayer.prepareCompleted += PrepareCompleted;
             _videoPlayer.errorReceived += VideoPlayerError;
             _videoPlayer.loopPointReached += FinishedPlaying;
@@ -45,10 +58,22 @@ public class VideoPlayerLoader : MonoBehaviour {
             RenderSettings.skybox = _videoMaterial;
             _videoPlayer.renderMode = VideoRenderMode.RenderTexture;
             _videoPlayer.targetTexture = renderTexture;
+            _videoPlayer.url = url;
+            _firstTime = false;
         }
+        
         VideoPlayer videoPlayer = _videoPlayer;
+        
         videoPlayer.url = url;
+        
         videoPlayer.Prepare();
+    }
+
+    public void ResumeVideo()
+    {
+        if (_videoPlayer == null)
+            return;
+        _videoPlayer.Play();
     }
 
     /// <summary>
@@ -85,6 +110,13 @@ public class VideoPlayerLoader : MonoBehaviour {
 
     private void PrepareCompleted(VideoPlayer source)
     {
+        _videoPlayer.SetTargetAudioSource(0, audioSource);
+        _videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+
+        _videoPlayer.EnableAudioTrack(0, true);
+        _videoPlayer.controlledAudioTrackCount = 1;
+        audioSource.volume = 1.0f;
+
         source.Play();
     }
 
@@ -94,6 +126,98 @@ public class VideoPlayerLoader : MonoBehaviour {
         finishedPlayingCurrentVideo.Invoke();
     }
 
+    public void FadeToBlack()
+    {
+        IEnumerator coroutine = InnerFadeToBlack();
+        StartCoroutine(coroutine);
+
+    }
+
+    private IEnumerator InnerFadeToBlack()
+    {
+        Color startColor = FadeImage.color;
+        Color endColor = Color.black;
+        float t = 0.0f;
+
+        while (t < 1.0f)
+        {
+            FadeImage.color = Color.Lerp(startColor, endColor, t);
+            t += Time.deltaTime / FadeDuration;
+            yield return new WaitForEndOfFrame();
+        }
+        if(FadeToBlackFinished != null)
+            FadeToBlackFinished.Invoke();
+    }
+
+    public void FadeToClear()
+    {
+        IEnumerator coroutine = InnerFadeToClear();
+        StartCoroutine(coroutine);
+
+    }
+
+    private IEnumerator InnerFadeToClear()
+    {
+        Color startColor = FadeImage.color;
+        Color endColor = Color.clear;
+        float t = 0.0f;
+
+        while (t < 1.0f)
+        {
+            FadeImage.color = Color.Lerp(startColor, endColor, t);
+            t += Time.deltaTime / FadeDuration;
+            yield return new WaitForEndOfFrame();
+        }
+
+        if(FadeToClearFinished != null)
+            FadeToClearFinished.Invoke();
+    }
+
+    public void StartEmergencyLights()
+    {
+        _emergencyLights = true;
+        IEnumerator coroutine = InnerEmergencyLights();
+        StartCoroutine(coroutine);
+    }
+
+    public void StopEmergencyLights()
+    {
+        _emergencyLights = false;
+    }
+
+    private IEnumerator InnerEmergencyLights()
+    {
+
+        while (_emergencyLights)
+        {
+            Color startColor = _videoMaterial.GetColor("_Tint");
+            Color endColor = new Color(0.3f,0.0f,0.0f,0.5f);
+            float t = 0.0f;
+
+            while (t < 1.0f)
+            {
+                SetColor(Color.Lerp(startColor, endColor, t));
+                t += Time.deltaTime / 1.0f;
+                yield return new WaitForEndOfFrame();
+            }
+
+            startColor = _videoMaterial.GetColor("_Tint");
+            endColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+            t = 0.0f;
+
+            while (t < 1.0f)
+            {
+                SetColor(Color.Lerp(startColor, endColor, t));
+                t += Time.deltaTime / 1.0f;
+                yield return new WaitForEndOfFrame();
+            }
+
+
+        }
+    }
+
+   
+
     //TEST---------------------
     //private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
     //private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
@@ -102,17 +226,31 @@ public class VideoPlayerLoader : MonoBehaviour {
 
     //void Awake()
     //{
+
     //    finishedPlayingCurrentVideo += playNextVideoTest;
     //}
 
     //void Start()
     //{
     //    PlayVideo(_videoFilePath, _videoWidth, _videoHeight);
+    //    _videoPlayer.EnableAudioTrack(0, true);
     //}
 
     //private void playNextVideoTest()
     //{
     //    PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
+    //}
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Z))
+    //    {
+    //        StopEmergencyLights();
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.X))
+    //    {
+    //        StartEmergencyLights();
+    //    }
     //}
 
 
