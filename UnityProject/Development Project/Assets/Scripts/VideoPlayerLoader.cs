@@ -11,12 +11,18 @@ public class VideoPlayerLoader : MonoBehaviour {
     VideoPlayer _videoPlayer;
     Material _videoMaterial;
     public delegate void FinishedVideoHandler();
-
+    public delegate void FadeToBlackFinishedHandler();
+    public delegate void FadeToClearFinishedHandler();
+    public Image FadeImage;
+    public float FadeDuration = 1.5f;
     /// <summary>
     /// Invoked when the video finishes executing. It will remain paused until another video is asked to be played.
     /// </summary>
     public event FinishedVideoHandler finishedPlayingCurrentVideo;
 
+    public event FadeToBlackFinishedHandler FadeToBlackFinished;
+
+    public event FadeToClearFinishedHandler FadeToClearFinished;
 
     /// <summary>
     /// Use this method to play the videos that will be rendered on the skybox.
@@ -94,6 +100,52 @@ public class VideoPlayerLoader : MonoBehaviour {
         finishedPlayingCurrentVideo.Invoke();
     }
 
+    public void FadeToBlack()
+    {
+        IEnumerator coroutine = InnerFadeToBlack();
+        StartCoroutine(coroutine);
+
+    }
+
+    private IEnumerator InnerFadeToBlack()
+    {
+        Color startColor = FadeImage.color;
+        Color endColor = Color.black;
+        float t = 0.0f;
+
+        while (t < 1.0f)
+        {
+            FadeImage.color = Color.Lerp(startColor, endColor, t);
+            t += Time.deltaTime / FadeDuration;
+            yield return new WaitForEndOfFrame();
+        }
+        if(FadeToBlackFinished != null)
+            FadeToBlackFinished.Invoke();
+    }
+
+    public void FadeToClear()
+    {
+        IEnumerator coroutine = InnerFadeToClear();
+        StartCoroutine(coroutine);
+
+    }
+
+    private IEnumerator InnerFadeToClear()
+    {
+        Color startColor = FadeImage.color;
+        Color endColor = Color.clear;
+        float t = 0.0f;
+
+        while (t < 1.0f)
+        {
+            FadeImage.color = Color.Lerp(startColor, endColor, t);
+            t += Time.deltaTime / FadeDuration;
+            yield return new WaitForEndOfFrame();
+        }
+
+        if(FadeToClearFinished != null)
+            FadeToClearFinished.Invoke();
+    }
     //TEST---------------------
     //private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
     //private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
