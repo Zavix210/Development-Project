@@ -12,7 +12,9 @@ namespace SceneBuilderWpf.DataModels
         /// The desicion made.
         /// <summary/>
         public string Decision { get; set; }
-
+		
+		
+		public int Score {get; set;}
         /// <summary>
         /// Feedback of the desicion made.
         /// <summary/>
