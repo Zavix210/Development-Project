@@ -57,6 +57,13 @@ public class VideoPlayerLoader : MonoBehaviour {
         videoPlayer.Prepare();
     }
 
+    public void ResumeVideo()
+    {
+        if (_videoPlayer == null)
+            return;
+        _videoPlayer.Play();
+    }
+
     /// <summary>
     /// Tints the video with a specific color.
     /// </summary>
