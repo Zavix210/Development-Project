@@ -31,8 +31,6 @@ namespace SceneBuilderWpf.Bussiness_Logic
             DocumentStorage documentStorage = new JsonStorage();
             documentStorage.PersistDocument(x, targetFileName);
 
-
-            /// save stuff here 
             return true;
         }
 
@@ -43,13 +41,8 @@ namespace SceneBuilderWpf.Bussiness_Logic
         /// <returns></returns>
         public Scene ConvertFormat(string sourceFileName)
         {
-            Scene Scenario;
-            using (StreamReader reader = new StreamReader(File.OpenRead(sourceFileName)))
-            {
-                string json = reader.ReadToEnd();
-                Scenario = _inputParser.ParseInput(json);
-            }
-
+            DocumentStorage documentStorage = new JsonStorage();
+            Scene Scenario = _inputParser.ParseInput(documentStorage.GetData(sourceFileName));
             return Scenario;
         }
     }

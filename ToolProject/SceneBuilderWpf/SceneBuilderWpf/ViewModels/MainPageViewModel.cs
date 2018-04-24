@@ -17,9 +17,11 @@ namespace SceneBuilderWpf.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private ScenarioStorer _scenariostorer;
-        public MainPageViewModel(IPageNavigationService pageNavigation, ScenarioStorer scenarioStorer) : base(pageNavigation)
+        private IFormatConvert FormatConvert;
+        public MainPageViewModel(IPageNavigationService pageNavigation, ScenarioStorer scenarioStorer, IFormatConvert formatConvert) : base(pageNavigation)
         {
             _scenariostorer = scenarioStorer;
+            FormatConvert = formatConvert;
         }
 
         public ICommand ChangePagCommand
@@ -54,8 +56,7 @@ namespace SceneBuilderWpf.ViewModels
             filedia.ShowDialog();
             if (filedia.CheckFileExists && filedia.CheckPathExists)
             { 
-                IFormatConvert format = new FormatConverter();
-                Scene scene = format.ConvertFormat(filedia.FileName);
+                Scene scene = FormatConvert.ConvertFormat(filedia.FileName);
                 _scenariostorer.NewScene = true;
                 _scenariostorer.Scenerio = scene;
             }

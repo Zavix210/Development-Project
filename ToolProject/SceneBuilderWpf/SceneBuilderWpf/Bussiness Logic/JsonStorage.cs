@@ -13,7 +13,12 @@ namespace SceneBuilderWpf.Bussiness_Logic
 
         public override string GetData(string filename) // Retrive the Json object which has already been saved. 
         {
-            throw new NotImplementedException();
+            string jsondata;
+            using (StreamReader reader = new StreamReader(File.OpenRead(filename)))
+            {
+                jsondata = reader.ReadToEnd();
+            }
+            return jsondata;
         }
 
         public override string[] GetDirectorysData(string Directory)

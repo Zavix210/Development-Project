@@ -15,12 +15,11 @@ namespace SceneBuilderWpf.ViewModels
 {
     public class IndivdualSceneViewModel : BaseViewModel
     {
-        public Scene Scene;
+        public Scene scene;
         private Settings SceneSettings;
         private string _fileName;
         public int SceneID;
         public string ParentId = "";
-
         
         readonly ObservableCollection<DescisionPageViewModel> _descision = new ObservableCollection<DescisionPageViewModel>();
         public ObservableCollection<DescisionPageViewModel> Descision => _descision;
@@ -28,6 +27,18 @@ namespace SceneBuilderWpf.ViewModels
         private DescisionPageViewModel _currentDescisionViewModel;
         private ActionViewModel _viewModelAction;
 
+
+        public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid, Scene scene) : base(pageNavigation)
+        {
+
+            this.scene = scene;
+            SceneID = sceneid;
+            SceneSettings = this.scene.GeneralSettings;
+            ViewModelAction = new ActionViewModel(pageNavigation, this.scene.GeneralSettings.ActionElements);
+            CurrentDescision = new DescisionPageViewModel(pageNavigation, _scenceChoice, SceneID);
+            Descision.Add(CurrentDescision);
+
+        }
 
         public DescisionPageViewModel CurrentDescision
         {
@@ -60,27 +71,15 @@ namespace SceneBuilderWpf.ViewModels
             else
             {
                 CurrentDescision.NextScene.ParentId = SceneID.ToString();
-                _scenceChoice.Whereyougo = CurrentDescision.NextScene.Scene;
+                _scenceChoice.Whereyougo = CurrentDescision.NextScene.scene;
             }
 
-            Scene.Choice.Add(_scenceChoice);
+            scene.Choice.Add(_scenceChoice);
 
             _scenceChoice = new ScenceChoice();
 
 
             CurrentDescision = new DescisionPageViewModel(pagenav, _scenceChoice, SceneID);
-            Descision.Add(CurrentDescision);
-
-        }
-
-        public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid, Scene scene) : base(pageNavigation)
-        {
-           
-            Scene = scene;
-            SceneID = sceneid;
-            SceneSettings = Scene.GeneralSettings;
-            ViewModelAction = new ActionViewModel(pageNavigation, Scene.GeneralSettings.ActionElements);
-            CurrentDescision = new DescisionPageViewModel(pageNavigation, _scenceChoice, SceneID);
             Descision.Add(CurrentDescision);
 
         }
@@ -120,7 +119,7 @@ namespace SceneBuilderWpf.ViewModels
             get => _fileName;
             set
             {
-                Scene.SceneFile = value;
+                scene.SceneFile = value;
                 _fileName = Path.GetFileName(value);
                 OnPropertyChanged(nameof(FileName));
             }
@@ -187,6 +186,15 @@ namespace SceneBuilderWpf.ViewModels
                 _viewModelAction = value;
                 OnPropertyChanged(nameof(ViewModelAction));
             }
+        }
+
+        public void LoadInScene()
+        {
+            foreach(var x in scene.GeneralSettings.ActionElements)
+            {
+                _viewModelAction.LoadAction(x);
+            }
+
         }
 
         /// <summary>

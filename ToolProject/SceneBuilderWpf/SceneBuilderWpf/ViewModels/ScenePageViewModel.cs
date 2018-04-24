@@ -14,7 +14,7 @@ namespace SceneBuilderWpf.ViewModels
     public class ScenePageViewModel : BaseViewModel
     {
         private int _tabindex = 0;
-        private IFormatConvert formatConvert = new FormatConverter();
+        private IFormatConvert formatConvert;
         private int SceneID = 1;
         //private string parentID = "";
         private Scene firstscene;
@@ -50,16 +50,16 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
-        public ScenePageViewModel(IPageNavigationService pageNavigation, ScenarioStorer scenarioStorer) : base(pageNavigation)
+        public ScenePageViewModel(IPageNavigationService pageNavigation, ScenarioStorer scenarioStorer, IFormatConvert Formatconvert) : base(pageNavigation)
         {
             Scene currentScene = scenarioStorer.NewScene ? scenarioStorer.Scenerio :  new Scene();
+            formatConvert = Formatconvert;
             CurrentScene = new IndivdualSceneViewModel(pageNavigation, SceneID, currentScene);
-            firstscene = CurrentScene.Scene;
+            firstscene = CurrentScene.scene;
             Scenes.Add(CurrentScene);
             if (scenarioStorer.NewScene == true)
                 LoadScenes(currentScene);
 
-            
             CurrentComboScene = CurrentScene;
         }
 
@@ -150,15 +150,17 @@ namespace SceneBuilderWpf.ViewModels
         
         private void LoadScenes(Scene currentScene)
         {
-            if(SceneID == 1)
+            if (SceneID == 1)
+            {
                 CurrentScene.FileName = firstscene.SceneFile;
+                CurrentScene.LoadInScene();
+            }
             SceneID++;
             
-
-
             foreach (var x in currentScene.Choice)
             {
                 IndivdualSceneViewModel indivdualScene = new IndivdualSceneViewModel(pagenav, SceneID, x.Whereyougo);
+                indivdualScene.LoadInScene();
                 indivdualScene.FileName = x.Whereyougo.SceneFile;
                 Scenes.Add(indivdualScene);
                 LoadScenes(x.Whereyougo);

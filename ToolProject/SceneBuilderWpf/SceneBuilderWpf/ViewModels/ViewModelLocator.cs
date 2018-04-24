@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.CommonServiceLocator;
 using CommonServiceLocator;
+using SceneBuilderWpf.Bussiness_Logic;
 using SceneBuilderWpf.ViewModels;
 using System.Windows.Controls;
 
@@ -29,7 +30,7 @@ namespace SceneBuilderWpf.ViewModels
             container.RegisterType<ScenePage>();
 
             container.RegisterInstance<IPageNavigationService>(App.pageNavigation);
-
+            container.RegisterInstance(new FormatConverter()).As<IFormatConvert>();
             var con = container.Build();
             var cs1 = new AutofacServiceLocator(con);
             ServiceLocator.SetLocatorProvider(() => cs1);

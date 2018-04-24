@@ -100,6 +100,21 @@ namespace SceneBuilderWpf.ViewModels
                 }
             }
         }
+
+        public void LoadAction(DataModels.Action action)
+        {
+            switch(action.ActionEnum)
+            {
+                case Actions.Fire:
+                    FireAngle = action.Angle;
+                    FireIntensity = action.Intensity;
+                    break;
+                case Actions.Smoke:
+                    SmokeAngle = action.Angle;
+                    SmokeIntensity = action.Intensity;
+                    break;
+            }
+        }
         
     }
 }

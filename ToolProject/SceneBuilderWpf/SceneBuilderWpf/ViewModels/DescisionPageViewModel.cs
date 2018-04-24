@@ -48,7 +48,7 @@ namespace SceneBuilderWpf.ViewModels
             set
             {
                 _nextscene = value;
-                scenceChoice.Whereyougo = _nextscene.Scene;
+                scenceChoice.Whereyougo = _nextscene.scene;
                 OnPropertyChanged(nameof(NextScene));
             }
         }
