@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SceneBuilderWpf.DataModels
 {
@@ -35,16 +31,28 @@ namespace SceneBuilderWpf.DataModels
 
         public List<Action> ActionElements
         {
-            get => _actionElements;
-            set => _actionElements = value;
+            get
+            {
+               return _actionElements;
+            }
+            set
+            {
+                _actionElements = value;
+            }
         }
 
         private List<Assets> _assetElements = new List<Assets>();
 
         public List<Assets> AssetElements
         {
-            get => _assetElements;
-            set => _assetElements = value;
+            get
+            {
+                return _assetElements;
+            }
+            set
+            {
+                _assetElements = value;
+            }
         }
     }
 }

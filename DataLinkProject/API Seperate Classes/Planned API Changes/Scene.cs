@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SceneBuilderWpf.DataModels
 {
@@ -18,8 +14,6 @@ namespace SceneBuilderWpf.DataModels
         public Settings GeneralSettings { get; set; }
 
         public List<Decision> DecisionList { get; set; }
-       
-
 
     }
 

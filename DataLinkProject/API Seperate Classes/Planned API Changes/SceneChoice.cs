@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SceneBuilderWpf.DataModels
+﻿namespace SceneBuilderWpf.DataModels
 {
     public class ScenceChoice
     {
@@ -12,13 +6,16 @@ namespace SceneBuilderWpf.DataModels
         /// The desicion made.
         /// <summary/>
         public string Decision { get; set; }
-		
-		
-		public int Score {get; set;}
+
         /// <summary>
         /// Feedback of the desicion made.
         /// <summary/>
         public string Feedback { get; set; }
+
+        /// <summary>
+        /// Postive correct answer, negative bad answer. 
+        /// </summary>
+        public int Score { get; set; }
 
         /// <summary>
         /// The next scene that your going to.

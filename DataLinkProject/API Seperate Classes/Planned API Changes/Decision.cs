@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SceneBuilderWpf.DataModels
 {
@@ -13,9 +9,9 @@ namespace SceneBuilderWpf.DataModels
             Choice = new List<ScenceChoice>();
         }
 
-        public string Question;
+        public string Question { get; set; }
 
-        public float time; 
+        public float DecisionTime { get; set; }
 
         public List<ScenceChoice> Choice { get; set; }
     }
