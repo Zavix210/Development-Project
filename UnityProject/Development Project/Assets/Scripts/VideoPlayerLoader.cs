@@ -15,6 +15,8 @@ public class VideoPlayerLoader : MonoBehaviour {
     public delegate void FadeToClearFinishedHandler();
     public Image FadeImage;
     public float FadeDuration = 1.5f;
+    public AudioSource audioSource;
+    public bool _firstTime = true;
     /// <summary>
     /// Invoked when the video finishes executing. It will remain paused until another video is asked to be played.
     /// </summary>
@@ -32,9 +34,13 @@ public class VideoPlayerLoader : MonoBehaviour {
     /// <param name="height">Video Height</param>
     public void PlayVideo(string url,int width,int height)
     {
-        if(!_videoPlayer)
+        _videoPlayer = gameObject.GetComponent<VideoPlayer>();
+        if(_videoPlayer == null)
         {
-            _videoPlayer = gameObject.AddComponent<VideoPlayer>();
+            Debug.LogError("Video Player Not Found on Component");
+        }
+        if (_videoPlayer && _firstTime)
+        {
             _videoPlayer.prepareCompleted += PrepareCompleted;
             _videoPlayer.errorReceived += VideoPlayerError;
             _videoPlayer.loopPointReached += FinishedPlaying;
@@ -51,9 +57,14 @@ public class VideoPlayerLoader : MonoBehaviour {
             RenderSettings.skybox = _videoMaterial;
             _videoPlayer.renderMode = VideoRenderMode.RenderTexture;
             _videoPlayer.targetTexture = renderTexture;
+            _videoPlayer.url = url;
+            _firstTime = false;
         }
+        
         VideoPlayer videoPlayer = _videoPlayer;
+        
         videoPlayer.url = url;
+        
         videoPlayer.Prepare();
     }
 
@@ -98,6 +109,13 @@ public class VideoPlayerLoader : MonoBehaviour {
 
     private void PrepareCompleted(VideoPlayer source)
     {
+        _videoPlayer.SetTargetAudioSource(0, audioSource);
+        _videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+
+        _videoPlayer.EnableAudioTrack(0, true);
+        _videoPlayer.controlledAudioTrackCount = 1;
+        audioSource.volume = 1.0f;
+
         source.Play();
     }
 
@@ -154,25 +172,27 @@ public class VideoPlayerLoader : MonoBehaviour {
             FadeToClearFinished.Invoke();
     }
     //TEST---------------------
-    //private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
-    //private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
-    //private int _videoWidth = 3840;
-    //private int _videoHeight = 1920;
+    private string _videoFilePath = @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4";
+    private string _videoFilePath2 = @"C:\GameProjects\DevProjectTest\Assets\stationary2.mp4";
+    private int _videoWidth = 3840;
+    private int _videoHeight = 1920;
 
-    //void Awake()
-    //{
-    //    finishedPlayingCurrentVideo += playNextVideoTest;
-    //}
+    void Awake()
+    {
 
-    //void Start()
-    //{
-    //    PlayVideo(_videoFilePath, _videoWidth, _videoHeight);
-    //}
+        finishedPlayingCurrentVideo += playNextVideoTest;
+    }
 
-    //private void playNextVideoTest()
-    //{
-    //    PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
-    //}
+    void Start()
+    {
+        PlayVideo(_videoFilePath, _videoWidth, _videoHeight);
+        _videoPlayer.EnableAudioTrack(0, true);
+    }
+
+    private void playNextVideoTest()
+    {
+        PlayVideo(_videoFilePath2, _videoWidth, _videoHeight);
+    }
 
 
 
