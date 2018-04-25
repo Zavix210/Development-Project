@@ -1,0 +1,98 @@
+{
+  "SceneFile": "\\\\cna-cifs.adir.hull.ac.uk\\home4\\484\\484081\\08348 Lab Week 1 Learning Points.pdf",
+  "GeneralSettings": {
+    "SceneBrightness": 10,
+    "EmergLight": 20,
+    "SoundVolume": 30,
+    "Text": "Scene One",
+    "ActionElements": [
+      {
+        "ActionEnum": 1,
+        "Intensity": 13.0,
+        "Time": 0.0,
+        "Angle": 21.0
+      },
+      {
+        "ActionEnum": 0,
+        "Intensity": 18.0,
+        "Time": 0.0,
+        "Angle": 0.0
+      }
+    ],
+    "AssetElements": []
+  },
+  "DecisionList": [
+    {
+      "Question": "Red or blue Pill",
+      "DecisionTime": 10.5,
+      "Choice": [
+        {
+          "Decision": "Red pill ",
+          "Feedback": "Nowhere to go",
+          "Score": 0,
+          "Whereyougo": null
+        },
+        {
+          "Decision": "Blue Pill ",
+          "Feedback": "No where to go now.",
+          "Score": 0,
+          "Whereyougo": null
+        }
+      ]
+    },
+    {
+      "Question": "Go to scene two or three?",
+      "DecisionTime": 20.5,
+      "Choice": [
+        {
+          "Decision": "Go to scene two ",
+          "Feedback": "You went too scene two",
+          "Score": 0,
+          "Whereyougo": {
+            "SceneFile": "\\\\cna-cifs.adir.hull.ac.uk\\home4\\484\\484081\\04-The_Type_System_part_2.ppt",
+            "GeneralSettings": {
+              "SceneBrightness": 22,
+              "EmergLight": 20,
+              "SoundVolume": 44,
+              "Text": "This is scene two",
+              "ActionElements": [
+                {
+                  "ActionEnum": 1,
+                  "Intensity": 9.0,
+                  "Time": 0.0,
+                  "Angle": 6.0
+                }
+              ],
+              "AssetElements": []
+            },
+            "DecisionList": []
+          }
+        },
+        {
+          "Decision": "Go to scene Three",
+          "Feedback": "You went to scene three",
+          "Score": 0,
+          "Whereyougo": {
+            "SceneFile": "\\\\cna-cifs.adir.hull.ac.uk\\home4\\484\\484081\\08348 Lab Week 3 Learning Points.pdf",
+            "GeneralSettings": {
+              "SceneBrightness": 30,
+              "EmergLight": 33,
+              "SoundVolume": 3,
+              "Text": "Scene three",
+              "ActionElements": [
+                {
+                  "ActionEnum": 0,
+                  "Intensity": 9.0,
+                  "Time": 0.0,
+                  "Angle": 0.0
+                }
+              ],
+              "AssetElements": []
+            },
+            "DecisionList": []
+          }
+        }
+      ]
+    }
+  ]
+}
