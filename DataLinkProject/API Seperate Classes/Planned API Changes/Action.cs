@@ -16,6 +16,10 @@
         /// </summary>
         public float Time { get; set; }
 
-        public float Angle { get; set; }
+        public float X { get; set; }
+
+        public float Y { get; set; }
+
+        public float Z { get; set; }
     }
 }

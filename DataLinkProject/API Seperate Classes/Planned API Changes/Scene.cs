@@ -11,6 +11,11 @@ namespace SceneBuilderWpf.DataModels
         }
         public string SceneFile { get; set; }
 
+        /// <summary>
+        /// In Milliseconds!
+        /// </summary>
+        public double SceneLength { get; set; }
+
         public Settings GeneralSettings { get; set; }
 
         public List<Decision> DecisionList { get; set; }
