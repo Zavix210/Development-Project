@@ -116,7 +116,8 @@ namespace SimulationSystem
         private SceneNode CreateSceneFromInput(Scene scene, SceneNode node)
         {
             node.AddAttribute("VIDEO_URL", scene.SceneFile);
-            node.AddAttribute("DURATION", "10.0");
+            //TODO: hardcoded at the moment
+            node.AddAttribute("DURATION", "10");
             node.AddAttribute("GENERAL_SETTINGS_TEXT", scene.GeneralSettings.Text);
             node.AddAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", scene.GeneralSettings.SceneBrightness.ToString());
             node.AddAttribute("GENERAL_SETTINGS_SOUND_VOLUME", scene.GeneralSettings.SoundVolume.ToString());
@@ -127,6 +128,7 @@ namespace SimulationSystem
                 DecisionTimelineAction decisionAction = new DecisionTimelineAction();
                 decisionSet.Time = decision.DecisionTime;
                 bool transitionSet = false;
+
                 foreach (SceneBuilderWpf.DataModels.ScenceChoice choice in decision.Choice)
                 {
                     nextId++;
@@ -134,7 +136,8 @@ namespace SimulationSystem
                     if(result == DecisionResult.Correct && !transitionSet && choice.Whereyougo != null)
                     {
                         TransitionTimelineAction transitionAction = new TransitionTimelineAction(nextId);
-                        transitionAction.SetTimeOfAction(2.0f);
+                        //TODO: hardcoded at the moment
+                        transitionAction.SetTimeOfAction(9);
                         node.AddAction(transitionAction);
                         transitionSet = true;
                     }

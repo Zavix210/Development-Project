@@ -60,11 +60,11 @@ public class VideoController : SimulationComponentBase
         }
         else if (message.Route == (int)MessageDestination.SIMULATION_PAUSE) // Pause Video
         {
-            
+            _videoPlayer.PauseVideo();
         }
         else if (message.Route == (int)MessageDestination.SIMULATION_RESUME) // Resume Video
         {
-
+            _videoPlayer.ResumeVideo();
         }
     }
 }
