@@ -35,9 +35,10 @@ public class FeedbackController : SimulationComponentBase
                     // Fetch the time from the time controller
                     TimeController timeController = Controller.GetSimulationComponent<TimeController>();
                     float timestamp = timeController.GetCurrentTime();
+                    float remainder = timeController.GetRemainingTime();
 
                     // Log the entry into the feedback
-                    feedback.LogEntry(choice.Result, choice.DisplayText, choice.Feedback, timestamp);
+                    feedback.LogEntry(choice.Result, choice.DisplayText, choice.Feedback, timestamp, remainder);
                 }
                 break;
             case (int)MessageDestination.SIMULATION_END:

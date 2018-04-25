@@ -1,10 +1,19 @@
 ﻿using System.Collections.Generic;
 
+/// <summary>
+/// A state listener will receive messages for state changes
+/// </summary>
+/// <typeparam name="StateType"></typeparam>
 public interface IStateListener<StateType>
 {
     void StateChanged(StateType oldState, StateType newState);
 }
 
+/// <summary>
+/// A generic class which handles state storage and transitions and also messages any listeners
+/// when a state changes.
+/// </summary>
+/// <typeparam name="StateType"></typeparam>
 public class StateMachine<StateType>
 {
     private StateType state;

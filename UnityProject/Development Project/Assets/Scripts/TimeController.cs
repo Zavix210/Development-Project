@@ -97,4 +97,9 @@ public class TimeController : SimulationComponentBase, IUnityHook
     {
         return currentTime;
     }
+
+    public float GetRemainingTime()
+    {
+        return timeLimit - currentTime;
+    }
 }

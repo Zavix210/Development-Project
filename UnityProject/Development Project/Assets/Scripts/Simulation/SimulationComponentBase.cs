@@ -2,6 +2,10 @@
 
 namespace SimulationSystem
 {
+    /// <summary>
+    /// A simulation component is a part of the simulation, some abstract methods are provided to
+    /// ensure that components can interact with the simulation on a basic level.
+    /// </summary>
     public abstract class SimulationComponentBase : IMessageReceiver
     {
         private SimulationController controller;
