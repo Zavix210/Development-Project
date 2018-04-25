@@ -212,7 +212,6 @@ public class VideoPlayerLoader : MonoBehaviour {
                 yield return new WaitForEndOfFrame();
             }
 
-
         }
     }
 

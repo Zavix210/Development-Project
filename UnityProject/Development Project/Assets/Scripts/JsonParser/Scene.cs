@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SceneBuilderWpf.DataModels
 {
@@ -10,13 +7,19 @@ namespace SceneBuilderWpf.DataModels
         public Scene()
         {
             GeneralSettings = new Settings();
-            Choice = new List<ScenceChoice>();
+            DecisionList = new List<Decision>();
         }
         public string SceneFile { get; set; }
 
+        /// <summary>
+        /// In Milliseconds!
+        /// </summary>
+        public double SceneLength { get; set; }
+
         public Settings GeneralSettings { get; set; }
 
-        public List<ScenceChoice> Choice { get; set; }
+        public List<Decision> DecisionList { get; set; }
+
     }
 
 }
