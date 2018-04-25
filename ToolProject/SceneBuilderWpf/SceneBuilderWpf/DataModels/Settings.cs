@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SceneBuilderWpf.DataModels
 {
@@ -24,10 +20,6 @@ namespace SceneBuilderWpf.DataModels
         public int SoundVolume { get; set; }
 
         /// <summary>
-        /// The Question being asked to the Particpant.
-        /// </summary>
-        public string QuestionText { get; set; }
-        /// <summary>
         /// The Text Displayed at the begining of a scene. Introudciton like 3rd level of hosptial X wing ... 
         /// <summary/>
         public string Text { get; set; }
@@ -39,16 +31,28 @@ namespace SceneBuilderWpf.DataModels
 
         public List<Action> ActionElements
         {
-            get => _actionElements;
-            set => _actionElements = value;
+            get
+            {
+               return _actionElements;
+            }
+            set
+            {
+                _actionElements = value;
+            }
         }
 
         private List<Assets> _assetElements = new List<Assets>();
 
         public List<Assets> AssetElements
         {
-            get => _assetElements;
-            set => _assetElements = value;
+            get
+            {
+                return _assetElements;
+            }
+            set
+            {
+                _assetElements = value;
+            }
         }
     }
 }

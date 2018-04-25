@@ -36,22 +36,45 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
-        public float FireAngle
+        public float FireAngleX
         {
             get
             {
-                return FireAction.Angle;
+                return FireAction.X;
             }
             set
             {
-                FireAction.Angle = value;
-                OnPropertyChanged(nameof(FireAngle));                
+                FireAction.X = value;
+                OnPropertyChanged(nameof(FireAngleX));
+            }
+        }
+        public float FireAngleY
+        {
+            get
+            {
+                return FireAction.Y;
+            }
+            set
+            {
+                FireAction.Y = value;
+                OnPropertyChanged(nameof(FireAngleY));
+            }
+        }
+        public float FireAngleZ
+        {
+            get
+            {
+                return FireAction.Z;
+            }
+            set
+            {
+                FireAction.Z = value;
+                OnPropertyChanged(nameof(FireAngleZ));                
             }
         }
 
         public float SmokeIntensity
         {
-
             get
             {
                return SmokeAction.Intensity;
@@ -64,17 +87,43 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
-        public float SmokeAngle
+        public float SmokeAngleX
+        {
+            get
+            {
+                return SmokeAction.X;
+            }
+            set
+            {
+                SmokeAction.X = value;
+                OnPropertyChanged(nameof(SmokeAngleX));
+            }
+        }
+
+        public float SmokeAngleY
         {
 
             get
             {
-                return SmokeAction.Angle;
+                return SmokeAction.Y;
             }
             set
             {
-                SmokeAction.Angle = value;
-                OnPropertyChanged(nameof(SmokeAngle));
+                SmokeAction.Y = value;
+                OnPropertyChanged(nameof(SmokeAngleY));
+            }
+        }
+        public float SmokeAngleZ
+        {
+
+            get
+            {
+                return SmokeAction.Z;
+            }
+            set
+            {
+                SmokeAction.Z = value;
+                OnPropertyChanged(nameof(SmokeAngleZ));
             }
         }
 
@@ -106,11 +155,15 @@ namespace SceneBuilderWpf.ViewModels
             switch(action.ActionEnum)
             {
                 case Actions.Fire:
-                    FireAngle = action.Angle;
+                    FireAngleX = action.X;
+                    FireAngleY = action.Y;
+                    FireAngleZ = action.Z;
                     FireIntensity = action.Intensity;
                     break;
                 case Actions.Smoke:
-                    SmokeAngle = action.Angle;
+                    SmokeAngleX = action.X;
+                    SmokeAngleY = action.Y;
+                    SmokeAngleZ = action.Z;
                     SmokeIntensity = action.Intensity;
                     break;
             }

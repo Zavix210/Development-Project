@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SceneBuilderWpf.DataModels
+﻿namespace SceneBuilderWpf.DataModels
 {
     public class Action
     {
@@ -22,6 +16,10 @@ namespace SceneBuilderWpf.DataModels
         /// </summary>
         public float Time { get; set; }
 
-        public float Angle { get; set; }
+        public float X { get; set; }
+
+        public float Y { get; set; }
+
+        public float Z { get; set; }
     }
 }

@@ -1,15 +1,12 @@
 ﻿using Microsoft.Win32;
 using SceneBuilderWpf.DataModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using Xceed.Wpf.Toolkit;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+
 
 namespace SceneBuilderWpf.ViewModels
 {
@@ -20,68 +17,32 @@ namespace SceneBuilderWpf.ViewModels
         private string _fileName;
         public int SceneID;
         public string ParentId = "";
-        
-        readonly ObservableCollection<DescisionPageViewModel> _descision = new ObservableCollection<DescisionPageViewModel>();
-        public ObservableCollection<DescisionPageViewModel> Descision => _descision;
-        private ScenceChoice _scenceChoice = new ScenceChoice();
-        private DescisionPageViewModel _currentDescisionViewModel;
+        private Decision _decision;
         private ActionViewModel _viewModelAction;
 
+        readonly ObservableCollection<DecisionHolder> _descisionHolder = new ObservableCollection<DecisionHolder>();
+        public ObservableCollection<DecisionHolder> DescisionHolder => _descisionHolder;
 
-        public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid, Scene scene) : base(pageNavigation)
+        private DecisionHolder _currentDecisionHolder;
+        public DecisionHolder CurrentDecisionHolder
         {
-
-            this.scene = scene;
-            SceneID = sceneid;
-            SceneSettings = this.scene.GeneralSettings;
-            ViewModelAction = new ActionViewModel(pageNavigation, this.scene.GeneralSettings.ActionElements);
-            CurrentDescision = new DescisionPageViewModel(pageNavigation, _scenceChoice, SceneID);
-            Descision.Add(CurrentDescision);
-
-        }
-
-        public DescisionPageViewModel CurrentDescision
-        {
-            get => _currentDescisionViewModel;
+            get => _currentDecisionHolder;
             set
             {
-                _currentDescisionViewModel = value;
-                OnPropertyChanged(nameof(CurrentDescision));
+                _currentDecisionHolder = value;
+                OnPropertyChanged(nameof(CurrentDecisionHolder));
             }
         }
 
-        public ICommand AddDescion
+        public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid, Scene scene_) : base(pageNavigation)
         {
-            get
-            {
-                return new CommandHandler(() => this.AddDecsi());
-            }
-        }
+            scene = scene_;
+            SceneID = sceneid;
+            SceneSettings = scene.GeneralSettings;
+            ViewModelAction = new ActionViewModel(pageNavigation, scene.GeneralSettings.ActionElements);
 
-        public void AddDecsi()
-        {
-
-            if (_scenceChoice.Whereyougo == null)
-            {
-                var x = Xceed.Wpf.Toolkit.MessageBox.Show("This descsion has no direction are you sure you wish to put this decision in?"
-                    , "Do you want to contuine?", MessageBoxButton.YesNo);
-                if (x != MessageBoxResult.Yes)
-                    return;
-            }
-            else
-            {
-                CurrentDescision.NextScene.ParentId = SceneID.ToString();
-                _scenceChoice.Whereyougo = CurrentDescision.NextScene.scene;
-            }
-
-            scene.Choice.Add(_scenceChoice);
-
-            _scenceChoice = new ScenceChoice();
-
-
-            CurrentDescision = new DescisionPageViewModel(pagenav, _scenceChoice, SceneID);
-            Descision.Add(CurrentDescision);
-
+            _decision = new Decision();
+            CurrentDecisionHolder = new DecisionHolder(pageNavigation, _decision, SceneId);
         }
 
         public ICommand BrowseCommand
@@ -97,13 +58,31 @@ namespace SceneBuilderWpf.ViewModels
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), // Dis-allow MultiSelect and set default patht to there Special folder.
-                Multiselect = false
+                Multiselect = false,
+                Filter = "Image files (*.mp4, *.m4v, *.mov) |*.mp4;*.m4v;*.mov;"
             };
             if (openFileDialog.ShowDialog() == true && File.Exists(openFileDialog.FileName))
             {
                 FileName = openFileDialog.FileName; //Set textblock to filename. chossen
             }
 
+        }// .mp4, .m4v, or .mov
+
+        public ICommand AddaDecision
+        {
+            get
+            {
+                return new CommandHandler(() => this.AddSingleDecsion());
+            }
+        }
+
+        public void AddSingleDecsion()
+        {
+            DescisionHolder.Add(CurrentDecisionHolder);
+            scene.DecisionList.Add(_decision);
+
+            _decision = new Decision();
+            CurrentDecisionHolder = new DecisionHolder(pagenav, _decision, SceneId); 
         }
 
         public int SceneId
@@ -121,8 +100,31 @@ namespace SceneBuilderWpf.ViewModels
             {
                 scene.SceneFile = value;
                 _fileName = Path.GetFileName(value);
+                Filelength(value);
                 OnPropertyChanged(nameof(FileName));
             }
+        }
+
+        public void Filelength(string filePath)
+        {
+            string duration = "";
+            try
+            {
+                using (ShellObject shell = ShellObject.FromParsingName(filePath))
+                {
+                    // alternatively: shell.Properties.GetProperty("System.Media.Duration");
+                    IShellProperty prop = shell.Properties.System.Media.Duration;
+                    // Duration will be formatted as 00:44:08
+                    duration = prop.FormatForDisplay(PropertyDescriptionFormatOptions.None);
+                    DateTime.TryParse(duration, out DateTime dateTime);
+                    scene.SceneLength = dateTime.TimeOfDay.TotalMilliseconds;
+                }
+            }
+            catch(Exception ex)
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show("This file doesn't appear to have a file length!");
+            }
+            
         }
 
         public int SceneBrightness
@@ -152,16 +154,6 @@ namespace SceneBuilderWpf.ViewModels
             {
                 SceneSettings.EmergLight = value;
                 OnPropertyChanged(nameof(EmergencyLighting));
-            }
-        }
-
-        public string QuestionText
-        {
-            get => SceneSettings.QuestionText;
-            set
-            {
-                SceneSettings.QuestionText = value;
-                OnPropertyChanged(nameof(QuestionText));
             }
         }
 

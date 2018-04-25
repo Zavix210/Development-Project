@@ -157,6 +157,7 @@ namespace SceneBuilderWpf.ViewModels
             }
             SceneID++;
             
+            /*
             foreach (var x in currentScene.Choice)
             {
                 IndivdualSceneViewModel indivdualScene = new IndivdualSceneViewModel(pagenav, SceneID, x.Whereyougo);
@@ -165,6 +166,7 @@ namespace SceneBuilderWpf.ViewModels
                 Scenes.Add(indivdualScene);
                 LoadScenes(x.Whereyougo);
             }     
+            */
         }
 
         ObservableCollection<Scene> Scenario1View { get; set; }

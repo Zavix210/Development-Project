@@ -53,8 +53,8 @@ namespace SceneBuilderWpf.ViewModels
                 Multiselect = false,
                 Title = "Load JSON File."
             };
-            filedia.ShowDialog();
-            if (filedia.CheckFileExists && filedia.CheckPathExists)
+            var openbrowser = (bool)filedia.ShowDialog();
+            if (filedia.CheckFileExists && filedia.CheckPathExists && openbrowser)
             { 
                 Scene scene = FormatConvert.ConvertFormat(filedia.FileName);
                 _scenariostorer.NewScene = true;
