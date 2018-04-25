@@ -51,6 +51,31 @@ public class VideoController : SimulationComponentBase
                     int width = 3840;
                     int height = 1920;
                     _videoPlayer.PlayVideo(url, width, height);
+
+                    string brightness;
+                    if(scene.GetAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", out brightness))
+                    {
+                        int brightnessInt =Int32.Parse(brightness);
+                        _videoPlayer.SetExposure(brightnessInt);
+                    }
+                    else
+                    {
+                        _videoPlayer.SetExposure(100.0f);
+                    }
+
+                    string volume;
+                    if (scene.GetAttribute("GENERAL_SETTINGS_SOUND_VOLUME", out volume))
+                    {
+                        int volumeInt = Int32.Parse(volume);
+                        _videoPlayer.SetVolume(volumeInt);
+                    }
+                    else
+                    {
+                        _videoPlayer.SetVolume(100.0f);
+                    }
+
+
+
                 }
                 else // Failure, log a message
                 {

@@ -122,6 +122,30 @@ namespace SimulationSystem
             node.AddAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", scene.GeneralSettings.SceneBrightness.ToString());
             node.AddAttribute("GENERAL_SETTINGS_SOUND_VOLUME", scene.GeneralSettings.SoundVolume.ToString());
 
+            //TODO PARTICLE SYSTEM
+            if(scene.GeneralSettings.ActionElements != null)
+            {
+                foreach(var actionElement in scene.GeneralSettings.ActionElements)
+                {
+                    Actions action = actionElement.ActionEnum;
+                    Vector3 position = new Vector3(actionElement.X, actionElement.Y, actionElement.Z);
+                    float time = actionElement.Time;
+                    float intensity = actionElement.Intensity;
+                    switch (action)
+                    {
+                        case Actions.Fire:
+                            //TODO
+                        break;
+                        case Actions.Smoke:
+                            //TODO
+                        break;
+                        case Actions.Timer:
+                            //TODO
+                        break;
+                    }
+                }
+            }
+
             foreach (SceneBuilderWpf.DataModels.Decision decision in scene.DecisionList)
             {
                 DecisionSet decisionSet = new DecisionSet();

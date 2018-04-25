@@ -69,6 +69,16 @@ public class VideoPlayerLoader : MonoBehaviour {
         videoPlayer.Prepare();
     }
 
+    public void SetVolume(float volume)
+    {
+        if(volume <= 0.0f)
+        {
+            audioSource.volume = 0.0f;
+            return;
+        }
+        audioSource.volume = (float) volume / 100;
+    }
+
     public void ResumeVideo()
     {
         if (_videoPlayer == null)
@@ -91,7 +101,12 @@ public class VideoPlayerLoader : MonoBehaviour {
     /// <param name="exposure"></param>
     public void SetExposure(float exposure)
     {
-        _videoMaterial.SetFloat("_Exposure", exposure);
+        if (exposure <= 0.0f)
+        {
+            _videoMaterial.SetFloat("_Exposure", 0.0f);
+            return;
+        }
+        _videoMaterial.SetFloat("_Exposure", exposure/100);
     }
 
     /// <summary>
@@ -115,7 +130,6 @@ public class VideoPlayerLoader : MonoBehaviour {
 
         _videoPlayer.EnableAudioTrack(0, true);
         _videoPlayer.controlledAudioTrackCount = 1;
-        audioSource.volume = 1.0f;
 
         source.Play();
     }
