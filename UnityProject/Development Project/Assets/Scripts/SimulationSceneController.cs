@@ -15,7 +15,7 @@ namespace SimulationSystem
         private List<SceneNode> store;
         private SceneNode currentNode;
         private SceneNode rootNode;
-
+        private int nextId = 0;
         public SimulationScene CurrentScene { get { return currentNode.Wrapper; } }
 
         public SimulationSceneController(SimulationController controller) : base(controller)
@@ -75,52 +75,90 @@ namespace SimulationSystem
 
             // START DEMONSTRATION CODE
 
-            SceneNode endNode = CreateSceneNode(75); // Create Node
-            endNode.AddAttribute("DURATION", "10.0"); // DURATION = the length of a scene (length of video most likely)
+            //SceneNode endNode = CreateSceneNode(75); // Create Node
+            //endNode.AddAttribute("VIDEO_URL", @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4");
+            //endNode.AddAttribute("DURATION", "10.0"); // DURATION = the length of a scene (length of video most likely)
 
-            SceneNode testNode = CreateSceneNode(74); // Create Node
-            testNode.AddAttribute("DURATION", "10.0"); // DURATION = the length of a scene (length of video most likely)
+            //SceneNode testNode = CreateSceneNode(74); // Create Node
+            //testNode.AddAttribute("VIDEO_URL", @"C:\GameProjects\DevProjectTest\Assets\stationary1.mp4");
+            //testNode.AddAttribute("DURATION", "10.0"); // DURATION = the length of a scene (length of video most likely)
 
-            DecisionTimelineAction decisionAction = new DecisionTimelineAction(); // Create the action
+            //DecisionTimelineAction decisionAction = new DecisionTimelineAction(); // Create the action
 
-            DecisionSet set = new DecisionSet(); // Create the decision set
-            set.AddDecision(new Decision(DecisionResult.Incorrect, "Ask colleague to ring the Fire Brigade on 999 ", "Some very very long feedback string which tests the new wrapping system because it's such a very very long un-necessary string! Words words words words words")); // Create the decision choice
-            set.AddDecision(new Decision(DecisionResult.Correct, "Ask colleague to raise the alarm and ring switchboard on 2222 ", "CORRECT because...")); // Create the decision choice
-            set.AddDecision(new Decision(DecisionResult.Incorrect, "Begin evacuating the ward", "INCORRECT because..."));
-            set.Time = 2.0f;
-            decisionAction.SetDecisionSet(set); // Apply the set
+            //DecisionSet set = new DecisionSet(); // Create the decision set
+            //set.AddDecision(new Decision(DecisionResult.Incorrect, "Ask colleague to ring the Fire Brigade on 999 ", "Some very very long feedback string which tests the new wrapping system because it's such a very very long un-necessary string! Words words words words words")); // Create the decision choice
+            //set.AddDecision(new Decision(DecisionResult.Correct, "Ask colleague to raise the alarm and ring switchboard on 2222 ", "CORRECT because...")); // Create the decision choice
+            //set.AddDecision(new Decision(DecisionResult.Incorrect, "Begin evacuating the ward", "INCORRECT because..."));
+            //set.Time = 2.0f;
+            //decisionAction.SetDecisionSet(set); // Apply the set
 
-            testNode.AddAction(decisionAction); // Add the action to the node
+            //testNode.AddAction(decisionAction); // Add the action to the node
 
-            TransitionTimelineAction transitionAction = new TransitionTimelineAction(endNode.Identifier);
-            transitionAction.SetTimeOfAction(9.0f);
+            //TransitionTimelineAction transitionAction = new TransitionTimelineAction(endNode.Identifier);
+            //transitionAction.SetTimeOfAction(9.0f);
 
-            testNode.AddAction(transitionAction);
+            //testNode.AddAction(transitionAction);
 
-            rootNode = testNode; // Set the root as the test node
+            //rootNode = testNode; // Set the root as the test node
 
             // END DEMONSTRATION CODE
 
-            SceneNode sceneRoot = new SceneNode();
-            sceneRoot.AddAttribute("SCENE_FILE", input.SceneFile);
-            sceneRoot.AddAttribute("QUESTION_TEXT", input.GeneralSettings.QuestionText);
-            sceneRoot.AddAttribute("SCENE_BRIGHTNESS", input.GeneralSettings.SceneBrightness.ToString());
-            sceneRoot.AddAttribute("SOUND_VOLUME", input.GeneralSettings.SoundVolume.ToString());
-            sceneRoot.SetIdentifier(0);
-
-            //need to make this recursive. Whereyougo contains the linked scene to the decision
-            foreach (ScenceChoice choice in input.Choice)
-            {
-                
-            }
-
-
+            SceneNode sceneNode = CreateSceneNode(nextId);
+            CreateSceneFromInput(input, sceneNode);
+            rootNode = sceneNode;
 
 
 
 
             // TODO: Parse some input data to populate nodes
         }
+
+        private SceneNode CreateSceneFromInput(Scene scene, SceneNode node)
+        {
+            node.AddAttribute("VIDEO_URL", scene.SceneFile);
+            //TODO: hardcoded at the moment
+            node.AddAttribute("DURATION", "10");
+            node.AddAttribute("GENERAL_SETTINGS_TEXT", scene.GeneralSettings.Text);
+            node.AddAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", scene.GeneralSettings.SceneBrightness.ToString());
+            node.AddAttribute("GENERAL_SETTINGS_SOUND_VOLUME", scene.GeneralSettings.SoundVolume.ToString());
+
+            foreach (SceneBuilderWpf.DataModels.Decision decision in scene.DecisionList)
+            {
+                DecisionSet decisionSet = new DecisionSet();
+                DecisionTimelineAction decisionAction = new DecisionTimelineAction();
+                decisionSet.Time = decision.DecisionTime;
+                bool transitionSet = false;
+
+                foreach (SceneBuilderWpf.DataModels.ScenceChoice choice in decision.Choice)
+                {
+                    nextId++;
+                    DecisionResult result = choice.Score < 0 ? DecisionResult.Incorrect : DecisionResult.Correct;
+                    if(result == DecisionResult.Correct && !transitionSet && choice.Whereyougo != null)
+                    {
+                        TransitionTimelineAction transitionAction = new TransitionTimelineAction(nextId);
+                        //TODO: hardcoded at the moment
+                        transitionAction.SetTimeOfAction(9);
+                        node.AddAction(transitionAction);
+                        transitionSet = true;
+                    }
+                    decisionSet.AddDecision(new Decision(result, choice.Decision, choice.Feedback));
+
+                    if (choice.Whereyougo != null)
+                    {
+                        SceneNode nextNode = CreateSceneNode(nextId);
+                        nextNode.SetIdentifier(nextId);
+                        CreateSceneFromInput(choice.Whereyougo, nextNode);
+                    }
+
+                }
+                
+                decisionAction.SetDecisionSet(decisionSet);
+                node.AddAction(decisionAction);
+                
+            }
+            return node;
+        }
+
 
         public override void OnInitialize()
         {

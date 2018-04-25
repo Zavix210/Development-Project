@@ -242,6 +242,8 @@
     <Compile Include="Assets\Scripts\DecisionStore.cs" />
     <Compile Include="Assets\Scripts\Feedback\Feedback.cs" />
     <Compile Include="Assets\Scripts\Feedback\FeedbackController.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\Action.cs" />
+    <Compile Include="Assets\Scripts\JsonParser\Decision.cs" />
     <Compile Include="Assets\Scripts\JsonParser\EnumActions.cs" />
     <Compile Include="Assets\Scripts\JsonParser\EnumAssets.cs" />
     <Compile Include="Assets\Scripts\JsonParser\JsonParseUnity.cs" />
