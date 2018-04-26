@@ -93,14 +93,14 @@
 
             <Label Content="X vertice: " Width="57" Height="30" VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="84,43,109,0" />
             <TextBox Text="{Binding FireAngleX}"
-                VerticalAlignment="Center" Width="52" Margin="138,43,60,61" HorizontalAlignment="Center" Height="26"/>
+                VerticalAlignment="Center" Width="52" Margin="138,43,53,57" HorizontalAlignment="Center" Height="26"/>
             <Label Content="Y vertice: " Width="57" Height="23" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Margin="83,0,110,39" />
             <TextBox  Text="{Binding FireAngleY}"
-                VerticalAlignment="Bottom" Margin="138,0,60,39" Height="25"/>
+                VerticalAlignment="Bottom" Margin="141,34,60,35" Height="25"/>
 
             <Label Content="Z vertice: " Width="57" Height="23" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Margin="84,0,109,15" />
             <TextBox Text="{Binding FireAngleZ}"
-                VerticalAlignment="Bottom" Margin="138,0,60,13" Height="25"/>
+                VerticalAlignment="Bottom" Margin="141,34,60,12" Height="25"/>
 
 
         </Grid>
@@ -117,18 +117,18 @@
                 
                 <TextBox 
                     Text="{Binding SmokeAngleX}"
-                    VerticalAlignment="Center" Width="52" Margin="138,43,60,61" HorizontalAlignment="Center" Height="26"/>
+                    VerticalAlignment="Center" Width="52" Margin="139,44,59,60" HorizontalAlignment="Center" Height="26"/>
                 <Label Content="Y vertice: " Width="57" Height="23" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Margin="83,0,110,39" />
                 
                 <TextBox
                     Text="{Binding SmokeAngleY}"
-                    VerticalAlignment="Bottom" Margin="138,0,60,39" Height="25"/>
+                    VerticalAlignment="Bottom" Margin="140,0,58,34" Height="25"/>
 
                 <Label Content="Z vertice: " Width="57" Height="23" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Margin="84,0,109,15" />
                 
                 <TextBox 
                     Text="{Binding SmokeAngleZ}"
-                    VerticalAlignment="Bottom" Margin="138,0,60,13" Height="25"/>
+                    VerticalAlignment="Bottom" Margin="141,0,55,11" Height="25"/>
 
 
             </Grid>
