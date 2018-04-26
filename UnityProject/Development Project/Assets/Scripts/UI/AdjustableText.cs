@@ -15,6 +15,8 @@ public class AdjustableText : MonoBehaviour
     [SerializeField]
     private float textPadding = 0.2f;
     [SerializeField]
+    private float textOffset = 0.05f;
+    [SerializeField]
     private MeshRenderer textRenderer;
 
     [SerializeField]
@@ -61,7 +63,11 @@ public class AdjustableText : MonoBehaviour
         size.y += textPadding;
         size.z = textThickness;
 
-        backgroundBox.position = textCollider.transform.position;
+        Vector3 fwd = textCollider.transform.forward;
+        Vector3 pos = textCollider.transform.position;
+        pos += fwd * textOffset;
+
+        backgroundBox.position = pos;
         backgroundBox.transform.localScale = size;
 
         //Vector3 size = textCollider.size;

@@ -45,9 +45,11 @@ public class MenuController : SimulationComponentBase
                 break;
             case (int)MessageDestination.MENU_START_PRESSED: // The menu start has been pressed
                 {
-
                     menuState = MenuState.HIDDEN;
                     HideMenu();
+
+                    // Start the simulation upon the button pressed.
+                    Controller.StartSimulation();
                 }
                 break;
         }
