@@ -901,6 +901,7 @@ MonoBehaviour:
   audioSource: {fileID: 1724565418}
   _firstTime: 1
   _emergencyLights: 0
+  VideoMaterial: {fileID: 2100000, guid: 4dd9ebbde569a73488443f349c8391cc, type: 2}
 --- !u!4 &1164396669
 Transform:
   m_ObjectHideFlags: 0

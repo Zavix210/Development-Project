@@ -5,7 +5,8 @@
     {
         Smoke,
         Fire,
-        Timer
+        Timer,
+        Extingishuer
     }
 
 }

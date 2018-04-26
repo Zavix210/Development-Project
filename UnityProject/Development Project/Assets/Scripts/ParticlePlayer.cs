@@ -26,7 +26,7 @@ public class ParticlePlayer : MonoBehaviour
             case Actions.Smoke:
                 _particleInstance.Add(Instantiate(SmokeParticle, particlePos, Quaternion.identity));
             break;
-            case Actions.Timer:
+            case Actions.Extingishuer:
                 var particle = Instantiate(FoamParticle, new Vector3(0.0f, -1.37f, 0.6f), Quaternion.identity);
                 particle.transform.parent = Camera.main.transform;
                 particle.transform.rotation = Camera.main.transform.rotation;

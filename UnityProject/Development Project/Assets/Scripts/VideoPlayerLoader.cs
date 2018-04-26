@@ -18,6 +18,7 @@ public class VideoPlayerLoader : MonoBehaviour {
     public AudioSource audioSource;
     public bool _firstTime = true;
     public bool _emergencyLights = false;
+    public Material VideoMaterial;
     /// <summary>
     /// Invoked when the video finishes executing. It will remain paused until another video is asked to be played.
     /// </summary>
@@ -51,8 +52,8 @@ public class VideoPlayerLoader : MonoBehaviour {
             RenderTexture renderTexture = new RenderTexture(width, height, 0);
             renderTexture.name = "360videoRenderToTexture";
 
-            Shader shader = Shader.Find("Skybox/PanoramicBeta");
-            _videoMaterial = new Material(shader);
+            //Shader shader = Shader.Find("Skybox/PanoramicBeta");
+            _videoMaterial = VideoMaterial;
             _videoMaterial.SetTexture("_Tex", renderTexture);
 
             //rendering the video on the skybox
