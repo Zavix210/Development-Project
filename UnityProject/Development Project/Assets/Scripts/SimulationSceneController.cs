@@ -117,7 +117,7 @@ namespace SimulationSystem
         {
             node.AddAttribute("VIDEO_URL", scene.SceneFile);
             //TODO: hardcoded at the moment
-            node.AddAttribute("DURATION", "10");
+
             node.AddAttribute("GENERAL_SETTINGS_TEXT", scene.GeneralSettings.Text);
             node.AddAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", scene.GeneralSettings.SceneBrightness.ToString());
             node.AddAttribute("GENERAL_SETTINGS_SOUND_VOLUME", scene.GeneralSettings.SoundVolume.ToString());
@@ -159,7 +159,8 @@ namespace SimulationSystem
                     {
                         TransitionTimelineAction transitionAction = new TransitionTimelineAction(nextId);
                         //TODO: hardcoded at the moment
-                        transitionAction.SetTimeOfAction(9);
+                        node.AddAttribute("DURATION", (decision.DecisionTime + 1).ToString());
+                        transitionAction.SetTimeOfAction(decision.DecisionTime+1);
                         node.AddAction(transitionAction);
                         transitionSet = true;
                     }

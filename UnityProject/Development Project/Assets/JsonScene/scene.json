@@ -1,85 +1,24 @@
 {
-  "SceneFile": "C:\\GameProjects\\DevProjectTest\\Assets\\stationary1.mp4",
+  "SceneFile": "C:\\dev\\Development-Project\\UnityProject\\Development Project\\Assets\\Videos\\Scene_1.mp4",
   "GeneralSettings": {
-    "SceneBrightness": 10,
+    "SceneBrightness": 100,
     "EmergLight": 20,
     "SoundVolume": 30,
     "Text": "Scene One",
-    "ActionElements": [
-      {
-        "ActionEnum": 1,
-        "Intensity": 13.0,
-        "Time": 0.0,
-        "X": -7.0,
-		"Y": 0.0,
-		"Z": 6.0,
-      },
-	  {
-        "ActionEnum": 2,
-        "Intensity": 13.0,
-        "Time": 0.0,
-        "X": -7.0,
-		"Y": 0.0,
-		"Z": 6.0,
-      }
-    ],
+    "ActionElements": [],
     "AssetElements": []
   },
   "DecisionList": [
     {
-      "Question": "Red or blue Pill",
-      "DecisionTime": 2.0,
+      "Question": "I think there is some smoke coming from the Linen Store.",
+      "DecisionTime": 113,
       "Choice": [
         {
-          "Decision": "Red pill ",
-          "Feedback": "Nowhere to go",
+          "Decision": "Ask colleague to raise the alarm and ring switchboard on 2222",
+          "Feedback": "CORRECT",
           "Score": 0,
-          "Whereyougo": null
-        },
-        {
-          "Decision": "Blue Pill ",
-          "Feedback": "No where to go now.",
-          "Score": 0,
-          "Whereyougo": null
-        }
-      ]
-    },
-    {
-      "Question": "Go to scene two or three?",
-      "DecisionTime": 3.0,
-      "Choice": [
-        {
-          "Decision": "Go to scene two ",
-          "Feedback": "You went too scene two",
-          "Score": 0,
-          "Whereyougo": {
-            "SceneFile": "C:\\GameProjects\\DevProjectTest\\Assets\\stationary1.mp4",
-            "GeneralSettings": {
-              "SceneBrightness": 22,
-              "EmergLight": 20,
-              "SoundVolume": 44,
-              "Text": "This is scene two",
-				"ActionElements": [
-				  {
-					"ActionEnum": 0,
-					"Intensity": 13.0,
-					"Time": 0.0,
-					"X": 0.0,
-					"Y": -18.0,
-					"Z": 0.36,
-				  }
-				],
-              "AssetElements": []
-            },
-            "DecisionList": []
-          }
-        },
-        {
-          "Decision": "Go to scene Three",
-          "Feedback": "You went to scene three",
-          "Score": 0,
-          "Whereyougo": {
-            "SceneFile": "C:\\GameProjects\\DevProjectTest\\Assets\\stationary1.mp4",
+		  "Whereyougo": {
+            "SceneFile": "C:\\dev\\Development-Project\\UnityProject\\Development Project\\Assets\\Videos\\Scene_2.mp4",
             "GeneralSettings": {
               "SceneBrightness": 30,
               "EmergLight": 33,
@@ -92,7 +31,21 @@
             },
             "DecisionList": []
           }
-        }
+
+        },
+        {
+          "Decision": "Ask colleague to ring the Fire Brigade on 999",
+          "Feedback": "INCORRECT",
+          "Score": -1,
+          "Whereyougo": null
+        },
+		{
+          "Decision": "Begin evacuating the ward",
+          "Feedback": "INCORRECT",
+          "Score": -1,
+          "Whereyougo": null
+        },
+		
       ]
     }
   ]
