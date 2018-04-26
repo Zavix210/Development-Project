@@ -30,6 +30,8 @@ public class ParticleController : SimulationComponentBase
 
     public void CreateParticles(List<SceneBuilderWpf.DataModels.Action> particles)
     {
+        if (particles == null)
+            return;
         foreach(var particle in particles)
         {
             _particlePlayer.CreateParticle(particle.ActionEnum, new Vector3(particle.X, particle.Y, particle.Z), particle.Intensity,3.0f);

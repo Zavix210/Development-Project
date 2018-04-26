@@ -27,7 +27,8 @@ public class ParticlePlayer : MonoBehaviour
                 _particleInstance.Add(Instantiate(SmokeParticle, particlePos, Quaternion.identity));
             break;
             case Actions.Timer:
-                var particle = Instantiate(FoamParticle, particlePos, Quaternion.identity);
+                var particle = Instantiate(FoamParticle, particlePos, Quaternion.Euler(new Vector3(24.8f,100.14f,0.0f)));
+                
                 _particleInstance.Add(particle);
                 IEnumerator coroutine = StartTimedParticle(particle,time);
                 StartCoroutine(coroutine);
