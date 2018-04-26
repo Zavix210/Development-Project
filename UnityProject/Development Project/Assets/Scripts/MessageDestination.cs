@@ -12,12 +12,16 @@ public enum MessageDestination
     SIMULATION_PAUSE = 3, // The simulation has been paused
     SIMULATION_RESUME = 4, // The simulation has been resumed
     SIMULATION_END = 5, // The simulation has ended
+
     DECISION_CHANGE = 37, // A decision has been made (some change has occurred)
     DECISION_UI_CHOICE = 38, // The UI was pressed for a decision button
 
     TIMELINE_FINISH = 42, // The timeline has reached the end
 
+    TIMER_EXPIRED, // The timer has finished
+
     SCENE_CHANGE = 50, // A scene has changed
+
     DECISION_START, // Decision selection has started
     DECISION_CHOICE_MADE, // A choice was selected
     DECISION_END, // Decision selection has ended

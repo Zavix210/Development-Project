@@ -59,7 +59,7 @@ public class Simulation : MonoBehaviour
         controller.AddSimulationComponent<MenuController>();
 
         TimeController timeController = controller.AddSimulationComponent<TimeController>();
-        timeController.SetTimeLimit(60);
+        timeController.SetTimeLimit(10);
 
         // Initialize the simulation.
         controller.Initialize();
@@ -68,33 +68,37 @@ public class Simulation : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        // Test code to allow starting upon keypress
 		if(Input.GetKeyDown(KeyCode.F))
         {
             controller.StartSimulation();
         }
 
+        // Test code to allow stopping upon keypress
         if (Input.GetKeyDown(KeyCode.G))
         {
             controller.StopSimulation();
         }
 
+        // Test code to allow pausing upon keypress
         if (Input.GetKeyDown(KeyCode.P))
         {
             controller.ToggleSimulationPause();
         }
 
         float delta = Time.deltaTime;
-        //List<IUnityHook> hList = hooks.GetRawList();
-        //for(int i = 0; i < hooks.Count; i++)
-        //{
-        //    IUnityHook hook = hooks[i];
-        //    hook.Update(delta);
-        //}
 
+        // Get the raw list of hooks to traverse and update
         List<IUnityHook> hList = hooks.GetRawList();
-        foreach (IUnityHook hook in hList)
+        if (hList != null)
         {
-            hook.Update(delta);
+            foreach (IUnityHook hook in hList)
+            {
+                if (hook != null)
+                {
+                    hook.Update(delta);
+                }
+            }
         }
     }
 }

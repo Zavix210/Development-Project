@@ -10,6 +10,7 @@ public class TimeController : SimulationComponentBase, IUnityHook
     private float currentTime;
     private float timeLimit;
     private bool active;
+    private bool expiredMessageSent;
 
     public TimeController(SimulationController controller) : base(controller)
     {
@@ -39,7 +40,7 @@ public class TimeController : SimulationComponentBase, IUnityHook
 
     public override void OnReceivedMessage(Message message)
     {
-        switch(message.Route)
+        switch (message.Route)
         {
             case (int)MessageDestination.SIMULATION_START:
                 {
@@ -61,9 +62,14 @@ public class TimeController : SimulationComponentBase, IUnityHook
             currentTime += Time.deltaTime;
 
             // Check whether time has finished
-            if (currentTime >= timeLimit)
+            if (currentTime >= timeLimit && !expiredMessageSent)
             {
-                // TODO: TIMES UP
+                // Flag the message as sent to prevent per-frame message sending
+                expiredMessageSent = true;
+
+                // Propagate a message to notify all components that the timer has expired
+                Message message = new Message((int)MessageDestination.TIMER_EXPIRED, "", this);
+                Controller.PropagateMessage(message);
             }
         }
     }
@@ -72,12 +78,14 @@ public class TimeController : SimulationComponentBase, IUnityHook
     {
         currentTime = 0.0f;
         active = true;
+        expiredMessageSent = false;
     }
 
     private void StopTimer()
     {
         currentTime = 0.0f;
         active = false;
+        expiredMessageSent = false;
     }
 
     public void SetTimeLimit(float timeLimit)
@@ -86,10 +94,13 @@ public class TimeController : SimulationComponentBase, IUnityHook
     }
 
     public string GetFormattedDisplayTime()
-    { 
-        float remainder = timeLimit - currentTime;
+    {
+        // Format string for MINUTES:SECONDS:MILLISECONDS
+        // string displayStr = string.Format("{0:D2}:{1:D2}:{2:D3}", span.Minutes.ToString("D2"), span.Seconds.ToString("D2"), span.Milliseconds.ToString("D3"));
+
+        float remainder = GetNonNegativeRemainingTime();
         TimeSpan span = TimeSpan.FromSeconds(remainder);
-        string displayStr = string.Format("{0:D2}:{1:D2}", span.Minutes, span.Seconds);
+        string displayStr = string.Format("{0:D2}:{1:D2}", span.Minutes.ToString("D2"), span.Seconds.ToString("D2"));
         return displayStr;
     }
 
@@ -101,5 +112,15 @@ public class TimeController : SimulationComponentBase, IUnityHook
     public float GetRemainingTime()
     {
         return timeLimit - currentTime;
+    }
+
+    public float GetNonNegativeRemainingTime()
+    {
+        return Mathf.Clamp(GetRemainingTime(), 0, Mathf.Infinity);
+    }
+
+    public bool HasTimeExpired()
+    {
+        return GetRemainingTime() <= 0.0f;
     }
 }
