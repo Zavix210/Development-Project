@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
 using SceneBuilderWpf.DataModels;
+using System.Collections;
 
 public class ParticlePlayer : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class ParticlePlayer : MonoBehaviour
     public UnityEngine.Object SmokeParticle;
 
     List<UnityEngine.Object> _particleInstance = new List<UnityEngine.Object>();
-    public void CreateParticle(Actions action, Vector3 particlePos, float intensity)
+    public void CreateParticle(Actions action, Vector3 particlePos, float intensity, float time)
     {
         switch (action)
         {
@@ -26,11 +27,19 @@ public class ParticlePlayer : MonoBehaviour
                 _particleInstance.Add(Instantiate(SmokeParticle, particlePos, Quaternion.identity));
             break;
             case Actions.Timer:
-                _particleInstance.Add(Instantiate(FoamParticle, particlePos, Quaternion.identity));
+                var particle = Instantiate(FoamParticle, particlePos, Quaternion.identity);
+                _particleInstance.Add(particle);
+                IEnumerator coroutine = StartTimedParticle(particle,time);
+                StartCoroutine(coroutine);
             break;
         }
     }
 
+    private IEnumerator StartTimedParticle(UnityEngine.Object particle,float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(particle);
+    }
     public void ClearParticle()
     {
         foreach(var particle in _particleInstance)
