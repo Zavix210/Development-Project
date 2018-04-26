@@ -42,6 +42,19 @@ namespace SceneBuilderWpf.ViewModels
             }
         }
 
+        public int Score
+        {
+            get
+            {
+                return scenceChoice.Score;
+            }
+            set
+            {
+                scenceChoice.Score = value;
+                OnPropertyChanged(nameof(Score));
+            }
+        }
+
         public IndivdualSceneViewModel NextScene
         {
             get => _nextscene;
