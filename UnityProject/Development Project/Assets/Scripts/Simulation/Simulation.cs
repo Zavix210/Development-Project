@@ -57,6 +57,7 @@ public class Simulation : MonoBehaviour
         controller.AddSimulationComponent<FeedbackController>();
         controller.AddSimulationComponent<ParticleController>();
         controller.AddSimulationComponent<MenuController>();
+        controller.AddSimulationComponent<AudioController>();
 
         TimeController timeController = controller.AddSimulationComponent<TimeController>();
         timeController.SetTimeLimit(80);
