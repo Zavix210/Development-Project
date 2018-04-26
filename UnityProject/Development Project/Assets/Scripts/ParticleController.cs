@@ -34,7 +34,7 @@ public class ParticleController : SimulationComponentBase
             return;
         foreach(var particle in particles)
         {
-            _particlePlayer.CreateParticle(particle.ActionEnum, new Vector3(particle.X, particle.Y, particle.Z), particle.Intensity,3.0f);
+            _particlePlayer.CreateParticle(particle.ActionEnum, new Vector3(particle.X, particle.Y, particle.Z), particle.Intensity,30.0f);
         }
     }
 
