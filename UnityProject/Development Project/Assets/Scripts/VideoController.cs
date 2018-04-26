@@ -51,7 +51,7 @@ public class VideoController : SimulationComponentBase
                     int width = 3840;
                     int height = 1920;
                     _videoPlayer.PlayVideo(url, width, height);
-
+                    
                     string brightness;
                     if(scene.GetAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", out brightness))
                     {
