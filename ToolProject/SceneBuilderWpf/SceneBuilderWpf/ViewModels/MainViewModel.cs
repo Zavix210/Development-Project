@@ -1,4 +1,7 @@
 using GalaSoft.MvvmLight;
+using Microsoft.Win32;
+using SceneBuilderWpf.Bussiness_Logic;
+using SceneBuilderWpf.DataModels;
 using System.Windows;
 using System.Windows.Input;
 
@@ -7,12 +10,15 @@ namespace SceneBuilderWpf.ViewModels
 
     public class MainViewModel : BaseViewModel
     {
+        private ScenarioStorer _scenariostorer;
+        private IFormatConvert FormatConvert;
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IPageNavigationService pageNavigation) : base(pageNavigation)
+        public MainViewModel(IPageNavigationService pageNavigation, IFormatConvert formatConvert ,ScenarioStorer scenarioStorer) : base(pageNavigation)
         {
-
+            FormatConvert = formatConvert;
+            _scenariostorer = scenarioStorer;
         }
         
         public ICommand Minmize
@@ -51,6 +57,8 @@ namespace SceneBuilderWpf.ViewModels
 
         private void HomePage()
         {
+            _scenariostorer.NewScene = false;
+            _scenariostorer.Scenerio = null;
             pagenav.Navigate<MainPage>();
         }
 
@@ -65,6 +73,33 @@ namespace SceneBuilderWpf.ViewModels
         private void ScenePage()
         {
             pagenav.Navigate<ScenePage>();
+        }
+
+        public ICommand LoadJson
+        {
+            get
+            {
+                return new CommandHandler(() => ScenePageLoad());
+            }
+        }
+
+        private void ScenePageLoad()
+        {
+            OpenFileDialog filedia = new OpenFileDialog
+            {
+                Filter = "JSON files (*.json)| *.json", // change if u want to include more files. 
+                Multiselect = false,
+                Title = "Load JSON File."
+            };
+            var openbrowser = (bool)filedia.ShowDialog();
+            if (filedia.CheckFileExists && filedia.CheckPathExists && openbrowser)
+            {
+                Scene scene = FormatConvert.ConvertFormat(filedia.FileName);
+                _scenariostorer.NewScene = true;
+                _scenariostorer.Scenerio = scene;
+                pagenav.Navigate<ScenePage>();
+            }
+
         }
 
         private Visibility _openButtonVisibility = Visibility.Visible;

@@ -12,17 +12,17 @@ namespace SceneBuilderWpf.ViewModels
     {
 
         private List<DataModels.Action> _actionElements;
-        private List<Assets> Assetslist;
         private DataModels.Action FireAction;
         private DataModels.Action SmokeAction;
+        private DataModels.Action Extingshuer; 
         private bool _extinghuser; 
 
-        public ActionViewModel(IPageNavigationService pageNavigation, List<DataModels.Action> actionElements, List<Assets> assetslist) : base(pageNavigation)
+        public ActionViewModel(IPageNavigationService pageNavigation, List<DataModels.Action> actionElements) : base(pageNavigation)
         {
             _actionElements = actionElements;
-            Assetslist = assetslist;
             FireAction = new DataModels.Action() { ActionEnum = Actions.Fire };
             SmokeAction = new DataModels.Action() { ActionEnum = Actions.Smoke };
+            Extingshuer = new DataModels.Action() { ActionEnum = Actions.Extingishuer };
         }
 
         public float FireIntensity
@@ -142,10 +142,15 @@ namespace SceneBuilderWpf.ViewModels
             set
             {
                 _extinghuser = value;
+
                 if (value)
-                    Assetslist.Add(Assets.Extingishuer);
+                {
+                    Extingshuer.Intensity = 100;
+                    AddAction(100, Extingshuer);
+                }
                 else
-                    Assetslist.Remove(Assets.Extingishuer);
+                    AddAction(0, Extingshuer);
+
                 OnPropertyChanged(nameof(FireExtinghusher));
             }
         }
@@ -188,6 +193,13 @@ namespace SceneBuilderWpf.ViewModels
                     SmokeAngleY = action.Y;
                     SmokeAngleZ = action.Z;
                     SmokeIntensity = action.Intensity;
+                    break;
+                case Actions.Extingishuer:
+                    Extingshuer = action;
+                    if (action.Intensity == 0)
+                        FireExtinghusher = false;
+                    else
+                        FireExtinghusher = true;
                     break;
             }
         }

@@ -8,6 +8,7 @@ using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System.Collections.Generic;
 using SceneBuilderWpf.Bussiness_Logic;
+using System.Reflection;
 
 namespace SceneBuilderWpf.ViewModels
 {
@@ -40,7 +41,7 @@ namespace SceneBuilderWpf.ViewModels
             scene = scene_;
             SceneID = sceneid;
             SceneSettings = scene.GeneralSettings;
-            ViewModelAction = new ActionViewModel(pageNavigation, scene.GeneralSettings.ActionElements, scene_.GeneralSettings.AssetElements);
+            ViewModelAction = new ActionViewModel(pageNavigation, scene.GeneralSettings.ActionElements);
 
             _decision = new Decision();
             CurrentDecisionHolder = new DecisionHolder(pageNavigation, _decision, SceneId);
@@ -81,7 +82,6 @@ namespace SceneBuilderWpf.ViewModels
         public void AddSingleDecsion()
         {        
             scene.DecisionList.Add(_decision);
-
             _decision = new Decision();
             CurrentDecisionHolder = new DecisionHolder(pagenav, _decision, SceneId);
             DescisionHolder.Add(CurrentDecisionHolder);
@@ -103,6 +103,8 @@ namespace SceneBuilderWpf.ViewModels
                 scene.SceneFile = value;
                 scene.SceneLength = ShellCommandtoFindLength.Filelength(value);
                 _fileName = Path.GetFileName(value);
+                File.Copy(value, "../../../../../UnityProject/Development Project/Assets/JsonScene/"+_fileName);
+                //"../../../../../UnityProject/Development Project/Assets/JsonScene"
                 DisplayString = "";
                 OnPropertyChanged(nameof(FileName));
             }
@@ -181,8 +183,5 @@ namespace SceneBuilderWpf.ViewModels
                 OnPropertyChanged(nameof(DisplayString));
             }
         }
-
-
-
     }
 }

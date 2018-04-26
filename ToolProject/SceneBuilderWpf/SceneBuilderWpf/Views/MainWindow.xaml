@@ -82,7 +82,7 @@
 
 
                     <ListViewItem Height="60" Padding="0,0,0,0" >
-                        <Button Padding="0,0,0,0" Height="60" Width="200">
+                        <Button Command="{Binding LoadJson}" Padding="0,0,0,0" Height="60" Width="200">
                             <StackPanel Orientation="Horizontal" Margin="-35,0,0,0"   >
                                 <materialDesign:PackIcon Kind="FolderDownload" Width="25" Height="25" VerticalAlignment="Center"/>
                                 <TextBlock Text="Load Scenario" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 10" />

@@ -85,11 +85,9 @@
                     </DataGrid>
                     <Button Grid.Column="2" VerticalAlignment="Bottom" Width="50"  Margin="150,0,0,0" Command="{Binding}">
                         <materialDesign:PackIcon Kind="VectorPolygon" Height="20" Width="20" BorderBrush="{x:Null}" HorizontalAlignment="Center"    />
-
                     </Button>
                     <Button x:Name="ButtonSettings" Grid.Column="2"  VerticalAlignment="Bottom" Width="50"  Margin="150,0,0,60" Command="{Binding}">
                         <materialDesign:PackIcon Kind="Settings" Height="20" Width="20" BorderBrush="{x:Null}" HorizontalAlignment="Center"    />
-
                     </Button>
 
                     <StackPanel Margin="60,0,0,0" Orientation="Vertical" Grid.Row="1">
@@ -97,7 +95,7 @@
                         <Label Content="File Path :" Margin="0,0,0,0"></Label>
 
                         <DockPanel Margin="0,0,10,0">
-                            <TextBox IsReadOnly="True" Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Right"></TextBox>
+                            <TextBox IsReadOnly="True" TextWrapping="Wrap" Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Right" Height="33"></TextBox>
                             <Button Content="Browse."  Command="{Binding CurrentScene.BrowseCommand}" HorizontalAlignment="Center" Height="28" Margin="0,0,0,0" Width="128"/>
                         </DockPanel>
 
@@ -124,16 +122,22 @@
 
                         <TextBox Text="{Binding CurrentScene.CurrentDecisionHolder.DecisionTime}" VerticalAlignment="Top" Width="191.505" HorizontalAlignment="Left" Margin="90,62,0,0" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
 
-                        <Button Content="Add Decsion" Command="{Binding CurrentScene.AddaDecision}" Margin="10,-40,0,0"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Button Content="Add Decsion" Command="{Binding CurrentScene.AddaDecision}" Margin="5,108,0,128"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-                        <Label Content="List of Decsions :" Margin="0,140,0,0"></Label>
-                        <ComboBox Width="200" ItemsSource="{Binding CurrentScene.DescisionHolder}" SelectedItem="{Binding CurrentScene.CurrentDecisionHolder}"   Margin="5,160,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Button Content="Add/Edit Choices. " Command="{Binding DesicionPage}" Margin="10,150,0,0"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Label Content="List of Decsions :" Margin="0,153,275.8,-13" Grid.ColumnSpan="2"></Label>
+                        <ComboBox 
+                            DisplayMemberPath="QuestionText" 
+                            DataContext="{Binding CurrentScene}"
+                            Width="200" 
+                            ItemsSource="{Binding DescisionHolder}" 
+                            SelectedItem="{Binding CurrentDecisionHolder}"   
+                            Margin="5,173,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Button Content="Add/Edit Choices. " Command="{Binding DesicionPage}" Margin="5,225,0,11"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
 
 
                         <Grid Height="36" Margin="0,0,40,10" VerticalAlignment="Bottom" >
-                            <Button Content="Add New Scene. " Command="{Binding AddNewScene}" Width="150" HorizontalAlignment="Right" Margin="0,4,-134,0"></Button>
+                            <Button Content="Add New Scene. " Command="{Binding AddNewScene}" Width="150" HorizontalAlignment="Right" Margin="0,4,-96.2,0"></Button>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -155,24 +159,35 @@
 
                     <DataGrid ItemsSource="{Binding CurrentScene.CurrentDecisionHolder.Descision}" SelectedItem="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel}" Padding="25,0,25,0" Margin="0,20,0,0"  AutoGenerateColumns="False" HorizontalAlignment="Center" Height="320" Grid.RowSpan="3" Grid.ColumnSpan="2"  VerticalAlignment="Center" Width="600" IsReadOnly="True">
                         <DataGrid.Columns >
-                            <DataGridTextColumn Width="180" Header="Choice Text" Binding="{Binding ChoiceText}">
+                            <DataGridTextColumn Width="150" Header="Choice Text" Binding="{Binding ChoiceText}">
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Feedback" Width="180" Binding="{Binding Feedback}">
+                            <DataGridTextColumn Header="Feedback" Width="150" Binding="{Binding Feedback}">
 
                             </DataGridTextColumn>
-                            <DataGridTextColumn  Header="Next Scene" Width="180" Binding="{Binding NextScene}">
-
+                            <DataGridTextColumn   Header="Next Scene" Width="150" Binding="{Binding NextScene.DisplayString}" >
                             </DataGridTextColumn>
+                            <DataGridTextColumn Header="Score" Width="150" Binding="{Binding Score}" >
+                                
+                            </DataGridTextColumn>
+                            
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Label Content="Choice Text :" Height="30" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
-                    <TextBox Text="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel.ChoiceText}" Height="50" Width="200" VerticalAlignment="Bottom" Grid.Row="0" HorizontalAlignment="Left" Grid.Column="2" ></TextBox>
-                    <Label Content="Feedback Text :" Height="30" Width="100" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2"/>
+                    <Label Content="Choice Text :" Height="30" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2" Margin="0.2,25,0,78.6"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel.ChoiceText}" Height="83" Width="200" VerticalAlignment="Bottom" Grid.Row="0" HorizontalAlignment="Left" Grid.Column="2" Margin="0.2,0,0,133.2" Grid.RowSpan="2" ></TextBox>
+                    <Label Content="Feedback Text :" Height="30" Width="100" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="1" Grid.Column="2" Margin="0.2,19.4,0,84.2"/>
 
-                    <TextBox Width="200" Text="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel.Feedback}" Height="50" VerticalAlignment="Bottom" Grid.Row="1"  HorizontalAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2"></TextBox>
-                    <Label Content="Next Scene :" Height="30" Width="100" VerticalAlignment="Top"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2"/>
-                    <ComboBox  ItemsSource="{Binding Scenes}" SelectedItem="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel.NextScene}" Height="40" Width="200" VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,30"/>
+                    <TextBox TextWrapping="Wrap" Width="200" Text="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel.Feedback}" Height="85" VerticalAlignment="Bottom" Grid.Row="1"  HorizontalAlignment="Left" Grid.Column="2" Margin="0.2,0,0,5.2"/>
+                    <Label Content="Score: " Grid.Column="3" Grid.Row="2"></Label>
+                    <TextBox TextWrapping="Wrap" Text="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel.Score}" Width="200" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="0.2,21.8,0,52.6"/>
+                    <Label Content="Next Scene :" Height="30" Width="100" VerticalAlignment="Top"  HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Margin="0.2,81.8,0,0"/>
+                    <ComboBox  
+                        ItemsSource="{Binding Scenes}" 
+                        SelectedItem="{Binding CurrentScene.CurrentDecisionHolder.CurrentDescisionViewModel.NextScene}" 
+                        DisplayMemberPath="DisplayString"
+                        Height="40" Width="200" 
+                        VerticalAlignment="Center"  
+                        HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Margin="0.2,110.8,0,117.2" Grid.RowSpan="2"/>
                     <Button Grid.Row="3" Grid.Column="0" Command="{Binding DesicionPage}" Content="Go Back." Width="100" HorizontalAlignment="Center" Height="30"/>
                     <Button Grid.Row="3" Grid.Column="1" Command="{Binding CurrentScene.CurrentDecisionHolder.AddDescion}" Margin="0,0,40,0" Content="Add Decision." Width="200" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30"/>
                 </Grid>
@@ -215,6 +230,9 @@
                 </Grid>
             </TabItem>
         </TabControl>
+
         <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Start Scenario." Margin="0,0,10,10" Command="{Binding SerliazeSave}"/>
+
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Save Scenario." Margin="0,0,10.4,54" Command="{Binding SerliazeSave}"/>
     </Grid>
 </Page>
