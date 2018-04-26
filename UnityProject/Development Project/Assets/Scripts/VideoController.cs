@@ -48,9 +48,12 @@ public class VideoController : SimulationComponentBase
                 if (scene.GetAttribute("VIDEO_URL", out url))
                 {
                     // Right now the video is being loaded dynamically. There is only one video instance in the memory.(The video that is currently playing)
-                    int width = 3840;
-                    int height = 1920;
-                    _videoPlayer.PlayVideo(url, width, height);
+                    int width = 1920;
+                    int height = 1080;
+
+                    string path = Application.dataPath+@"/JsonScene/"+url;
+
+                    _videoPlayer.PlayVideo(path, width, height);
                     
                     string brightness;
                     if(scene.GetAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", out brightness))

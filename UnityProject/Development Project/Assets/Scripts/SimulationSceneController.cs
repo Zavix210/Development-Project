@@ -148,7 +148,7 @@ namespace SimulationSystem
             {
                 DecisionSet decisionSet = new DecisionSet();
                 DecisionTimelineAction decisionAction = new DecisionTimelineAction();
-                decisionSet.Time = decision.DecisionTime;
+                decisionSet.Time = decision.DecisionTime/1000;
                 bool transitionSet = false;
 
                 foreach (SceneBuilderWpf.DataModels.ScenceChoice choice in decision.Choice)
@@ -159,8 +159,8 @@ namespace SimulationSystem
                     {
                         TransitionTimelineAction transitionAction = new TransitionTimelineAction(nextId);
                         //TODO: hardcoded at the moment
-                        node.AddAttribute("DURATION", (decision.DecisionTime + 1).ToString());
-                        transitionAction.SetTimeOfAction(decision.DecisionTime+1);
+                        node.AddAttribute("DURATION", ((decision.DecisionTime + 20)/1000).ToString());
+                        transitionAction.SetTimeOfAction((decision.DecisionTime+20)/1000);
                         node.AddAction(transitionAction);
                         transitionSet = true;
                     }

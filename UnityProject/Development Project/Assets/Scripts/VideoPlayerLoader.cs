@@ -35,6 +35,7 @@ public class VideoPlayerLoader : MonoBehaviour {
     /// <param name="height">Video Height</param>
     public void PlayVideo(string url,int width,int height)
     {
+        Camera.main.clearFlags = CameraClearFlags.Skybox;
         _videoPlayer = gameObject.GetComponent<VideoPlayer>();
         if(_videoPlayer == null)
         {
