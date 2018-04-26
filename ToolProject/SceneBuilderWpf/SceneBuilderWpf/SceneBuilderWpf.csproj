@@ -123,6 +123,7 @@
     <Compile Include="Bussiness Logic\IPersit.cs" />
     <Compile Include="Bussiness Logic\JsonDocumentSerializer.cs" />
     <Compile Include="Bussiness Logic\JsonStorage.cs" />
+    <Compile Include="Bussiness Logic\ShellCommandtoFindLength.cs" />
     <Compile Include="DataModels\Action.cs" />
     <Compile Include="DataModels\Decision.cs" />
     <Compile Include="DataModels\EnumActions.cs" />

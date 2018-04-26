@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System.Collections.Generic;
+using SceneBuilderWpf.Bussiness_Logic;
 
 namespace SceneBuilderWpf.ViewModels
 {
@@ -100,32 +101,11 @@ namespace SceneBuilderWpf.ViewModels
             set
             {
                 scene.SceneFile = value;
+                scene.SceneLength = ShellCommandtoFindLength.Filelength(value);
                 _fileName = Path.GetFileName(value);
-                Filelength(value);
                 DisplayString = "";
                 OnPropertyChanged(nameof(FileName));
             }
-        }
-
-        public void Filelength(string filePath)
-        {
-            string duration = "";
-            try
-            {
-                using (ShellObject shell = ShellObject.FromParsingName(filePath))
-                {
-                    // alternatively: shell.Properties.GetProperty("System.Media.Duration");
-                    IShellProperty prop = shell.Properties.System.Media.Duration;
-                    // Duration will be formatted as 00:44:08
-                    duration = prop.FormatForDisplay(PropertyDescriptionFormatOptions.None);
-                    DateTime.TryParse(duration, out DateTime dateTime);
-                    scene.SceneLength = dateTime.TimeOfDay.TotalMilliseconds;
-                }
-            }
-            catch(Exception ex)
-            {
-                Xceed.Wpf.Toolkit.MessageBox.Show("This file doesn't appear to have a file length!");
-            }         
         }
 
         public int SceneBrightness

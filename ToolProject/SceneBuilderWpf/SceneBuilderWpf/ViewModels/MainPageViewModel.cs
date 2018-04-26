@@ -59,8 +59,9 @@ namespace SceneBuilderWpf.ViewModels
                 Scene scene = FormatConvert.ConvertFormat(filedia.FileName);
                 _scenariostorer.NewScene = true;
                 _scenariostorer.Scenerio = scene;
+                pagenav.Navigate<ScenePage>();
             }
-            pagenav.Navigate<ScenePage>();
+            
         }
     }
 
