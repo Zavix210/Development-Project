@@ -3,6 +3,7 @@ using SceneBuilderWpf.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -114,7 +115,12 @@ namespace SceneBuilderWpf.ViewModels
 
         private void SerilazeAndSave()
         {
-            formatConvert.ConvertFormat(firstscene, "TestSerliaze");
+            formatConvert.ConvertFormat(firstscene, "scene");
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = "C:\\Temp\\unitybuildtest\\Build.exe";
+            startInfo.Arguments = "TestSerliaze";
+            Process.Start(startInfo);
         }
 
         public ICommand SceneDiagram
