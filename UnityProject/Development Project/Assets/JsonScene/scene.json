@@ -13,6 +13,14 @@
         "X": -7.0,
 		"Y": 0.0,
 		"Z": 6.0,
+      },
+	  {
+        "ActionEnum": 2,
+        "Intensity": 13.0,
+        "Time": 0.0,
+        "X": -7.0,
+		"Y": 0.0,
+		"Z": 6.0,
       }
     ],
     "AssetElements": []
@@ -51,9 +59,16 @@
               "EmergLight": 20,
               "SoundVolume": 44,
               "Text": "This is scene two",
-              "ActionElements": [
-                
-              ],
+				"ActionElements": [
+				  {
+					"ActionEnum": 0,
+					"Intensity": 13.0,
+					"Time": 0.0,
+					"X": -7.0,
+					"Y": 0.0,
+					"Z": 6.0,
+				  }
+				],
               "AssetElements": []
             },
             "DecisionList": []

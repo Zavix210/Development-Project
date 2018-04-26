@@ -122,23 +122,26 @@ namespace SimulationSystem
             node.AddAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", scene.GeneralSettings.SceneBrightness.ToString());
             node.AddAttribute("GENERAL_SETTINGS_SOUND_VOLUME", scene.GeneralSettings.SoundVolume.ToString());
 
-            //TODO PARTICLE SYSTEM
             if(scene.GeneralSettings.ActionElements != null)
             {
+                ParticleAction particleAction = new ParticleAction();
                 foreach(var actionElement in scene.GeneralSettings.ActionElements)
                 {
-                    int action = (int)actionElement.ActionEnum;
-                    Vector3 position = new Vector3(actionElement.X, actionElement.Y, actionElement.Z);
-                    float time = actionElement.Time;
-                    float intensity = actionElement.Intensity;
+                    particleAction.AddParticleAction(actionElement);
+                    //int action = (int)actionElement.ActionEnum;
+                    //Vector3 position = new Vector3(actionElement.X, actionElement.Y, actionElement.Z);
+                    //float time = actionElement.Time;
+                    //float intensity = actionElement.Intensity;
 
-                    node.AddAttribute("PARTICLE_TYPE",  action.ToString());
-                    node.AddAttribute("PARTICLE_X", position.x.ToString());
-                    node.AddAttribute("PARTICLE_Y", position.y.ToString());
-                    node.AddAttribute("PARTICLE_Z", position.z.ToString());
-                    node.AddAttribute("PARTICLE_INTENSITY", intensity.ToString());
-
+                    //node.AddAttribute("PARTICLE_TYPE",  action.ToString());
+                    //node.AddAttribute("PARTICLE_X", position.x.ToString());
+                    //node.AddAttribute("PARTICLE_Y", position.y.ToString());
+                    //node.AddAttribute("PARTICLE_Z", position.z.ToString());
+                    //node.AddAttribute("PARTICLE_INTENSITY", intensity.ToString());
                 }
+                particleAction.SetTimeOfAction(0.0f);
+                node.AddAction(particleAction);
+
             }
 
             foreach (SceneBuilderWpf.DataModels.Decision decision in scene.DecisionList)

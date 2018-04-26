@@ -27,6 +27,15 @@ public class ParticleController : SimulationComponentBase
     {
         //
     }
+
+    public void CreateParticles(List<SceneBuilderWpf.DataModels.Action> particles)
+    {
+        foreach(var particle in particles)
+        {
+            _particlePlayer.CreateParticle(particle.ActionEnum, new Vector3(particle.X, particle.Y, particle.Z), particle.Intensity);
+        }
+    }
+
     public override void OnReceivedMessage(Message message)
     {
         // A scene was changed (next video?)
@@ -36,45 +45,45 @@ public class ParticleController : SimulationComponentBase
             if (message.Identifier == "VALID")
             {
                 _particlePlayer.ClearParticle();
-                // Get the scene node from the message
-                SimulationScene scene = (SimulationScene)message.Data;
+                //// Get the scene node from the message
+                //SimulationScene scene = (SimulationScene)message.Data;
 
-                string particleX, particleY, particleZ, particleType, particleIntensity;
-                float x = 0.0f;
-                float y = 0.0f;
-                float z = 0.0f;
-                float intensity = 0.0f;
-                Actions action;
+                //string particleX, particleY, particleZ, particleType, particleIntensity;
+                //float x = 0.0f;
+                //float y = 0.0f;
+                //float z = 0.0f;
+                //float intensity = 0.0f;
+                //Actions action;
+                
+                //if (scene.GetAttribute("PARTICLE_TYPE", out particleType))
+                //{
+                //    action = (Actions)Int32.Parse(particleType);
+                //}
+                //else
+                //{
+                //    //no particles
+                //    return;
+                //}
 
-                if (scene.GetAttribute("PARTICLE_TYPE", out particleType))
-                {
-                    action = (Actions)Int32.Parse(particleType);
-                }
-                else
-                {
-                    //no particles
-                    return;
-                }
+                //if (scene.GetAttribute("PARTICLE_X", out particleX))
+                //{
+                //    x = float.Parse(particleX);
+                //}
+                //if (scene.GetAttribute("PARTICLE_Y", out particleY))
+                //{
+                //    y = float.Parse(particleY);
+                //}
+                //if (scene.GetAttribute("PARTICLE_Z", out particleZ))
+                //{
+                //    z = float.Parse(particleZ);
+                //}
+                //if (scene.GetAttribute("PARTICLE_INTENSITY", out particleIntensity))
+                //{
+                //    intensity = float.Parse(particleIntensity);
+                //}
 
-                if (scene.GetAttribute("PARTICLE_X", out particleX))
-                {
-                    x = float.Parse(particleX);
-                }
-                if (scene.GetAttribute("PARTICLE_Y", out particleY))
-                {
-                    y = float.Parse(particleY);
-                }
-                if (scene.GetAttribute("PARTICLE_Z", out particleZ))
-                {
-                    z = float.Parse(particleZ);
-                }
-                if (scene.GetAttribute("PARTICLE_INTENSITY", out particleIntensity))
-                {
-                    intensity = float.Parse(particleIntensity);
-                }
-
-                Vector3 particlePos = new Vector3(x, y, z);
-                _particlePlayer.CreateParticle(action, particlePos, intensity);
+                //Vector3 particlePos = new Vector3(x, y, z);
+                //_particlePlayer.CreateParticle(action, particlePos, intensity);
             }
         }
     }
