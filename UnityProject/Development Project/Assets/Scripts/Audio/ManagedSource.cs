@@ -71,6 +71,8 @@ public class ManagedSource : MonoBehaviour
         source.clip = clip;
         source.loop = looped;
 
+        source.Play();
+
         OnPlayed();
     }
 
