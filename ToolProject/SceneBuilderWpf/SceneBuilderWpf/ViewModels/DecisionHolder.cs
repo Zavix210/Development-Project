@@ -75,7 +75,9 @@ namespace SceneBuilderWpf.ViewModels
             Descision.Add(CurrentDescisionViewModel);
             CurrentDescisionViewModel = new DescisionPageViewModel(pagenav, _scenceChoice, SceneID);
         }
+
         public ObservableCollection<DescisionPageViewModel> Descision => _descision;
+
         public DescisionPageViewModel CurrentDescisionViewModel
         {
             get
@@ -87,11 +89,6 @@ namespace SceneBuilderWpf.ViewModels
                 _currentDescisionViewModel = value;
                 OnPropertyChanged(nameof(CurrentDescisionViewModel));
             }
-        }
-
-        public override string ToString()
-        {
-            return _decision.Question;
         }
     }
 }

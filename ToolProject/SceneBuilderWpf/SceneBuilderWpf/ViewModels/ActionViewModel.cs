@@ -12,12 +12,15 @@ namespace SceneBuilderWpf.ViewModels
     {
 
         private List<DataModels.Action> _actionElements;
+        private List<Assets> Assetslist;
         private DataModels.Action FireAction;
-        private DataModels.Action SmokeAction; 
+        private DataModels.Action SmokeAction;
+        private bool _extinghuser; 
 
-        public ActionViewModel(IPageNavigationService pageNavigation, List<DataModels.Action> actionElements) : base(pageNavigation)
+        public ActionViewModel(IPageNavigationService pageNavigation, List<DataModels.Action> actionElements, List<Assets> assetslist) : base(pageNavigation)
         {
             _actionElements = actionElements;
+            Assetslist = assetslist;
             FireAction = new DataModels.Action() { ActionEnum = Actions.Fire };
             SmokeAction = new DataModels.Action() { ActionEnum = Actions.Smoke };
         }
@@ -48,6 +51,7 @@ namespace SceneBuilderWpf.ViewModels
                 OnPropertyChanged(nameof(FireAngleX));
             }
         }
+
         public float FireAngleY
         {
             get
@@ -60,6 +64,7 @@ namespace SceneBuilderWpf.ViewModels
                 OnPropertyChanged(nameof(FireAngleY));
             }
         }
+
         public float FireAngleZ
         {
             get
@@ -113,6 +118,7 @@ namespace SceneBuilderWpf.ViewModels
                 OnPropertyChanged(nameof(SmokeAngleY));
             }
         }
+
         public float SmokeAngleZ
         {
 
@@ -124,6 +130,23 @@ namespace SceneBuilderWpf.ViewModels
             {
                 SmokeAction.Z = value;
                 OnPropertyChanged(nameof(SmokeAngleZ));
+            }
+        }
+
+        public bool FireExtinghusher
+        {
+            get
+            {
+                return _extinghuser;
+            }
+            set
+            {
+                _extinghuser = value;
+                if (value)
+                    Assetslist.Add(Assets.Extingishuer);
+                else
+                    Assetslist.Remove(Assets.Extingishuer);
+                OnPropertyChanged(nameof(FireExtinghusher));
             }
         }
 

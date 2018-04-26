@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-
+using System.Collections.Generic;
 
 namespace SceneBuilderWpf.ViewModels
 {
@@ -39,10 +39,11 @@ namespace SceneBuilderWpf.ViewModels
             scene = scene_;
             SceneID = sceneid;
             SceneSettings = scene.GeneralSettings;
-            ViewModelAction = new ActionViewModel(pageNavigation, scene.GeneralSettings.ActionElements);
+            ViewModelAction = new ActionViewModel(pageNavigation, scene.GeneralSettings.ActionElements, scene_.GeneralSettings.AssetElements);
 
             _decision = new Decision();
             CurrentDecisionHolder = new DecisionHolder(pageNavigation, _decision, SceneId);
+            DescisionHolder.Add(CurrentDecisionHolder);
         }
 
         public ICommand BrowseCommand
@@ -66,7 +67,7 @@ namespace SceneBuilderWpf.ViewModels
                 FileName = openFileDialog.FileName; //Set textblock to filename. chossen
             }
 
-        }// .mp4, .m4v, or .mov
+        }
 
         public ICommand AddaDecision
         {
@@ -77,12 +78,12 @@ namespace SceneBuilderWpf.ViewModels
         }
 
         public void AddSingleDecsion()
-        {
-            DescisionHolder.Add(CurrentDecisionHolder);
+        {        
             scene.DecisionList.Add(_decision);
 
             _decision = new Decision();
-            CurrentDecisionHolder = new DecisionHolder(pagenav, _decision, SceneId); 
+            CurrentDecisionHolder = new DecisionHolder(pagenav, _decision, SceneId);
+            DescisionHolder.Add(CurrentDecisionHolder);
         }
 
         public int SceneId
@@ -101,6 +102,7 @@ namespace SceneBuilderWpf.ViewModels
                 scene.SceneFile = value;
                 _fileName = Path.GetFileName(value);
                 Filelength(value);
+                DisplayString = "";
                 OnPropertyChanged(nameof(FileName));
             }
         }
@@ -123,8 +125,7 @@ namespace SceneBuilderWpf.ViewModels
             catch(Exception ex)
             {
                 Xceed.Wpf.Toolkit.MessageBox.Show("This file doesn't appear to have a file length!");
-            }
-            
+            }         
         }
 
         public int SceneBrightness
@@ -189,13 +190,19 @@ namespace SceneBuilderWpf.ViewModels
 
         }
 
-        /// <summary>
-        /// What the Combobox will show. 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
+        public string DisplayString
         {
-            return SceneID.ToString()  + ": " + FileName;
+            get
+            {
+                return SceneID.ToString() + ": " + FileName;
+            }
+            set
+            {
+                OnPropertyChanged(nameof(DisplayString));
+            }
         }
+
+
+
     }
 }
