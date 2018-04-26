@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SceneBuilderWpf.DataModels;
+
 // TODO: These will allow compilation while input middle-man library is being developed.
 using InputObject = System.Object;
 
