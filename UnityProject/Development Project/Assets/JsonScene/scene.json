@@ -10,13 +10,9 @@
         "ActionEnum": 1,
         "Intensity": 13.0,
         "Time": 0.0,
-        "Angle": 21.0
-      },
-      {
-        "ActionEnum": 0,
-        "Intensity": 18.0,
-        "Time": 0.0,
-        "Angle": 0.0
+        "X": -7.0,
+		"Y": 0.0,
+		"Z": 6.0,
       }
     ],
     "AssetElements": []
@@ -56,12 +52,7 @@
               "SoundVolume": 44,
               "Text": "This is scene two",
               "ActionElements": [
-                {
-                  "ActionEnum": 1,
-                  "Intensity": 9.0,
-                  "Time": 0.0,
-                  "Angle": 6.0
-                }
+                
               ],
               "AssetElements": []
             },
@@ -80,12 +71,7 @@
               "SoundVolume": 3,
               "Text": "Scene three",
               "ActionElements": [
-                {
-                  "ActionEnum": 0,
-                  "Intensity": 9.0,
-                  "Time": 0.0,
-                  "Angle": 0.0
-                }
+                
               ],
               "AssetElements": []
             },

@@ -127,22 +127,17 @@ namespace SimulationSystem
             {
                 foreach(var actionElement in scene.GeneralSettings.ActionElements)
                 {
-                    Actions action = actionElement.ActionEnum;
+                    int action = (int)actionElement.ActionEnum;
                     Vector3 position = new Vector3(actionElement.X, actionElement.Y, actionElement.Z);
                     float time = actionElement.Time;
                     float intensity = actionElement.Intensity;
-                    switch (action)
-                    {
-                        case Actions.Fire:
-                            //TODO
-                        break;
-                        case Actions.Smoke:
-                            //TODO
-                        break;
-                        case Actions.Timer:
-                            //TODO
-                        break;
-                    }
+
+                    node.AddAttribute("PARTICLE_TYPE",  action.ToString());
+                    node.AddAttribute("PARTICLE_X", position.x.ToString());
+                    node.AddAttribute("PARTICLE_Y", position.y.ToString());
+                    node.AddAttribute("PARTICLE_Z", position.z.ToString());
+                    node.AddAttribute("PARTICLE_INTENSITY", intensity.ToString());
+
                 }
             }
 
