@@ -11,11 +11,11 @@ using System.Collections;
 public class ParticlePlayer : MonoBehaviour
 {
 
-    public UnityEngine.Object FoamParticle;
-    public UnityEngine.Object FireParticle;
-    public UnityEngine.Object SmokeParticle;
+    public UnityEngine.GameObject FoamParticle;
+    public UnityEngine.GameObject FireParticle;
+    public UnityEngine.GameObject SmokeParticle;
 
-    List<UnityEngine.Object> _particleInstance = new List<UnityEngine.Object>();
+    List<UnityEngine.GameObject> _particleInstance = new List<UnityEngine.GameObject>();
     public void CreateParticle(Actions action, Vector3 particlePos, float intensity, float time)
     {
         switch (action)
@@ -27,8 +27,10 @@ public class ParticlePlayer : MonoBehaviour
                 _particleInstance.Add(Instantiate(SmokeParticle, particlePos, Quaternion.identity));
             break;
             case Actions.Timer:
-                var particle = Instantiate(FoamParticle, particlePos, Quaternion.Euler(new Vector3(24.8f,100.14f,0.0f)));
-                
+                var particle = Instantiate(FoamParticle, new Vector3(0.0f, -1.37f, 0.6f), Quaternion.identity);
+                particle.transform.parent = Camera.main.transform;
+                particle.transform.rotation = Camera.main.transform.rotation;
+                particle.transform.position = new Vector3(0.0f, -1.37f, 0.6f);
                 _particleInstance.Add(particle);
                 IEnumerator coroutine = StartTimedParticle(particle,time);
                 StartCoroutine(coroutine);
@@ -36,17 +38,24 @@ public class ParticlePlayer : MonoBehaviour
         }
     }
 
-    private IEnumerator StartTimedParticle(UnityEngine.Object particle,float time)
+    private IEnumerator StartTimedParticle(UnityEngine.GameObject particle,float time)
     {
         yield return new WaitForSeconds(time);
         Destroy(particle);
     }
     public void ClearParticle()
     {
+        if (_particleInstance == null)
+            return;
         foreach(var particle in _particleInstance)
         {
             Destroy(particle);
         }
+
+    }
+
+    private void Update()
+    {
 
     }
 

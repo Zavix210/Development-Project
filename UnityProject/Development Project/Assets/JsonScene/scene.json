@@ -5,7 +5,16 @@
     "EmergLight": 20,
     "SoundVolume": 30,
     "Text": "Scene One",
-    "ActionElements": [],
+    "ActionElements": [
+		{
+        "ActionEnum": 2,
+        "Intensity": 13.0,
+        "Time": 0.0,
+        "X": -7.0,
+		"Y": 0.0,
+		"Z": 6.0,
+      },
+	],
     "AssetElements": []
   },
   "DecisionList": [
@@ -20,7 +29,7 @@
 		  "Whereyougo": {
             "SceneFile": "C:\\dev\\Development-Project\\UnityProject\\Development Project\\Assets\\Videos\\Scene_2.mp4",
             "GeneralSettings": {
-              "SceneBrightness": 30,
+              "SceneBrightness": 100,
               "EmergLight": 33,
               "SoundVolume": 3,
               "Text": "Scene three",
