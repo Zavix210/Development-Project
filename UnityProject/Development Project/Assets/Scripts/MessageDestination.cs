@@ -7,7 +7,7 @@ using System.Collections;
 /// </summary>
 public enum MessageDestination
 {
-    SIMULATION_LOADING = 1, // The simulation is loading
+    SIMULATION_LOADED = 1, // The simulation is loading
     SIMULATION_START = 2, // The simulation has started
     SIMULATION_PAUSE = 3, // The simulation has been paused
     SIMULATION_RESUME = 4, // The simulation has been resumed
@@ -21,4 +21,6 @@ public enum MessageDestination
     DECISION_START, // Decision selection has started
     DECISION_CHOICE_MADE, // A choice was selected
     DECISION_END, // Decision selection has ended
+
+    MENU_START_PRESSED, // Menu start button has been pressed
 }

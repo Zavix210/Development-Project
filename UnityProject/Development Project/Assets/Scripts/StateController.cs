@@ -41,7 +41,7 @@ public class StateController : SimulationComponentBase, IStateListener<Simulatio
             if (oldState == SimulationState.Loading) // Loading -> Something
             {
                 // Propagate a message to all listeners to notify them
-                Message message = new Message((int)MessageDestination.SIMULATION_LOADING, "", null);
+                Message message = new Message((int)MessageDestination.SIMULATION_LOADED, "", null);
                 Controller.PropagateMessage(message);
             }
             else if (oldState == SimulationState.Menu) // Menu -> Something
