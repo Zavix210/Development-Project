@@ -100,10 +100,11 @@ namespace SceneBuilderWpf.ViewModels
             get => _fileName;
             set
             {
-                scene.SceneFile = value;
+                scene.SceneFile = Path.GetFileName(value); ;
                 scene.SceneLength = ShellCommandtoFindLength.Filelength(value);
                 _fileName = Path.GetFileName(value);
-                File.Copy(value, "../../../../../UnityProject/Development Project/Assets/JsonScene/"+_fileName);
+                if(!File.Exists("../../../../../UnityProject/Development Project/Assets/JsonScene/" + _fileName))
+                    File.Copy(value, "../../../../../UnityProject/Development Project/Assets/JsonScene/"+_fileName);
                 //"../../../../../UnityProject/Development Project/Assets/JsonScene"
                 DisplayString = "";
                 OnPropertyChanged(nameof(FileName));
