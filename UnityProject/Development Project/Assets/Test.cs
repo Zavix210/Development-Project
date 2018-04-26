@@ -18,7 +18,8 @@ public class Test : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        AudioTest1();
+        string someTestPath = "C:/";
+        AudioTest2(someTestPath);
 	}
 
     private void AudioTest1()
@@ -28,6 +29,21 @@ public class Test : MonoBehaviour {
             Simulation sim = Simulation.Instance;
             AudioController ac = sim.Controller.GetSimulationComponent<AudioController>();
             ac.PlayClip(Vector3.zero, clip, true);
+        }
+    }
+
+    private void AudioTest2(string testPath)
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // Load the clip
+            AudioClip loadedClip;
+            AudioLoader.LoadAudioClipBlocking(testPath, out loadedClip);
+
+            // Push the clip
+            Simulation sim = Simulation.Instance;
+            AudioController ac = sim.Controller.GetSimulationComponent<AudioController>();
+            ac.PlayClip(Vector3.zero, loadedClip, true);
         }
     }
 }

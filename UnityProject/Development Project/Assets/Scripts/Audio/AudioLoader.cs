@@ -9,7 +9,7 @@ public class AudioLoader
     {
         clip = null;
         WWW www = new WWW(filePath);
-        if (!string.IsNullOrEmpty(www.error)) // Was there no error?
+        if (string.IsNullOrEmpty(www.error)) // Was there no error?
         {
             // Wait for the file to finish loading...
             while(true)
