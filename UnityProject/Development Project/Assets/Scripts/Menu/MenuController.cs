@@ -11,12 +11,15 @@ public enum MenuState
 
 public class MenuController : SimulationComponentBase
 {
+    private UIMenuButton menuButton;
     private MenuState menuState;
     public MenuState MenuState { get { return menuState; } }
 
     public MenuController(SimulationController controller) : base(controller)
     {
         menuState = MenuState.HIDDEN;
+        menuButton = GameObject.Find("MENU_START_BUTTON").GetComponent<UIMenuButton>();
+        menuButton.SetText("Start Simulation");
     }
 
     public override bool IsMessageRouteValid(int route)
@@ -42,6 +45,7 @@ public class MenuController : SimulationComponentBase
                 break;
             case (int)MessageDestination.MENU_START_PRESSED: // The menu start has been pressed
                 {
+
                     menuState = MenuState.HIDDEN;
                     HideMenu();
                 }
@@ -51,11 +55,11 @@ public class MenuController : SimulationComponentBase
 
     private void ShowMenu()
     {
-
+        menuButton.gameObject.SetActive(true);
     }
 
     private void HideMenu()
     {
-
+        menuButton.gameObject.SetActive(false);
     }
 }
