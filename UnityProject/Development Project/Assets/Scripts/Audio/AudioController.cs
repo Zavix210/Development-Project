@@ -44,10 +44,21 @@ public class AudioController : SimulationComponentBase
                 string filePath;
                 if (scene.GetAttribute("GENERAL_SETTINGS_ALARM_FILE", out filePath))
                 {
+                    // Add a prefix to fix bad file names
                     string url = Application.dataPath + @"/JsonScene/" + filePath;
+                    string filePrefix = @"file://";
+                    url = filePrefix + url;
+
+                    Debug.Log(url);
                     AudioClip clip;
-                    AudioLoader.LoadAudioClipBlocking(url, out clip);
-                    PlayClip(Vector3.zero, clip, true);
+                    if (AudioLoader.LoadAudioClipBlocking(url, out clip))
+                    {
+                        PlayClip(Vector3.zero, clip, true);
+                    }
+                    else
+                    {
+                        Debug.LogError("FAILED TO PLAY CLIP FROM URL " + url);
+                    }
 
                 }
 
@@ -56,8 +67,7 @@ public class AudioController : SimulationComponentBase
     }
 
     public ManagedSource PlayClip(Vector3 position, AudioClip clip, bool looped)
-    {
-        
+    {     
         // Create the source and start it playing
         ManagedSource source = sourcePool.Get();
         source.Play(position, clip, looped);

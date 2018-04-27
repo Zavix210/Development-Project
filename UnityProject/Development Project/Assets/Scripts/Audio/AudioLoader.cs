@@ -19,8 +19,7 @@ public class AudioLoader : MonoBehaviour
                 }
 
                 // Was there an error?
-                string err = www.error;
-                if(string.IsNullOrEmpty(err))
+                if(!string.IsNullOrEmpty(www.error))
                 {
                     return false;
                 }
