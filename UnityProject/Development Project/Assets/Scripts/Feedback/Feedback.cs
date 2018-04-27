@@ -55,12 +55,29 @@ public class Feedback
         entries = new List<FeedbackEntry>();
     }
 
+    public void Clear()
+    {
+        entries.Clear();
+    }
+
+    /// <summary>
+    /// Log an entry to the feedback system.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="title"></param>
+    /// <param name="feedback"></param>
+    /// <param name="timestamp"></param>
+    /// <param name="remainingTime"></param>
     public void LogEntry(DecisionResult result, string title, string feedback, float timestamp, float remainingTime)
     {
         FeedbackEntry entry = new FeedbackEntry(result, title, feedback, timestamp, remainingTime);
         entries.Add(entry);
     }
 
+    /// <summary>
+    /// Write the feedback to a file.
+    /// </summary>
+    /// <param name="writer"></param>
     public void WriteFeedbackToFile(StreamWriter writer)
     {
         foreach(FeedbackEntry entry in entries)
