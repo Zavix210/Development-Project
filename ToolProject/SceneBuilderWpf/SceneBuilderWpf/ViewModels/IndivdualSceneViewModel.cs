@@ -124,17 +124,17 @@ namespace SceneBuilderWpf.ViewModels
             {
 
                 #if Debug
-                    Directory.CreateDirectory(directorystring
+                    Directory.CreateDirectory(directorystring);
                     string filename = Path.GetFileName(openFileDialog.FileName);
                     if (!File.Exists(directorystring + / + filename))
-                        File.Copy(Path.GetFileName(openFileDialog.FileName), directorystring + "/" + filename);
+                        File.Copy(openFileDialog.FileName, directorystring + "/" + filename);
                     AlarmPath = openFileDialog.FileName; 
                 #endif
                 #if !Debug
                     Directory.CreateDirectory(directorystring);
                     string filename = Path.GetFileName(openFileDialog.FileName);
                     if (!File.Exists(directorystring + "/" + filename))
-                        File.Copy(openFileDialog.FileName, directorystring + "/" + Path.GetFileName(openFileDialog.FileName));
+                        File.Copy(openFileDialog.FileName, directorystring + "/" + filename);
                     AlarmPath = openFileDialog.FileName; //Set textblock to filename. chossen
                 #endif
             }
