@@ -150,7 +150,7 @@ namespace SceneBuilderWpf.ViewModels
             };
             if (saveFileDialog.ShowDialog().Value)
             {
-                string filname = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+                string filname = Path.GetFileName(saveFileDialog.FileName);
                 string filloc= Path.GetDirectoryName(saveFileDialog.FileName);
                 formatConvert.ConvertFormat(firstscene, filloc, filname);
             }

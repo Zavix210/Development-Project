@@ -29,7 +29,7 @@ namespace SceneBuilderWpf.Bussiness_Logic
         public override void PersistDocument(string serializedScene,string locationfile ,string targetFileName) // Save the Json Object to a file 
         {
             //@"../../../../../UnityProject/Development Project/Assets/JsonScene/{0}.json"
-            using (StreamWriter file = File.CreateText(string.Format(locationfile +"\\{0}.json", targetFileName)))
+            using (StreamWriter file = File.CreateText(string.Format(locationfile +"\\{0}", targetFileName)))
             {
                 file.WriteLine(serializedScene);
             }
