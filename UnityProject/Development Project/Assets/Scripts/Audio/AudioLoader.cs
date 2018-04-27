@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioLoader
+public class AudioLoader : MonoBehaviour
 {
-
     public static bool LoadAudioClipBlocking(string filePath, out AudioClip clip)
     {
         clip = null;
@@ -37,4 +36,5 @@ public class AudioLoader
             return false;
         }   
     }
+    
 }

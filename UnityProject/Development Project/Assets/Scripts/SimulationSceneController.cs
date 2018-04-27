@@ -17,6 +17,7 @@ namespace SimulationSystem
         private SceneNode currentNode;
         private SceneNode rootNode;
         private int nextId = 0;
+        private float _timeLimit = 0.0f;
         public SimulationScene CurrentScene { get { return currentNode.Wrapper; } }
 
         public SimulationSceneController(SimulationController controller) : base(controller)
@@ -121,9 +122,10 @@ namespace SimulationSystem
             // -------------------------------------------------------------------------------------
 
             // Time limit needs fetching from the API settings and pushing to the time controller.
-            float timeLimit = 0.0f;
+            _timeLimit += (float)((scene.SceneLength) / 1000);
             TimeController timeController = Controller.GetSimulationComponent<TimeController>();
-            timeController.SetTimeLimit(timeLimit);
+            timeController.SetTimeLimit(_timeLimit);
+
 
             // -------------------------------------------------------------------------------------
 
@@ -133,23 +135,16 @@ namespace SimulationSystem
             node.AddAttribute("GENERAL_SETTINGS_TEXT", scene.GeneralSettings.Text);
             node.AddAttribute("GENERAL_SETTINGS_SCENE_BRIGHTNESS", scene.GeneralSettings.SceneBrightness.ToString());
             node.AddAttribute("GENERAL_SETTINGS_SOUND_VOLUME", scene.GeneralSettings.SoundVolume.ToString());
+            node.AddAttribute("GENERAL_SETTINGS_ALARM_VOLUME", scene.GeneralSettings.AlarmVolume.ToString());
+            if(scene.GeneralSettings.AlarmSoundPath != null)
+                node.AddAttribute("GENERAL_SETTINGS_ALARM_FILE", scene.GeneralSettings.AlarmSoundPath.ToString());
 
-            if(scene.GeneralSettings.ActionElements != null)
+            if (scene.GeneralSettings.ActionElements != null)
             {
                 ParticleAction particleAction = new ParticleAction();
                 foreach(var actionElement in scene.GeneralSettings.ActionElements)
                 {
                     particleAction.AddParticleAction(actionElement);
-                    //int action = (int)actionElement.ActionEnum;
-                    //Vector3 position = new Vector3(actionElement.X, actionElement.Y, actionElement.Z);
-                    //float time = actionElement.Time;
-                    //float intensity = actionElement.Intensity;
-
-                    //node.AddAttribute("PARTICLE_TYPE",  action.ToString());
-                    //node.AddAttribute("PARTICLE_X", position.x.ToString());
-                    //node.AddAttribute("PARTICLE_Y", position.y.ToString());
-                    //node.AddAttribute("PARTICLE_Z", position.z.ToString());
-                    //node.AddAttribute("PARTICLE_INTENSITY", intensity.ToString());
                 }
                 particleAction.SetTimeOfAction(0.0f);
                 node.AddAction(particleAction);
@@ -170,7 +165,6 @@ namespace SimulationSystem
                     if(result == DecisionResult.Correct && !transitionSet && choice.Whereyougo != null)
                     {
                         TransitionTimelineAction transitionAction = new TransitionTimelineAction(nextId);
-                        //TODO: hardcoded at the moment
                         node.AddAttribute("DURATION", ((decision.DecisionTime + 20)/1000).ToString());
                         transitionAction.SetTimeOfAction((decision.DecisionTime+20)/1000);
                         node.AddAction(transitionAction);

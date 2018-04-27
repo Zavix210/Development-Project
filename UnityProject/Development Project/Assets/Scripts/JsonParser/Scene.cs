@@ -9,8 +9,10 @@ namespace SceneBuilderWpf.DataModels
             GeneralSettings = new Settings();
             DecisionList = new List<Decision>();
         }
-        public string SceneFile { get; set; }
 
+        public int Identifer { get; set;}
+
+        public string SceneFile { get; set; }
         /// <summary>
         /// In Milliseconds!
         /// </summary>

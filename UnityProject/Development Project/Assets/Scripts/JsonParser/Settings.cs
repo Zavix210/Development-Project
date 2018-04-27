@@ -5,6 +5,17 @@ namespace SceneBuilderWpf.DataModels
     public class Settings
     {
         /// <summary>
+        /// Alarm volume 
+        /// </summary>
+        public int AlarmVolume { get; set; }
+
+       
+        /// <summary>
+        /// Alarm Sound path
+        /// </summary>
+        public string AlarmSoundPath { get; set;  }
+
+        /// <summary>
         /// The Scene Brightness Level.
         /// <summary/>
         public int SceneBrightness { get; set; }
