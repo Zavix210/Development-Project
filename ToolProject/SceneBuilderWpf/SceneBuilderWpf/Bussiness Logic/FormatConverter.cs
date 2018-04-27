@@ -25,11 +25,11 @@ namespace SceneBuilderWpf.Bussiness_Logic
         /// <param name="scenario"></param>
         /// <param name="targetFileName"></param>
         /// <returns></returns>
-        public bool ConvertFormat(Scene scenario, string targetFileName)
+        public bool ConvertFormat(Scene scenario, string targetlocation,string targetFileName)
         {
             var x = _documentSerializer.Serialize(scenario);
             DocumentStorage documentStorage = new JsonStorage();
-            documentStorage.PersistDocument(x, targetFileName);
+            documentStorage.PersistDocument(x, targetlocation, targetFileName);
 
             return true;
         }

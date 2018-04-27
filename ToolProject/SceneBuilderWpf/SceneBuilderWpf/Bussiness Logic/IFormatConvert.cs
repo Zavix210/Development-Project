@@ -9,7 +9,7 @@ namespace SceneBuilderWpf.Bussiness_Logic
 {
     public interface IFormatConvert
     {
-        bool ConvertFormat(Scene scenario, string targetFileName);
+        bool ConvertFormat(Scene scenario, string targetlocation, string targetFileName);
 
         Scene ConvertFormat(string sourceFileName);
     }

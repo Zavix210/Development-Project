@@ -92,46 +92,62 @@
 
                     <StackPanel Margin="60,0,0,0" Orientation="Vertical" Grid.Row="1">
                         <!-- Label has a default -5,-5,-5,-5 margin-->
-                        <Label Content="File Path :" Margin="0,0,0,0"></Label>
+
 
                         <DockPanel Margin="0,0,10,0">
-                            <TextBox IsReadOnly="True" TextWrapping="Wrap" Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Right" Height="33"></TextBox>
-                            <Button Content="Browse."  Command="{Binding CurrentScene.BrowseCommand}" HorizontalAlignment="Center" Height="28" Margin="0,0,0,0" Width="128"/>
+                            <Label Content="Scene File :" Margin="0,0,0,0"></Label>
+                            <TextBox IsReadOnly="True" TextWrapping="Wrap" Text="{Binding CurrentScene.FileName}" Margin="5,0,0,0" Width="200" HorizontalAlignment="Right" Height="26"></TextBox>
+                            <Button Content="Browse."  Command="{Binding CurrentScene.BrowseCommand}" HorizontalAlignment="Center" Height="28" Margin="-25,0,0,0" Width="128"/>
+                        </DockPanel>
+                        <DockPanel Margin="0,15,10,0">
+                            <Label Content="Alarm Audio File :" Margin="0,0,0,0"></Label>
+                            <TextBox IsReadOnly="True" TextWrapping="Wrap" Text="{Binding CurrentScene.AlarmPath}" Margin="5,0,0,0" Width="166" HorizontalAlignment="Right" Height="26"></TextBox>
+                            <Button Content="Browse."  Command="{Binding CurrentScene.BrowseAudio}" HorizontalAlignment="Center" Height="28" Margin="-25,0,0,0" Width="128"/>
+                        </DockPanel>
+                        <DockPanel Margin="0,15,10,0">
+                            <Label Content="Alarm Audio Volume :"  Margin="0,0,0,0"></Label>
+                            <xctk:IntegerUpDown Width="200" Margin="1,0,0,0" HorizontalAlignment="Left" Value="{Binding CurrentScene.AlarmVolume}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
+                        </DockPanel>
+                        <DockPanel Margin="0,15,10,0">
+                            <Label Content="Scene Brightness :"  Margin="0,0,0,0"></Label>
+                            <xctk:IntegerUpDown Width="200" Margin="20,0,0,0" HorizontalAlignment="Left" Value="{Binding CurrentScene.SceneBrightness}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
+                        </DockPanel>
+                        <DockPanel Margin="0,10,10,0">
+                            <Label  Content="Emergency Lighting :"   Margin="0,0,0,0"></Label>
+                            <xctk:IntegerUpDown Width="200" Margin="5,0,0,0" HorizontalAlignment="Left" Value="{Binding CurrentScene.EmergencyLighting}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
+                         </DockPanel>
+                        <DockPanel Margin="0,10,10,0">
+                            <Label Content="Sound Volume :"  Margin="0,0,0,0"></Label>
+                            <xctk:IntegerUpDown Width="200" Margin="33,0,0,0"  HorizontalAlignment="Left" Value="{Binding CurrentScene.SoundVolume}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
+                        </DockPanel>
+                        <DockPanel Margin="0,10,10,0">
+                            <Label Content="Intial Display Text :" Margin="0,0,0,0"></Label>
+                            <TextBox Width="200" Text="{Binding CurrentScene.IntroducitonText}"   Margin="18,0,0,0" HorizontalAlignment="Left"/>
                         </DockPanel>
 
-                        <Label Content="Scene Brightness :"  Margin="0,0,0,0"></Label>
-                        <xctk:IntegerUpDown Width="200" Margin="5,0,0,0" HorizontalAlignment="Left" Value="{Binding CurrentScene.SceneBrightness}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
-                        <Label  Content="Emergency Lighting :"   Margin="0,0,0,0"></Label>
-                        <xctk:IntegerUpDown Width="200" Margin="5,0,0,0" HorizontalAlignment="Left" Value="{Binding CurrentScene.EmergencyLighting}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
-                        <Label Content="Sound Volume :"  Margin="0,0,0,0"></Label>
-                        <xctk:IntegerUpDown Width="200" Margin="5,0,0,0"  HorizontalAlignment="Left" Value="{Binding CurrentScene.SoundVolume}" Increment="1" Maximum="100" Minimum="0"></xctk:IntegerUpDown>
-                        <Label Content="Intial Display Text :" Margin="0,0,0,0"></Label>
-                        <TextBox Width="200" Text="{Binding CurrentScene.IntroducitonText}"   Margin="5,0,0,0" HorizontalAlignment="Left"/>
-
-
                     </StackPanel>
-                    <Grid Margin="-40,0,0,0" Grid.Row="1" Grid.Column="1">
+                    <Grid Margin="0,0,0,0" Grid.Row="1" Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="Decision :" Margin="0,10,0,0"></Label>
-                        <TextBox VerticalAlignment="Top" Text="{Binding CurrentScene.CurrentDecisionHolder.QuestionText}" Width="200" HorizontalAlignment="Left" Margin="60,10,0,0"></TextBox>
+                        <Label Content="Decision :" Margin="-1,3,0,0" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"/>
+                        <TextBox VerticalAlignment="Top" Text="{Binding CurrentScene.CurrentDecisionHolder.QuestionText}" Width="200" HorizontalAlignment="Left" Margin="60,1,0,0"></TextBox>
 
-                        <Label Content="Decision Time :" Margin="0,60,0,0" Grid.Column="0" ></Label>
+                        <Label Content="Decision Time :" Margin="0,49,0,189" Grid.Column="0" VerticalAlignment="Center"  Height="30"></Label>
 
-                        <TextBox Text="{Binding CurrentScene.CurrentDecisionHolder.DecisionTime}" VerticalAlignment="Top" Width="191.505" HorizontalAlignment="Left" Margin="90,62,0,0" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
+                        <TextBox Text="{Binding CurrentScene.CurrentDecisionHolder.DecisionTime}" VerticalAlignment="Top" Width="192" HorizontalAlignment="Left" Margin="90,48,0,0" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
 
-                        <Button Content="Add Decsion" Command="{Binding CurrentScene.AddaDecision}" Margin="5,108,0,128"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Button Content="Add Decsion" Command="{Binding CurrentScene.AddaDecision}" Margin="5,89,0,147"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
-                        <Label Content="List of Decsions :" Margin="0,153,275.8,-13" Grid.ColumnSpan="2"></Label>
+                        <Label Content="List of Decsions :" Margin="0,147,19,90"/>
                         <ComboBox 
                             DisplayMemberPath="QuestionText" 
                             DataContext="{Binding CurrentScene}"
                             Width="200" 
                             ItemsSource="{Binding DescisionHolder}" 
                             SelectedItem="{Binding CurrentDecisionHolder}"   
-                            Margin="5,173,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                            Margin="5,169,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Button Content="Add/Edit Choices. " Command="{Binding DesicionPage}" Margin="5,225,0,11"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
 
@@ -167,9 +183,9 @@
                             <DataGridTextColumn   Header="Next Scene" Width="150" Binding="{Binding NextScene.DisplayString}" >
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Score" Width="150" Binding="{Binding Score}" >
-                                
+
                             </DataGridTextColumn>
-                            
+
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -231,7 +247,7 @@
             </TabItem>
         </TabControl>
 
-        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Start Scenario." Margin="0,0,10,10" Command="{Binding SerliazeSave}"/>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Start Scenario." Margin="0,0,10,10" Command="{Binding RunUnity}"/>
 
         <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Save Scenario." Margin="0,0,10.4,54" Command="{Binding SerliazeSave}"/>
     </Grid>

@@ -8,6 +8,6 @@ namespace SceneBuilderWpf.Bussiness_Logic
 {
     public interface IPersit
     {
-        void PersistDocument(string serializedScene, string targetFileName); // Persit the data of a particular item. 
+        void PersistDocument(string serializedScene, string locationfile ,string targetFileName); // Persit the data of a particular item. 
     }
 }

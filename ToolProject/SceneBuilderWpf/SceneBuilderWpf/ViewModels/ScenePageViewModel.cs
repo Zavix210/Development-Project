@@ -1,14 +1,17 @@
-﻿using SceneBuilderWpf.Bussiness_Logic;
+﻿using Microsoft.Win32;
+using SceneBuilderWpf.Bussiness_Logic;
 using SceneBuilderWpf.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Xceed.Wpf.Toolkit;
 
 namespace SceneBuilderWpf.ViewModels
 {
@@ -105,6 +108,26 @@ namespace SceneBuilderWpf.ViewModels
             Scenes.Add(CurrentScene);
         }
 
+        public ICommand RunUnity
+        {
+            get
+            {
+                return new CommandHandler(() => this.RunSaveSerilaze());
+            }
+        }
+
+        public void RunSaveSerilaze()
+        {
+            formatConvert.ConvertFormat(firstscene, @"C:\Temp\unitybuildtest\Build_Data\JsonScene\", "scene");
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "C:\\Temp\\unitybuildtest\\Build.exe",
+                Arguments = "Scene.Json"
+            };
+            Process.Start(startInfo);
+        }
+
         public ICommand SerliazeSave
         {
             get
@@ -115,12 +138,22 @@ namespace SceneBuilderWpf.ViewModels
 
         private void SerilazeAndSave()
         {
-            formatConvert.ConvertFormat(firstscene, "scene");
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+               // CheckFileExists = true,
 
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = "C:\\Temp\\unitybuildtest\\Build.exe";
-            startInfo.Arguments = "TestSerliaze";
-            Process.Start(startInfo);
+                CheckPathExists = true,
+
+                Title = "Save Json Files",
+                DefaultExt = ".json",
+                Filter = "Json files (*.json)|*.json"
+            };
+            if (saveFileDialog.ShowDialog().Value)
+            {
+                string filname = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+                string filloc= Path.GetDirectoryName(saveFileDialog.FileName);
+                formatConvert.ConvertFormat(firstscene, filloc, filname);
+            }
         }
 
         public ICommand SceneDiagram

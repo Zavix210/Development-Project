@@ -12,7 +12,7 @@ namespace SceneBuilderWpf.Bussiness_Logic
 
         public abstract string[] GetDirectorysData(string Directory);
 
-        public abstract void PersistDocument(string serializedScene, string targetFileName);
+        public abstract void PersistDocument(string serializedScene, string locationfile , string targetFileName);
     }
 
 }
