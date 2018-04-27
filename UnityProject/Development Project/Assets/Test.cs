@@ -28,7 +28,7 @@ public class Test : MonoBehaviour {
         {
             Simulation sim = Simulation.Instance;
             AudioController ac = sim.Controller.GetSimulationComponent<AudioController>();
-            ac.PlayClip(Vector3.zero, clip, true);
+            ac.PlayClip(Vector3.zero, clip,1, true);
         }
     }
 
@@ -43,7 +43,7 @@ public class Test : MonoBehaviour {
             // Push the clip
             Simulation sim = Simulation.Instance;
             AudioController ac = sim.Controller.GetSimulationComponent<AudioController>();
-            ac.PlayClip(Vector3.zero, loadedClip, true);
+            ac.PlayClip(Vector3.zero, loadedClip,1, true);
         }
     }
 }

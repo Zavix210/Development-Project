@@ -63,14 +63,14 @@ public class ManagedSource : MonoBehaviour
         OnStopped();
     }
 
-    public void Play(Vector3 position, AudioClip clip, bool looped)
+    public void Play(Vector3 position, AudioClip clip, float volume, bool looped)
     {
         state = ManagedAudioSourceState.Playing;
 
         source.transform.position = position;
         source.clip = clip;
         source.loop = looped;
-
+        source.volume = volume;
         source.Play();
 
         OnPlayed();

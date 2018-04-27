@@ -53,7 +53,7 @@ public class AudioController : SimulationComponentBase
                     AudioClip clip;
                     if (AudioLoader.LoadAudioClipBlocking(url, out clip))
                     {
-                        PlayClip(Vector3.zero, clip, true);
+                        PlayClip(Vector3.zero, clip, (float) volume/100, true);
                     }
                     else
                     {
@@ -66,12 +66,11 @@ public class AudioController : SimulationComponentBase
         }
     }
 
-    public ManagedSource PlayClip(Vector3 position, AudioClip clip, bool looped)
+    public ManagedSource PlayClip(Vector3 position, AudioClip clip,float volume, bool looped)
     {     
         // Create the source and start it playing
         ManagedSource source = sourcePool.Get();
-        source.Play(position, clip, looped);
-
+        source.Play(position, clip,volume, looped);
         return source;
     }
 
