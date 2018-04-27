@@ -18,11 +18,14 @@ namespace SceneBuilderWpf.ViewModels
     public class ScenePageViewModel : BaseViewModel
     {
 
-
-        #if !Debug
-            private readonly static string directorystring = @"..\unitybuildtest\";
-            private string excuteionstring = @"..\unitybuildtest\Build.exe";
+        #if Debug
+            private string directorystring =  @"../../../../../UnityProject/Development Project/Assets/JsonScene";
         #endif
+        #if !Debug
+            private string directorystring = @"../unitybuildtest/Build_Data/JsonScene/";
+            private string excuteionstring = @"../unitybuildtest/Build.exe";
+        #endif
+
 
         private int _tabindex = 0;
         private IFormatConvert formatConvert;
@@ -129,12 +132,14 @@ namespace SceneBuilderWpf.ViewModels
             //..\..\..\..\..\UnityProject\Development Project\Assets\JsonScene
             formatConvert.ConvertFormat(firstscene, directorystring, "scene");
             //"..\unitybuildtest\"
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = excuteionstring,
-                Arguments = "Scene.Json"
-            };
-            Process.Start(startInfo);
+            #if !Debug
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = excuteionstring,
+                    Arguments = "Scene.Json"
+                };
+                Process.Start(startInfo);
+            #endif
         }
 
         public ICommand SerliazeSave

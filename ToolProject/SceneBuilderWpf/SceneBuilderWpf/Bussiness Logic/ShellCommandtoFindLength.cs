@@ -2,7 +2,9 @@
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +18,8 @@ namespace SceneBuilderWpf.Bussiness_Logic
             double length = 0;
             try
             {
-                using (ShellObject shell = ShellObject.FromParsingName(filePath))
+                string exactPath = Path.GetFullPath(filePath);
+                using (ShellObject shell = ShellObject.FromParsingName(exactPath))
                 {
                     // alternatively: shell.Properties.GetProperty("System.Media.Duration");
                     IShellProperty prop = shell.Properties.System.Media.Duration;

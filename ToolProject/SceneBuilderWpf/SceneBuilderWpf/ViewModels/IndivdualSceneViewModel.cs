@@ -16,9 +16,14 @@ namespace SceneBuilderWpf.ViewModels
     {
 
 
-        #if !Debug
-            private readonly static string directorystring = @"..\unitybuildtest\Build_Data\JsonScene";
-        #endif
+#if !Debug
+        private string directorystring = @"../../../../../UnityProject/Development Project/Assets/JsonScene";
+
+#endif
+
+#if Debug
+             private string directorystring = @"../unitybuildtest/Build_Data/JsonScene";
+#endif
 
         public Scene scene;
         private Settings SceneSettings;
@@ -73,16 +78,27 @@ namespace SceneBuilderWpf.ViewModels
             if (openFileDialog.ShowDialog() == true && File.Exists(openFileDialog.FileName))
             {
                 //Use relative file path here!!!
-                Directory.CreateDirectory(directorystring);
-                string filename = Path.GetFileName(openFileDialog.FileName);
-                if (!File.Exists(directorystring+ "\\" + filename))
-                    File.Copy(openFileDialog.FileName, directorystring + "\\" + Path.GetFileName(openFileDialog.FileName));
-                FileName = openFileDialog.FileName; //Set textblock to filename. chossen
+                var x = "";
+                #if Debug
+                    Directory.CreateDirectory(directorystring);
+                    string filename = Path.GetFileName(openFileDialog.FileName);
+                    if (!File.Exists(directorystring+ "/" + filename))
+                        File.Copy(openFileDialog.FileName, directorystring + "/" + Path.GetFileName(openFileDialog.FileName));
+                    FileName = openFileDialog.FileName; 
+                    
+                    TimeOfVideo = ShellCommandtoFindLength.Filelength(directorystring + "/" + _fileName);
+                #endif
+                #if !Debug
+                    Directory.CreateDirectory(directorystring);
+                    string filename = Path.GetFileName(openFileDialog.FileName);
+                    if (!File.Exists(directorystring + "/" + filename))
+                        File.Copy(openFileDialog.FileName, directorystring + "/" + Path.GetFileName(openFileDialog.FileName));
+                    FileName = openFileDialog.FileName; //Set textblock to filename. chossen
 
-                //use relative file path + value
-                //"../../../../../UnityProject/Development Project/Assets/JsonScene"
-                TimeOfVideo = ShellCommandtoFindLength.Filelength(directorystring + "\\" + _fileName);
-
+                    //use relative file path + value
+                    //"../../../../../UnityProject/Development Project/Assets/JsonScene"
+                    TimeOfVideo = ShellCommandtoFindLength.Filelength(@"../../../../../UnityProject/Development Project/Assets/JsonScene/" + "//" + _fileName);
+                #endif
             }
 
 
@@ -106,10 +122,21 @@ namespace SceneBuilderWpf.ViewModels
             };
             if (openFileDialog.ShowDialog() == true && File.Exists(openFileDialog.FileName))
             {
-                Directory.CreateDirectory(directorystring+"Build_Data\\JsonScene");
-                if (!File.Exists(directorystring +"Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath)))
-                    File.Copy(Path.GetFileName(scene.GeneralSettings.AlarmSoundPath), directorystring + "Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath));
-                AlarmPath = openFileDialog.FileName; //Set textblock to filename. chossen
+
+                #if Debug
+                    Directory.CreateDirectory(directorystring
+                    string filename = Path.GetFileName(openFileDialog.FileName);
+                    if (!File.Exists(directorystring + / + filename))
+                        File.Copy(Path.GetFileName(openFileDialog.FileName), directorystring + "/" + filename);
+                    AlarmPath = openFileDialog.FileName; 
+                #endif
+                #if !Debug
+                    Directory.CreateDirectory(directorystring);
+                    string filename = Path.GetFileName(openFileDialog.FileName);
+                    if (!File.Exists(directorystring + "/" + filename))
+                        File.Copy(openFileDialog.FileName, directorystring + "/" + Path.GetFileName(openFileDialog.FileName));
+                    AlarmPath = openFileDialog.FileName; //Set textblock to filename. chossen
+                #endif
             }
 
         }
