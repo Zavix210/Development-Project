@@ -17,6 +17,13 @@ namespace SceneBuilderWpf.ViewModels
 {
     public class ScenePageViewModel : BaseViewModel
     {
+
+
+        #if !Debug
+            private readonly static string directorystring = @"..\unitybuildtest\";
+            private string excuteionstring = @"..\unitybuildtest\Build.exe";
+        #endif
+
         private int _tabindex = 0;
         private IFormatConvert formatConvert;
         private int SceneID = 1;
@@ -63,7 +70,8 @@ namespace SceneBuilderWpf.ViewModels
             Scenes.Add(CurrentScene);
             if (scenarioStorer.NewScene == true)
                 LoadScenes(CurrentScene);
-
+            scenarioStorer.NewScene = false;
+            scenarioStorer.Scenerio = null;
             CurrentComboScene = CurrentScene;
         }
 
@@ -118,11 +126,12 @@ namespace SceneBuilderWpf.ViewModels
 
         public void RunSaveSerilaze()
         {
-            formatConvert.ConvertFormat(firstscene, @"C:\Temp\unitybuildtest\Build_Data\JsonScene\", "scene");
-
+            //..\..\..\..\..\UnityProject\Development Project\Assets\JsonScene
+            formatConvert.ConvertFormat(firstscene, directorystring, "scene");
+            //"..\unitybuildtest\"
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "C:\\Temp\\unitybuildtest\\Build.exe",
+                FileName = excuteionstring,
                 Arguments = "Scene.Json"
             };
             Process.Start(startInfo);
@@ -219,8 +228,6 @@ namespace SceneBuilderWpf.ViewModels
                 }
                 sceneViewModel.DescisionHolder.Add(descisionholder);
             }
-
-
         }
 
         ObservableCollection<Scene> Scenario1View { get; set; }

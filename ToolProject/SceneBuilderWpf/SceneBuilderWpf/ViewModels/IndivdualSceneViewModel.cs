@@ -14,6 +14,12 @@ namespace SceneBuilderWpf.ViewModels
 {
     public class IndivdualSceneViewModel : BaseViewModel
     {
+
+
+        #if !Debug
+            private readonly static string directorystring = @"..\unitybuildtest\Build_Data\JsonScene";
+        #endif
+
         public Scene scene;
         private Settings SceneSettings;
         private string _fileName;
@@ -67,15 +73,15 @@ namespace SceneBuilderWpf.ViewModels
             if (openFileDialog.ShowDialog() == true && File.Exists(openFileDialog.FileName))
             {
                 //Use relative file path here!!!
-                Directory.CreateDirectory("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene");
+                Directory.CreateDirectory(directorystring);
                 string filename = Path.GetFileName(openFileDialog.FileName);
-                if (!File.Exists("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + filename))
-                    File.Copy(openFileDialog.FileName, "C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + Path.GetFileName(openFileDialog.FileName));
+                if (!File.Exists(directorystring+ "\\" + filename))
+                    File.Copy(openFileDialog.FileName, directorystring + "\\" + Path.GetFileName(openFileDialog.FileName));
                 FileName = openFileDialog.FileName; //Set textblock to filename. chossen
 
                 //use relative file path + value
                 //"../../../../../UnityProject/Development Project/Assets/JsonScene"
-                TimeOfVideo = ShellCommandtoFindLength.Filelength("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + _fileName);
+                TimeOfVideo = ShellCommandtoFindLength.Filelength(directorystring + "\\" + _fileName);
 
             }
 
@@ -100,9 +106,9 @@ namespace SceneBuilderWpf.ViewModels
             };
             if (openFileDialog.ShowDialog() == true && File.Exists(openFileDialog.FileName))
             {
-                Directory.CreateDirectory("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene");
-                if (!File.Exists("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath)))
-                    File.Copy(Path.GetFileName(scene.GeneralSettings.AlarmSoundPath), "C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath));
+                Directory.CreateDirectory(directorystring+"Build_Data\\JsonScene");
+                if (!File.Exists(directorystring +"Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath)))
+                    File.Copy(Path.GetFileName(scene.GeneralSettings.AlarmSoundPath), directorystring + "Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath));
                 AlarmPath = openFileDialog.FileName; //Set textblock to filename. chossen
             }
 
