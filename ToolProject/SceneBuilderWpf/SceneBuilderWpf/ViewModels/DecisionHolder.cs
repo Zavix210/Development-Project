@@ -18,6 +18,7 @@ namespace SceneBuilderWpf.ViewModels
         private Decision _decision;
         private ScenceChoice _scenceChoice;
         private int SceneID;
+
         public DecisionHolder(IPageNavigationService pageNavigation, Decision decision , int sceneID) : base(pageNavigation)
         {
             SceneID = sceneID;
@@ -74,6 +75,21 @@ namespace SceneBuilderWpf.ViewModels
 
             Descision.Add(CurrentDescisionViewModel);
             CurrentDescisionViewModel = new DescisionPageViewModel(pagenav, _scenceChoice, SceneID);
+        }
+
+        public void LoadDecsi(ScenePageViewModel currentsceneabove)
+        {
+            foreach (var x in _decision.Choice)
+            {
+                _scenceChoice = x;
+                var cene = new IndivdualSceneViewModel(pagenav, x.Whereyougo.Identifer, x.Whereyougo);
+                currentsceneabove.Scenes.Add(cene);
+                currentsceneabove.CurrentScene = cene;
+                //currentsceneabove.LoadScenes(x.Whereyougo);
+
+                CurrentDescisionViewModel = new DescisionPageViewModel(pagenav, _scenceChoice, SceneID);
+                Descision.Add(CurrentDescisionViewModel);
+            }
         }
 
         public ObservableCollection<DescisionPageViewModel> Descision => _descision;

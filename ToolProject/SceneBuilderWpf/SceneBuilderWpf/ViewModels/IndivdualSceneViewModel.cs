@@ -39,7 +39,7 @@ namespace SceneBuilderWpf.ViewModels
         public IndivdualSceneViewModel(IPageNavigationService pageNavigation, int sceneid, Scene scene_) : base(pageNavigation)
         {
             scene = scene_;
-            SceneID = sceneid;
+            SceneId = sceneid;
             SceneSettings = scene.GeneralSettings;
             ViewModelAction = new ActionViewModel(pageNavigation, scene.GeneralSettings.ActionElements);
 
@@ -66,8 +66,19 @@ namespace SceneBuilderWpf.ViewModels
             };
             if (openFileDialog.ShowDialog() == true && File.Exists(openFileDialog.FileName))
             {
+                //Use relative file path here!!!
+                Directory.CreateDirectory("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene");
+                string filename = Path.GetFileName(openFileDialog.FileName);
+                if (!File.Exists("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + filename))
+                    File.Copy(openFileDialog.FileName, "C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + Path.GetFileName(openFileDialog.FileName));
                 FileName = openFileDialog.FileName; //Set textblock to filename. chossen
+
+                //use relative file path + value
+                //"../../../../../UnityProject/Development Project/Assets/JsonScene"
+                TimeOfVideo = ShellCommandtoFindLength.Filelength("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + _fileName);
+
             }
+
 
         }
 
@@ -89,6 +100,9 @@ namespace SceneBuilderWpf.ViewModels
             };
             if (openFileDialog.ShowDialog() == true && File.Exists(openFileDialog.FileName))
             {
+                Directory.CreateDirectory("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene");
+                if (!File.Exists("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath)))
+                    File.Copy(Path.GetFileName(scene.GeneralSettings.AlarmSoundPath), "C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + Path.GetFileName(scene.GeneralSettings.AlarmSoundPath));
                 AlarmPath = openFileDialog.FileName; //Set textblock to filename. chossen
             }
 
@@ -116,6 +130,24 @@ namespace SceneBuilderWpf.ViewModels
             {
                 return SceneID;
             }
+            set
+            {
+                SceneID = value;
+                scene.Identifer = value;
+            }
+        }
+
+        public double TimeOfVideo
+        {
+            get
+            {
+                return scene.SceneLength;
+            }
+            set
+            {
+                scene.SceneLength = value;
+                OnPropertyChanged(nameof(TimeOfVideo));
+            }
         }
 
         public string FileName
@@ -123,16 +155,11 @@ namespace SceneBuilderWpf.ViewModels
             get => _fileName;
             set
             {
-                scene.SceneFile = Path.GetFileName(value); ;
-                scene.SceneLength = ShellCommandtoFindLength.Filelength(value);
+                scene.SceneFile = Path.GetFileName(value); 
                 _fileName = Path.GetFileName(value);
 
-                //create relative file path here!!!
+                
 
-                Directory.CreateDirectory("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene");
-                if (!File.Exists("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + _fileName))
-                    File.Copy(value, "C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + _fileName);
-                //"../../../../../UnityProject/Development Project/Assets/JsonScene"
                 DisplayString = "";
                 OnPropertyChanged(nameof(FileName));
             }
@@ -149,9 +176,6 @@ namespace SceneBuilderWpf.ViewModels
                 scene.GeneralSettings.AlarmSoundPath = Path.GetFileName(value);
 
                 //create relative file path here!!!
-                Directory.CreateDirectory("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene");
-                if (!File.Exists("C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + scene.GeneralSettings.AlarmSoundPath))
-                    File.Copy(value, "C:\\Temp\\unitybuildtest\\Build_Data\\JsonScene\\" + scene.GeneralSettings.AlarmSoundPath);
 
                 OnPropertyChanged(nameof(AlarmPath));
             }

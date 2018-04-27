@@ -136,9 +136,9 @@
 
                         <Label Content="Decision Time :" Margin="0,49,0,189" Grid.Column="0" VerticalAlignment="Center"  Height="30"></Label>
 
-                        <TextBox Text="{Binding CurrentScene.CurrentDecisionHolder.DecisionTime}" VerticalAlignment="Top" Width="192" HorizontalAlignment="Left" Margin="90,48,0,0" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
-
-                        <Button Content="Add Decsion" Command="{Binding CurrentScene.AddaDecision}" Margin="5,89,0,147"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBox IsReadOnly="True" Text="{Binding CurrentScene.CurrentDecisionHolder.DecisionTime}" VerticalAlignment="Top" Width="155" HorizontalAlignment="Left" Margin="90,70,0,0" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
+                        <Slider Minimum="0" Maximum="{Binding CurrentScene.TimeOfVideo}" Value="{Binding CurrentScene.CurrentDecisionHolder.DecisionTime}" VerticalAlignment="Top" Width="155" HorizontalAlignment="Left" Margin="90,54,0,0" Grid.Column="0"/>
+                        <Button Content="Add Decsion" Command="{Binding CurrentScene.AddaDecision}" Margin="5,106,0,130"  Width="155"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
                         <Label Content="List of Decsions :" Margin="0,147,19,90"/>
                         <ComboBox 

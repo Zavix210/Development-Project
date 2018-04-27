@@ -62,7 +62,7 @@ namespace SceneBuilderWpf.ViewModels
             firstscene = CurrentScene.scene;
             Scenes.Add(CurrentScene);
             if (scenarioStorer.NewScene == true)
-                LoadScenes(currentScene);
+                LoadScenes(CurrentScene);
 
             CurrentComboScene = CurrentScene;
         }
@@ -187,25 +187,40 @@ namespace SceneBuilderWpf.ViewModels
             */
         }
         
-        private void LoadScenes(Scene currentScene)
+        public void LoadScenes(IndivdualSceneViewModel sceneViewModel)
         {
+
             if (SceneID == 1)
             {
                 CurrentScene.FileName = firstscene.SceneFile;
-                CurrentScene.LoadInScene();
             }
-            SceneID++;
-            
-            /*
-            foreach (var x in currentScene.Choice)
+
+            foreach (var x in sceneViewModel.scene.DecisionList)
             {
-                IndivdualSceneViewModel indivdualScene = new IndivdualSceneViewModel(pagenav, SceneID, x.Whereyougo);
-                indivdualScene.LoadInScene();
-                indivdualScene.FileName = x.Whereyougo.SceneFile;
-                Scenes.Add(indivdualScene);
-                LoadScenes(x.Whereyougo);
-            }     
-            */
+                DecisionHolder descisionholder= new DecisionHolder(pagenav, x, sceneViewModel.SceneId);
+                foreach (var y in x.Choice)
+                {
+                    IndivdualSceneViewModel viewModel = Scenes.Where(j => j.SceneId == y.Whereyougo.Identifer).FirstOrDefault();
+                    if (viewModel == null)
+                    {
+                        
+                        IndivdualSceneViewModel indivdualSceneView = new IndivdualSceneViewModel(pagenav, y.Whereyougo.Identifer, y.Whereyougo)
+                        {
+                            FileName = y.Whereyougo.SceneFile
+                        };
+
+                        Scenes.Add(indivdualSceneView);
+                        indivdualSceneView.LoadInScene();
+
+                        LoadScenes(indivdualSceneView);
+                        viewModel = indivdualSceneView;
+                    }
+                    descisionholder.Descision.Add(new DescisionPageViewModel(pagenav, y, y.Whereyougo.Identifer) { NextScene = viewModel });
+                }
+                sceneViewModel.DescisionHolder.Add(descisionholder);
+            }
+
+
         }
 
         ObservableCollection<Scene> Scenario1View { get; set; }

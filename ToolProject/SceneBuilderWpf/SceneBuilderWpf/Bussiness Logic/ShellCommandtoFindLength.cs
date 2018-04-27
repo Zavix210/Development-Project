@@ -28,7 +28,8 @@ namespace SceneBuilderWpf.Bussiness_Logic
             }
             catch (Exception ex)
             {
-                Xceed.Wpf.Toolkit.MessageBox.Show("This file doesn't appear to have a file length!");
+                Xceed.Wpf.Toolkit.MessageBox.Show("This file doesn't appear to have a file length," +
+                    " please make sure the file in the json is in the unitity project location.");
             }
             return length;
         }
