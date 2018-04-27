@@ -18,9 +18,21 @@ public class Test : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        string someTestPath = "C:/";
-        AudioTest2(someTestPath);
+        AudioStopTest();
+
+        //string someTestPath = "C:/";
+        //AudioTest2(someTestPath);
 	}
+
+    private void AudioStopTest()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Simulation sim = Simulation.Instance;
+            AudioController ac = sim.Controller.GetSimulationComponent<AudioController>();
+            ac.StopAllSources();
+        }
+    }
 
     private void AudioTest1()
     {

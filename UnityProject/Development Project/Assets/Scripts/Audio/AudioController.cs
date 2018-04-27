@@ -6,13 +6,25 @@ using System;
 
 public class AudioController : SimulationComponentBase
 {
+    private Store<ManagedSource> activeSources;
     private Pool<ManagedSource> sourcePool;
     private ManagedSource sourcePrefab;
+
     public AudioController(SimulationController controller) : base(controller)
     {
         sourcePrefab = Resources.Load<ManagedSource>("AudioSourcePrefab");
+        activeSources = new Store<ManagedSource>();
+        sourcePool = new Pool<ManagedSource>(CreateNewAudioSource, OnSourceStored, OnSourceReleased);
+    }
 
-        sourcePool = new Pool<ManagedSource>(CreateNewAudioSource);
+    private void OnSourceReleased(ManagedSource obj)
+    {
+        activeSources.Add(obj);
+    }
+
+    private void OnSourceStored(ManagedSource obj)
+    {
+        activeSources.Remove(obj);
     }
 
     public override bool IsMessageRouteValid(int route)
@@ -90,5 +102,21 @@ public class AudioController : SimulationComponentBase
         // Store the source in the pool
         ManagedSource source = (ManagedSource)sender;
         sourcePool.Put(source);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void StopAllSources()
+    {
+        List<ManagedSource> sources = activeSources.GetRawList();
+        int len = sources.Count - 1;
+
+        // Iterate and stop all sources
+        for(int i = len; i >= 0; i--)
+        {
+            ManagedSource source = sources[i];
+            source.Stop();
+        }
     }
 }
