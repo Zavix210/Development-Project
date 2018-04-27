@@ -130,14 +130,15 @@ namespace SceneBuilderWpf.ViewModels
         public void RunSaveSerilaze()
         {
             //..\..\..\..\..\UnityProject\Development Project\Assets\JsonScene
-            formatConvert.ConvertFormat(firstscene, directorystring, "scene");
+            formatConvert.ConvertFormat(firstscene, directorystring, "scene.json");
             //"..\unitybuildtest\"
             #if !Debug
+                string exactPath = Path.GetFullPath(excuteionstring);
                 ProcessStartInfo startInfo = new ProcessStartInfo
-                {
-                    FileName = excuteionstring,
-                    Arguments = "Scene.Json"
-                };
+                    {
+                        FileName = exactPath,
+                        Arguments = "Scene.Json"
+                    };
                 Process.Start(startInfo);
             #endif
         }
