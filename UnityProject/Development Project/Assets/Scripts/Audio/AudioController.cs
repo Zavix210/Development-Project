@@ -43,6 +43,7 @@ public class AudioController : SimulationComponentBase
         {
             if (message.Identifier == "VALID")
             {
+                StopAllSources();
                 SimulationScene scene = (SimulationScene)message.Data;
 
                 string volumeStr; //filePath
