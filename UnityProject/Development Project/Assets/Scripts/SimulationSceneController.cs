@@ -116,6 +116,17 @@ namespace SimulationSystem
 
         private SceneNode CreateSceneFromInput(Scene scene, SceneNode node)
         {
+            // -------------------------------------------------------------------------------------
+            // TODO: IMPORTANT, PLEASE IMPLEMENT BEFORE DEADLINE
+            // -------------------------------------------------------------------------------------
+
+            // Time limit needs fetching from the API settings and pushing to the time controller.
+            float timeLimit = 0.0f;
+            TimeController timeController = Controller.GetSimulationComponent<TimeController>();
+            timeController.SetTimeLimit(timeLimit);
+
+            // -------------------------------------------------------------------------------------
+
             node.AddAttribute("VIDEO_URL", scene.SceneFile);
             //TODO: hardcoded at the moment
 
